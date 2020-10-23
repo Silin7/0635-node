@@ -11,10 +11,9 @@ connection.connect();
 
 // 注册：判断账号是否存在
 const is_register = (req, res, next) => {
-  console.log(req)
   var data = req.body
   if (data.userName) {
-    var sql = `SELECT * FROM \`login_information\` WHERE name='${data.userName}'`
+    var sql = `SELECT * FROM \`login_information\` WHERE userName='${data.userName}'`
     connection.query(sql, function (err, result) {
       if(err){
         res.json({
@@ -80,8 +79,10 @@ const is_register = (req, res, next) => {
 }
 // 注册：将注册信息写入数据库
 const register_inster = (req, res, next) => {
-  var addSql = 'INSERT INTO login_information(Id,name,password,number) VALUES(0,?,?,0)';
-  var addSqlParams = [req.body.name, req.body.password];
+  console.log(req.body)
+  // var addSql = 'INSERT INTO login_information(Id,userName,password,number) VALUES(0,?,?,0)';
+  var addSql = 'INSERT INTO `login_information` (`id`, `userName`, `password`, `name`, `gender`, `age`, `emotional`, `height`, `weight`, `nation`, `address`, `school`, `hobby`, `occupation`, `personalSignature`) VALUES (NULL, ?, ?, \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\')';
+  var addSqlParams = [req.body.userName, req.body.password];
   connection.query(addSql, addSqlParams, function (err, result) {
     if (err) {
       res.json({
