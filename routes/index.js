@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 // 注册，登录模块
-var registerMoudle = require('./compontent/register_login_moudle')
+var registerMoudle = require('./compontent/register_moudle')
+router.post('/register/is_register', registerMoudle.is_register);
+router.post('/register/register_inster', registerMoudle.register_inster);
+router.post('/register/change_password', registerMoudle.change_password);
 
-router.post('/register/post_register', registerMoudle.post_register);
-router.post('/register/post_register_inster', registerMoudle.post_register_inster);
-router.post('/register/post_register_change', registerMoudle.post_register_change);
-router.get('/login/get_loginInfo', registerMoudle.get_loginInfo);
-router.post('/login/post_login', registerMoudle.post_login);
+var loginMoudle = require('./compontent/login_moudle')
+router.get('/login/is_loginInfo', loginMoudle.is_loginInfo);
+router.post('/login/sign_in', loginMoudle.sign_in);
 
 module.exports = router;
