@@ -59,7 +59,25 @@ const sign_in = (req, res, next) => {
     }
   });
 }
+// 修改个人信息
+const write_information = (req, res, next) => {
+  var sql = `UPDATE \`login_information\` SET \`name\` = '${req.body.name}', \`password\` = '${req.body.password}', \`number\` = '${req.body.number}', \`friend\` = '${req.body.friend}' WHERE \`login_information\`.\`id\` = ${req.body.id};`
+  connection.query(sql, function (err, result) {
+    if(err){
+      res.end(JSON.stringify({
+        code: 500,
+        msg: err
+      }))
+      return;
+    } else {
+      res.end(JSON.stringify({
+        code: 0,
+        msg: '操作成功'
+      }))
+    }
+  });
+}
 
 module.exports = {
-  is_loginInfo, sign_in
+  is_loginInfo, sign_in, write_information
 }

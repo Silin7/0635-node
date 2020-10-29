@@ -10,5 +10,6 @@ router.post('/register/change_password', registerMoudle.change_password);
 var loginMoudle = require('./compontent/login_moudle')
 router.get('/login/is_loginInfo', loginMoudle.is_loginInfo);
 router.post('/login/sign_in', loginMoudle.sign_in);
+router.post('/login/write_information', loginMoudle.write_information);
 
 module.exports = router;

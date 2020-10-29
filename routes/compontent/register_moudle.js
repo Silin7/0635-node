@@ -14,7 +14,7 @@ const is_register = (req, res, next) => {
   var data = req.body
   var sql = `SELECT * FROM \`login_information\` WHERE name='${req.body.name}'`
   connection.query(sql, function (err, result) {
-    if (!err) {
+    if (err) {
       res.end(JSON.stringify({
         code: 500,
         msg: err
