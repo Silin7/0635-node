@@ -72,7 +72,7 @@ const is_register = (req, res, next) => {
 }
 // 注册：将注册信息写入数据库
 const register_inster = (req, res, next) => {
-  var addSql = 'INSERT INTO `login_information` (`id`, `userName`, `password`, `nickname`, `gender`, `birthday`, `age`, `constellation`, `address`, `personalSignature`, `emotional`, `occupation`) VALUES (NULL, ?, ?, \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\')';
+  var addSql = 'INSERT INTO `login_information` (`id`, `userName`, `password`, `userPhone`, `gender`, `birthday`, `age`, `constellation`, `address`, `personalSignature`, `emotional`, `occupation`) VALUES (NULL, ?, ?, \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\', \'\')';
   var addSqlParams = [req.body.userName, req.body.password];
   connection.query(addSql, addSqlParams, function (err, result) {
     if (err) {
