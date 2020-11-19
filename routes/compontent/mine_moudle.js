@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-// 登录：判断账号是否存在
+// 获取个人信息（参数：id）
 const mine_info = (req, res, next) => {
   let data = req.query
   var sql = `SELECT * FROM \`login_information\` WHERE \`id\` = ${data.id}`;
@@ -29,7 +29,7 @@ const mine_info = (req, res, next) => {
   });
 }
 
-// 个人中心：更新保存个人中心详细信息
+// 修改保存个人信息（参数：userPhone，age，birthday，gender，constellation，address，personalSignature）
 const update_mineInfo = (req, res, next) => {
   let data = req.body
   var addSql = `UPDATE \`login_information\` SET \`userPhone\` = '${data.userPhone}', \`age\` = '${data.age}', \`birthday\` = '${data.birthday}', \`gender\` = '${data.gender}', \`constellation\` = '${data.constellation}', \`address\` = '${data.address}', \`personalSignature\` = '${data.personalSignature}' WHERE \`login_information\`.\`id\` = ${data.id};`

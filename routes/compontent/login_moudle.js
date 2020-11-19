@@ -9,10 +9,10 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-// 注册：判断账号是否存在
+// 判断账号是否存在（参数：userName，state）
 const is_register = (req, res, next) => {
-  var data = req.body
-  var sql = `SELECT * FROM \`login_information\` WHERE userName='${req.body.userName}'`
+  let data = req.body
+  var sql = `SELECT * FROM \`login_information\` WHERE userName='${data.userName}'`
   connection.query(sql, function (err, result) {
     if (err) {
       res.end(JSON.stringify({
@@ -70,7 +70,7 @@ const is_register = (req, res, next) => {
     }
   });
 }
-// 注册：将注册信息写入数据库
+// 将注册信息写入数据库（参数：userName，password，nickName，avatarUrl，gender）
 const register_inster = (req, res, next) => {
   let data = req.body
   var addSql = 'INSERT INTO `login_information` (`id`, `userName`, `password`, `nickName`, `avatarUrl`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)';
@@ -90,7 +90,7 @@ const register_inster = (req, res, next) => {
     }
   });
 }
-// 注册：修改密码
+// 修改密码（参数：newPassword，id）
 const change_password = (req, res, next) => {
   let data = req.body
   var addSql = `UPDATE \`login_information\` SET \`password\` = '${data.newPassword}' WHERE \`login_information\`.\`id\` = ${data.id};`
@@ -109,7 +109,7 @@ const change_password = (req, res, next) => {
     }
   });
 }
-// 登录：判断账号是否存在
+// 判断账号密码是否正确（参数：userName，password）
 const sign_in = (req, res, next) => {
   let data = req.body
   var sql = `SELECT * FROM \`login_information\` WHERE \`userName\` = '${data.userName}'`;
