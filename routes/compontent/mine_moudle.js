@@ -1,11 +1,13 @@
 var mysql = require('mysql');
 
-var connection = mysql.createConnection({
+var sqlConfig = {
   host: 'localhost',
   user: 'root',
   password: '123456',
-  database: 'test_library' 
-});
+  database: 'test_library'
+};
+
+var connection = mysql.createConnection(sqlConfig);
 
 connection.connect();
 
@@ -48,6 +50,12 @@ const update_mineInfo = (req, res, next) => {
     }
   });
 }
+
+
+connection.on('error',err=>{
+  console.log('Re-connecting lost connection: ');
+  connection = mysql.createConnection(sqlConfig)
+})
 
 module.exports = {
   mine_info, update_mineInfo
