@@ -53,7 +53,6 @@ const update_mineInfo = (req, res, next) => {
 
 
 connection.on('error',err=>{
-  console.log('Re-connecting lost connection: ');
   connection = mysql.createConnection(sqlConfig)
 })
 

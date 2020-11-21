@@ -145,7 +145,6 @@ const sign_in = (req, res, next) => {
 }
 
 connection.on('error',err=>{
-  console.log('Re-connecting lost connection: ');
   connection = mysql.createConnection(sqlConfig)
 })
 
