@@ -11,10 +11,10 @@ var connection = mysql.createConnection(sqlConfig);
 
 connection.connect();
 
-// 判断账号是否存在（参数：userName，state）
+// 判断账号是否存在
 const is_register = (req, res, next) => {
   let data = req.body
-  var sql = `SELECT * FROM \`personnel_information\` WHERE userName='${data.userName}'`
+  var sql = `SELECT * FROM \`personnel_information\` WHERE userName = '${data.userName}'`
   connection.query(sql, function (err, result) {
     if (err) {
       res.end(JSON.stringify({
@@ -73,10 +73,10 @@ const is_register = (req, res, next) => {
   });
 }
 
-// 将注册信息写入数据库（参数：userName，password，nickName，avatarUrl，gender）
+// 将注册信息写入数据库（
 const register_inster = (req, res, next) => {
   let data = req.body
-  var addSql = 'INSERT INTO `personnel_information` (`id`, `userName`, `password`, `nickName`, `avatarUrl`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)';
+  var addSql = 'INSERT INTO `personnel_information` (`id`, `userName`, `password`, `nickName`, `avatarUrl`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)'
   var addSqlParams = [data.userName, data.password, data.nickName, data.avatarUrl, data.gender];
   connection.query(addSql, addSqlParams, function (err, result) {
     if (err) {
@@ -94,10 +94,10 @@ const register_inster = (req, res, next) => {
   });
 }
 
-// 修改密码（参数：newPassword，id）
+// 修改密码
 const change_password = (req, res, next) => {
   let data = req.body
-  var addSql = `UPDATE \`personnel_information\` SET \`password\` = '${data.newPassword}' WHERE \`personnel_information\`.\`id\` = ${data.id};`
+  var addSql = `UPDATE \`personnel_information\` SET \`password\` = '${data.newPassword}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
   connection.query(addSql, function (err, result) {
     if (err) {
       res.json({
@@ -114,10 +114,10 @@ const change_password = (req, res, next) => {
   });
 }
 
-// 判断账号密码是否正确（参数：userName，password）
+// 判断账号密码是否正确
 const sign_in = (req, res, next) => {
   let data = req.body
-  var sql = `SELECT * FROM \`personnel_information\` WHERE \`userName\` = '${data.userName}'`;
+  var sql = `SELECT * FROM \`personnel_information\` WHERE \`userName\` = '${data.userName}'`
   connection.query(sql, function (err, result) {
     if(err){
       res.end(JSON.stringify({

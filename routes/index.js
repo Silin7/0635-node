@@ -17,6 +17,7 @@ router.get('/mine/conversation_list', mineMoudle.conversation_list);
 
 // 话题模块
 var conversationMoudle = require('./compontent/conversation_moudle')
+router.get('/conversation/conversation_list', conversationMoudle.conversation_list);
 router.get('/conversation/conversation_info', conversationMoudle.conversation_info);
 
 

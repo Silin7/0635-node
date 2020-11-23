@@ -3,27 +3,67 @@
 ## Author silin.wang
 
 
-> login_moudle
-+ 判断账号是否存在（参数：userName，state）
-+ SELECT * FROM `personnel_information` WHERE userName = 'userName';
+> login_moudle（登录模块）
 
-+ 将注册信息写入数据库（参数：userName，password，nickName，avatarUrl，gender）
-+ INSERT INTO `personnel_information` (`id`, `userName`, `password`, `nickName`, `avatarUrl`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)';
++ 判断账号是否存在
++ 类型: POST
++ 接口: /login/is_register
++ 参数: userName, state
 
-+ 修改密码（参数：newPassword，id）
-+ UPDATE `personnel_information` SET `password` = 'newPassword' WHERE `personnel_information`.`id` = id;
++ 将注册信息写入数据库
++ 类型: POST
++ 接口: /login/register_inster
++ 参数: userName, password, nickName, avatarUrl, gender
 
-+ 判断账号密码是否正确（参数：userName，password）
-+ SELECT * FROM `personnel_information` WHERE `userName` = 'userName';
++ 修改密码
++ 类型: POST
++ 接口: /login/change_password
++ 参数: newPassword, id
 
-> mine_moudle
-+ 获取个人信息（参数：id）
-+ SELECT * FROM `personnel_information` WHERE `id` = id;
++ 判断账号密码是否正确
++ 类型: POST
++ 接口: /login/sign_in
++ 参数: userName, password
 
-+ 修改保存个人信息（参数：userPhone，age，birthday，gender，constellation，address，personalSignature）
-+ UPDATE `personnel_information` SET `userPhone` = 'userPhone', `age` = 'age', `birthday` = 'birthday', `gender` = 'gender', `constellation` = 'constellation', `address` = 'address', `personalSignature` = 'personalSignature' WHERE `personnel_information`.`id` = id;
+
+> mine_moudle（个人中心模块）
+
++ 获取个人信息
++ 类型: GET
++ 接口: /mine/mine_info
++ 参数: id
+
++ 修改保存个人信息
++ 类型: POST
++ 接口: /mine/update_mineInfo
++ 参数: userPhone, age, birthday, constellation, address, personalSignature
+
++ 我关注的人列表
++ 类型: GET
++ 接口: /mine/concerns_list
++ 参数: followers_id
+
++ 我关注的话题列表
++ 类型: GET
++ 接口: /mine/concerns_list
++ 参数: followers_id
+
+
+> conversation_moudle（话题模块）
+
++ 话题列表
++ 类型: GET
++ 接口: /conversation/conversation_list
++ 参数: conversation_type, conversation_date, conversation_title
+
++ 话题详情
++ 类型: GET
++ 接口: /conversation/conversation_info
++ 参数: id
+
 
 
 
 > SQL
 SELECT * FROM `personnel_information` WHERE `id` IN (100001, 100061)
+
