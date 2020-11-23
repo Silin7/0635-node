@@ -12,5 +12,12 @@ router.post('/login/sign_in', loginMoudle.sign_in);
 var mineMoudle = require('./compontent/mine_moudle')
 router.get('/mine/mine_info', mineMoudle.mine_info);
 router.post('/mine/update_mineInfo', mineMoudle.update_mineInfo);
+router.get('/mine/concerns_list', mineMoudle.concerns_list);
+router.get('/mine/conversation_list', mineMoudle.conversation_list);
+
+// 话题模块
+var conversationMoudle = require('./compontent/conversation_moudle')
+router.get('/conversation/conversation_info', conversationMoudle.conversation_info);
+
 
 module.exports = router;
