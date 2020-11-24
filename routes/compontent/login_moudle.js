@@ -14,7 +14,7 @@ connection.connect();
 // 判断账号是否存在
 const is_register = (req, res, next) => {
   let data = req.body
-  var sql = `SELECT * FROM \`personnel_information\` WHERE userName = '${data.userName}'`
+  let sql = `SELECT * FROM \`personnel_information\` WHERE userName = '${data.userName}'`
   connection.query(sql, function (err, result) {
     if (err) {
       res.end(JSON.stringify({
@@ -76,9 +76,9 @@ const is_register = (req, res, next) => {
 // 将注册信息写入数据库（
 const register_inster = (req, res, next) => {
   let data = req.body
-  var addSql = 'INSERT INTO `personnel_information` (`id`, `userName`, `password`, `nickName`, `avatarUrl`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)'
-  var addSqlParams = [data.userName, data.password, data.nickName, data.avatarUrl, data.gender];
-  connection.query(addSql, addSqlParams, function (err, result) {
+  let sql = 'INSERT INTO `personnel_information` (`id`, `userName`, `password`, `nickName`, `avatarUrl`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)'
+  let sqlParams = [data.userName, data.password, data.nickName, data.avatarUrl, data.gender];
+  connection.query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -97,8 +97,8 @@ const register_inster = (req, res, next) => {
 // 修改密码
 const change_password = (req, res, next) => {
   let data = req.body
-  var addSql = `UPDATE \`personnel_information\` SET \`password\` = '${data.newPassword}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
-  connection.query(addSql, function (err, result) {
+  let sql = `UPDATE \`personnel_information\` SET \`password\` = '${data.newPassword}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
+  connection.query(sql, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -117,7 +117,7 @@ const change_password = (req, res, next) => {
 // 判断账号密码是否正确
 const sign_in = (req, res, next) => {
   let data = req.body
-  var sql = `SELECT * FROM \`personnel_information\` WHERE \`userName\` = '${data.userName}'`
+  let sql = `SELECT * FROM \`personnel_information\` WHERE \`userName\` = '${data.userName}'`
   connection.query(sql, function (err, result) {
     if(err){
       res.end(JSON.stringify({

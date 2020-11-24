@@ -14,7 +14,7 @@ connection.connect();
 // 获取个人信息详情
 const mine_info = (req, res, next) => {
   let data = req.query
-  var sql = `SELECT * FROM \`personnel_information\` WHERE \`id\` = '${data.id}'`;
+  let sql = `SELECT * FROM \`personnel_information\` WHERE \`id\` = '${data.id}'`;
   connection.query(sql, function (err, result) {
     if(err){
       res.json({
@@ -34,8 +34,8 @@ const mine_info = (req, res, next) => {
 // 修改保存个人信息
 const update_mineInfo = (req, res, next) => {
   let data = req.body
-  var addSql = `UPDATE \`personnel_information\` SET \`userPhone\` = '${data.userPhone}', \`birthday\` = '${data.birthday}', \`age\` = '${data.age}', \`constellation\` = '${data.constellation}', \`address\` = '${data.address}', \`personalSignature\` = '${data.personalSignature}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
-  connection.query(addSql, function (err, result) {
+  let sql = `UPDATE \`personnel_information\` SET \`userPhone\` = '${data.userPhone}', \`birthday\` = '${data.birthday}', \`age\` = '${data.age}', \`constellation\` = '${data.constellation}', \`address\` = '${data.address}', \`personalSignature\` = '${data.personalSignature}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
+  connection.query(sql, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -54,7 +54,7 @@ const update_mineInfo = (req, res, next) => {
 // 我关注的人列表
 const concerns_list = (req, res, next) => {
   let data = req.query
-  var sql = `SELECT * FROM \`personnel_relations\` WHERE \`followers_id\` = '${data.followers_id}'`;
+  let sql = `SELECT * FROM \`personnel_relations\` WHERE \`followers_id\` = '${data.followers_id}'`;
   connection.query(sql, function (err, result) {
     if(err){
       res.json({
@@ -74,7 +74,7 @@ const concerns_list = (req, res, next) => {
 // 我关注的话题列表
 const conversation_list = (req, res, next) => {
   let data = req.query
-  var sql = `SELECT * FROM \`conversation_relations\` WHERE \`followers_id\` = '${data.followers_id}'`;
+  let sql = `SELECT * FROM \`conversation_relations\` WHERE \`followers_id\` = '${data.followers_id}'`;
   connection.query(sql, function (err, result) {
     if(err){
       res.json({

@@ -14,8 +14,19 @@ connection.connect();
 // 话题列表
 const conversation_list = (req, res, next) => {
   let data = req.query
-  var sql = `SELECT * FROM \`conversation_list\` WHERE \`conversation_type\` = '${data.conversation_type}' AND \`conversation_date\` = '${data.conversation_date}' AND \`conversation_title\` = '${data.conversation_title}'`
-  console.log(sql)
+  let sql = `SELECT * FROM \`conversation_list\` WHERE 1`
+  let conversation_type = ` AND \`conversation_type\` = '${data.conversation_type}'`
+  let conversation_date = ` AND \`conversation_date\` = '${data.conversation_date}'`
+  let conversation_title = ` AND \`conversation_date\` = '${data.conversation_title}'`
+  if (data.conversation_type) {
+    sql = sql + conversation_type
+  }
+  if (data.conversation_date) {
+    sql = sql + conversation_date
+  }
+  if (data.conversation_title) {
+    sql = sql + conversation_title
+  }
   connection.query(sql, function (err, result) {
     if(err){
       res.json({
@@ -35,7 +46,7 @@ const conversation_list = (req, res, next) => {
 // 话题详情
 const conversation_info = (req, res, next) => {
   let data = req.query
-  var sql = `SELECT * FROM \`conversation_list\` WHERE \`id\` = '${data.id}'`
+  let sql = `SELECT * FROM \`conversation_list\` WHERE \`id\` = '${data.id}'`
   connection.query(sql, function (err, result) {
     if(err){
       res.json({
