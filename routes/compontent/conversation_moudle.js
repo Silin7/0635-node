@@ -17,7 +17,7 @@ const conversation_list = (req, res, next) => {
   let sql = `SELECT * FROM \`conversation_list\` WHERE 1`
   let conversation_type = ` AND \`conversation_type\` = '${data.conversation_type}'`
   let conversation_date = ` AND \`conversation_date\` = '${data.conversation_date}'`
-  let conversation_title = ` AND \`conversation_date\` = '${data.conversation_title}'`
+  let conversation_title = ` AND \`conversation_title\` Like '%${data.conversation_title}%'`
   if (data.conversation_type) {
     sql = sql + conversation_type
   }
@@ -27,6 +27,7 @@ const conversation_list = (req, res, next) => {
   if (data.conversation_title) {
     sql = sql + conversation_title
   }
+  console.log(sql)
   connection.query(sql, function (err, result) {
     if(err){
       res.json({
