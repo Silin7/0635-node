@@ -6,7 +6,7 @@
 > login_moudle（登录模块）
 
 + 判断账号是否存在
-+ 类型: POST
++ 类型: GET
 + 接口: /login/is_register
 + 参数: userName, state
 
@@ -43,11 +43,6 @@
 + 接口: /mine/concerns_list
 + 参数: followers_id
 
-+ 我关注的话题列表
-+ 类型: GET
-+ 接口: /mine/concerns_list
-+ 参数: followers_id
-
 
 > conversation_moudle（话题模块）
 
@@ -60,6 +55,17 @@
 + 类型: GET
 + 接口: /conversation/conversation_info
 + 参数: id
+
++ 我关注的话题列表
++ 类型: GET
++ 接口: /conversation/mine_conversation_list
++ 参数: followers_id
+
++ 关注此话题
++ 类型: POST
++ 接口: /conversation/follow_conversation
++ 参数: followers_id, conversation_id, conversation_type, conversation_title, conversation_avatarUrl, conversation_date
+
 
 
 

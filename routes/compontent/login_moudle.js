@@ -13,7 +13,7 @@ connection.connect();
 
 // 判断账号是否存在
 const is_register = (req, res, next) => {
-  let data = req.body
+  let data = req.query
   let sql = `SELECT * FROM \`personnel_information\` WHERE userName = '${data.userName}'`
   connection.query(sql, function (err, result) {
     if (err) {
@@ -21,7 +21,7 @@ const is_register = (req, res, next) => {
         code: 500,
         msg: err
       }))
-      return;
+      return
     } else {
       // state为0：注册，state为1：修改密码
       if (data.state && data.state === '0') {
@@ -70,28 +70,28 @@ const is_register = (req, res, next) => {
         }))
       }
     }
-  });
+  })
 }
 
 // 将注册信息写入数据库（
 const register_inster = (req, res, next) => {
   let data = req.body
   let sql = 'INSERT INTO `personnel_information` (`id`, `userName`, `password`, `nickName`, `avatarUrl`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.userName, data.password, data.nickName, data.avatarUrl, data.gender];
+  let sqlParams = [data.userName, data.password, data.nickName, data.avatarUrl, data.gender]
   connection.query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({
         code: 500,
         msg: err
       })
-      return;
+      return
     } else {
       res.json({
         code: 0,
         msg: 'success'
       })
     }
-  });
+  })
 }
 
 // 修改密码
@@ -104,14 +104,14 @@ const change_password = (req, res, next) => {
         code: 500,
         msg: err
       })
-      return;
+      return
     } else {
       res.json({
         code: 0,
         msg: 'success'
       })
     }
-  });
+  })
 }
 
 // 判断账号密码是否正确
@@ -144,7 +144,7 @@ const sign_in = (req, res, next) => {
         }))
       }
     }
-  });
+  })
 }
 
 connection.on('error',err => {
