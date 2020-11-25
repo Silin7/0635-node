@@ -1,13 +1,13 @@
-const mysql = require('mysql');
+var mysql = require('mysql');
 
-const sqlConfig = {
+var sqlConfig = {
   host: 'localhost',
   user: 'root',
   password: '123456',
   database: 'test_library'
 };
 
-const connection = mysql.createConnection(sqlConfig);
+var connection = mysql.createConnection(sqlConfig);
 
 connection.connect();
 
