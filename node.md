@@ -66,6 +66,10 @@
 + 接口: /conversation/follow_conversation
 + 参数: followers_id, conversation_id, conversation_type, conversation_title, conversation_avatarUrl, conversation_date
 
++ 取消关注此话题
++ 类型: POST
++ 接口: /conversation/cancel_conversation
++ 参数: followers_id, conversation_id
 
 
 

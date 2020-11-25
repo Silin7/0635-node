@@ -20,6 +20,7 @@ router.get('/conversation/conversation_list', conversationMoudle.conversation_li
 router.get('/conversation/conversation_info', conversationMoudle.conversation_info);
 router.get('/conversation/mine_conversation_list', conversationMoudle.mine_conversation_list);
 router.post('/conversation/follow_conversation', conversationMoudle.follow_conversation);
+router.post('/conversation/cancel_conversation', conversationMoudle.cancel_conversation);
 
 
 module.exports = router;

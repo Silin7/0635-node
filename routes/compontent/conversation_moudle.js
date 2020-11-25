@@ -27,7 +27,6 @@ const conversation_list = (req, res, next) => {
   if (data.conversation_title) {
     sql = sql + conversation_title
   }
-  console.log(sql)
   connection.query(sql, function (err, result) {
     if(err){
       res.json({
@@ -87,7 +86,6 @@ const mine_conversation_list = (req, res, next) => {
 // 关注此话题
 const follow_conversation = (req, res, next) => {
   let data = req.body
-  console.log(data)
   let sql = 'INSERT INTO `conversation_relations` (`id`, `followers_id`, `conversation_id`, `conversation_type`, `conversation_title`, `conversation_avatarUrl`, `conversation_date`) VALUES (NULL, ?, ?, ?, ?, ?, ?)'
   let sqlParams = [data.followers_id, data.conversation_id, data.conversation_type, data.conversation_title, data.conversation_avatarUrl, data.conversation_date]
   connection.query(sql, sqlParams, function (err, result) {
@@ -105,10 +103,30 @@ const follow_conversation = (req, res, next) => {
   })
 }
 
+// 取消关注此话题
+const cancel_conversation = (req, res, next) => {
+  let data = req.body
+  let sql = `DELETE FROM \`conversation_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`conversation_id\` = '${data.conversation_id}'`
+  connection.query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
+
+
 connection.on('error',err => {
   connection = mysql.createConnection(sqlConfig)
 })
 
 module.exports = {
-  conversation_list, conversation_info, mine_conversation_list, follow_conversation
+  conversation_list, conversation_info, mine_conversation_list, follow_conversation, cancel_conversation
 }
