@@ -83,4 +83,32 @@
 + 类型: POST
 + 接口: /conversation/cancel_conversation
 + 参数: followers_id, conversation_id
+
 * * *
+
+> scenicspotMoudle（景点模块）
+* * *
++ 景点列表
++ 类型: GET
++ 接口: /scenicspot/scenicspot_list
++ 参数: scenicSpot_name, scenicSpot_type, scenicSpot_place
+* * *
++ 景点详情
++ 类型: GET
++ 接口: /scenicspot/scenicspot_info
++ 参数: id
+* * *
++ 我关注的景点列表
++ 类型: GET
++ 接口: /scenicspot/mine_scenicspot_list
++ 参数: followers_id
+* * *
++ 关注此景点
++ 类型: POST
++ 接口: /scenicspot/follow_scenicspot
++ 参数: followers_id, scenicSpot_id, scenicSpot_name, scenicSpot_img
+* * *
++ 取消关注此景点
++ 类型: POST
++ 接口: /scenicspot/cancel_scenicspot
++ 参数: followers_id, scenicSpot_id

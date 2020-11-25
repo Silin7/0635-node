@@ -24,5 +24,12 @@ router.get('/conversation/mine_conversation_list', conversationMoudle.mine_conve
 router.post('/conversation/follow_conversation', conversationMoudle.follow_conversation);
 router.post('/conversation/cancel_conversation', conversationMoudle.cancel_conversation);
 
+// 景点模块
+var scenicspotMoudle = require('./compontent/scenicspot_moudle')
+router.get('/scenicspot/scenicspot_list', scenicspotMoudle.scenicspot_list);
+router.get('/scenicspot/scenicspot_info', scenicspotMoudle.scenicspot_info);
+router.get('/scenicspot/mine_scenicspot_list', scenicspotMoudle.mine_scenicspot_list);
+router.post('/scenicspot/follow_scenicspot', scenicspotMoudle.follow_scenicspot);
+router.post('/scenicspot/cancel_scenicspot', scenicspotMoudle.cancel_scenicspot);
 
 module.exports = router;
