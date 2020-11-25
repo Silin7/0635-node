@@ -45,6 +45,11 @@
 + 接口: /mine/concerns_list
 + 参数: followers_id
 * * *
++ 是否关注此用户
++ 类型: POST
++ 接口: /mine/is_follow_users
++ 参数: followers_id, watched_id
+* * *
 + 关注此用户
 + 类型: POST
 + 接口: /mine/follow_users
@@ -74,6 +79,11 @@
 + 接口: /conversation/mine_conversation_list
 + 参数: followers_id
 * * *
++ 是否关注此话题
++ 类型: POST
++ 接口: /conversation/is_follow_conversation
++ 参数: followers_id, conversation_id
+* * *
 + 关注此话题
 + 类型: POST
 + 接口: /conversation/follow_conversation
@@ -91,7 +101,7 @@
 + 景点列表
 + 类型: GET
 + 接口: /scenicspot/scenicspot_list
-+ 参数: scenicSpot_name, scenicSpot_type, scenicSpot_place
++ 参数: scenicSpot_name, scenicSpot_place
 * * *
 + 景点详情
 + 类型: GET
@@ -102,6 +112,11 @@
 + 类型: GET
 + 接口: /scenicspot/mine_scenicspot_list
 + 参数: followers_id
+* * *
++ 是否关注此景点
++ 类型: POST
++ 接口: /scenicspot/is_follow_scenicspot
++ 参数: followers_id, scenicSpot_id
 * * *
 + 关注此景点
 + 类型: POST

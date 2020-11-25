@@ -15,17 +15,17 @@ connection.connect();
 const scenicspot_list = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`scenicspot_list\` WHERE 1`
-  let scenicspot_type = ` AND \`scenicSpot_name\` Like '%${data.scenicSpot_name}%'`
-  let scenicspot_date = ` AND \`scenicSpot_type\` = '${data.scenicSpot_type}'`
-  let scenicspot_title = ` AND \`scenicSpot_place\` Like '%${data.scenicSpot_place}%'`
-  if (data.scenicspot_type) {
-    sql = sql + scenicspot_type
+  let scenicSpot_name = ` AND \`scenicSpot_name\` Like '%${data.scenicSpot_name}%'`
+  let scenicSpot_type = ` AND \`scenicSpot_type\` = '${data.scenicSpot_type}'`
+  let scenicSpot_place = ` AND \`scenicSpot_place\` Like '%${data.scenicSpot_place}%'`
+    if (data.scenicSpot_name) {
+    sql = sql + scenicSpot_name
   }
-  if (data.scenicspot_date) {
-    sql = sql + scenicspot_date
+  if (data.scenicSpot_type) {
+    sql = sql + scenicSpot_type
   }
-  if (data.scenicspot_title) {
-    sql = sql + scenicspot_title
+  if (data.scenicSpot_place) {
+    sql = sql + scenicSpot_place
   }
   connection.query(sql, function (err, result) {
     if(err){
@@ -83,6 +83,26 @@ const mine_scenicspot_list = (req, res, next) => {
   })
 }
 
+// 是否关注此景点
+const is_follow_scenicspot = (req, res, next) => {
+  let data = req.body
+  let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`scenicSpot_id\` = '${data.scenicSpot_id}'`
+  connection.query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success',
+        data: result
+      })
+    }
+  })
+}
+
 // 关注此景点
 const follow_scenicspot = (req, res, next) => {
   let data = req.body
@@ -107,6 +127,7 @@ const follow_scenicspot = (req, res, next) => {
 const cancel_scenicspot = (req, res, next) => {
   let data = req.body
   let sql = `DELETE FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`scenicSpot_id\` = '${data.scenicSpot_id}'`
+  console.log(sql)
   connection.query(sql, function (err, result) {
     if(err){
       res.json({
@@ -127,5 +148,7 @@ connection.on('error',err => {
 })
 
 module.exports = {
-  scenicspot_list, scenicspot_info, mine_scenicspot_list, follow_scenicspot, cancel_scenicspot
+  scenicspot_list, scenicspot_info, mine_scenicspot_list, is_follow_scenicspot, follow_scenicspot, cancel_scenicspot
 }
+
+// SELECT * FROM `scenicspot_relations` WHERE `followers_id` = '100001' AND `scenicSpot_id` = '2' 

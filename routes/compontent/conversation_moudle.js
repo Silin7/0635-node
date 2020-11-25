@@ -83,6 +83,26 @@ const mine_conversation_list = (req, res, next) => {
   })
 }
 
+// 是否关注此话题
+const is_follow_conversation = (req, res, next) => {
+  let data = req.body
+  let sql = `SELECT * FROM \`conversation_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`conversation_id\` = '${data.conversation_id}'`
+  connection.query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success',
+        data: result
+      })
+    }
+  })
+}
+
 // 关注此话题
 const follow_conversation = (req, res, next) => {
   let data = req.body
@@ -127,5 +147,5 @@ connection.on('error',err => {
 })
 
 module.exports = {
-  conversation_list, conversation_info, mine_conversation_list, follow_conversation, cancel_conversation
+  conversation_list, conversation_info, mine_conversation_list, is_follow_conversation, follow_conversation, cancel_conversation
 }

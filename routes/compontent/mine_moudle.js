@@ -71,6 +71,26 @@ const concerns_list = (req, res, next) => {
   })
 }
 
+// 是否关注此用户
+const is_follow_users = (req, res, next) => {
+  let data = req.body
+  let sql = `SELECT * FROM \`personnel_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`watched_id\` = '${data.watched_id}'`
+  connection.query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success',
+        data: result
+      })
+    }
+  })
+}
+
 // 关注此用户
 const follow_users = (req, res, next) => {
   let data = req.body
@@ -115,5 +135,5 @@ connection.on('error',err => {
 })
 
 module.exports = {
-  mine_info, update_mineInfo, concerns_list, follow_users, cancel_users
+  mine_info, update_mineInfo, concerns_list, is_follow_users, follow_users, cancel_users
 }
