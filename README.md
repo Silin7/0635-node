@@ -127,3 +127,22 @@
 + 类型: POST
 + 接口: /scenicspot/cancel_scenicspot
 + 参数: followers_id, scenicSpot_id
+
+* * *
+
+> recipe_moudle（菜单模块）
+* * *
++ 菜肴分类
++ 类型: GET
++ 接口: /scenicspot/mine_scenicspot_list
++ 参数: 无
+* * *
++ 菜肴列表
++ 类型: GET
++ 接口: /scenicspot/mine_scenicspot_list
++ 参数: keyword
+* * *
++ 菜肴详情
++ 类型: GET
++ 接口: /scenicspot/mine_scenicspot_list
++ 参数: id
