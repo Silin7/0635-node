@@ -1,8 +1,9 @@
 # 0635聊吧 node后端
 ## Version 1.0
 ## Author silin.wang
+  
 * * *
-* * *
+  
 > login_moudle（登录模块）
 * * *
 + 判断账号是否存在
@@ -24,8 +25,9 @@
 + 类型: POST
 + 接口: /login/sign_in
 + 参数: userName, password
+  
 * * *
-* * *
+  
 > mine_moudle（个人中心模块）
 * * *
 + 获取个人信息
@@ -52,8 +54,9 @@
 + 类型: POST
 + 接口: /mine/cancel_users
 + 参数: followers_id, watched_id
+  
 * * *
-* * *
+  
 > conversation_moudle（话题模块）
 * * *
 + 话题列表
