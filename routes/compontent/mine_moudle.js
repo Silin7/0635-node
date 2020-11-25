@@ -71,10 +71,49 @@ const concerns_list = (req, res, next) => {
   })
 }
 
+// 关注此用户
+const follow_users = (req, res, next) => {
+  let data = req.body
+  let sql = 'INSERT INTO `personnel_relations` (`id`, `followers_id`, `watched_id`, `watched_nickName`, `watched_avatarUrl`, `watched_signature`) VALUES (NULL, ?, ?, ?, ?, ?)'
+  let sqlParams = [data.followers_id, data.watched_id, data.watched_nickName, data.watched_avatarUrl, data.watched_signature]
+  connection.query(sql, sqlParams, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
+
+// 取消关注此用户
+const cancel_users = (req, res, next) => {
+  let data = req.body
+  let sql = `DELETE FROM \`personnel_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`watched_id\` = '${data.watched_id}'`
+  connection.query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
+
 connection.on('error',err => {
   connection = mysql.createConnection(sqlConfig)
 })
 
 module.exports = {
-  mine_info, update_mineInfo, concerns_list
+  mine_info, update_mineInfo, concerns_list, follow_users, cancel_users
 }

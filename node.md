@@ -43,6 +43,16 @@
 + 接口: /mine/concerns_list
 + 参数: followers_id
 
++ 关注此用户
++ 类型: POST
++ 接口: /mine/follow_users
++ 参数: followers_id, watched_id, watched_nickName, watched_avatarUrl, watched_signature
+
++ 取消关注此用户
++ 类型: POST
++ 接口: /mine/cancel_users
++ 参数: followers_id, watched_id
+
 
 > conversation_moudle（话题模块）
 

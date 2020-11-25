@@ -122,7 +122,6 @@ const cancel_conversation = (req, res, next) => {
   })
 }
 
-
 connection.on('error',err => {
   connection = mysql.createConnection(sqlConfig)
 })

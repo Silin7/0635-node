@@ -13,6 +13,8 @@ var mineMoudle = require('./compontent/mine_moudle')
 router.get('/mine/mine_info', mineMoudle.mine_info);
 router.post('/mine/update_mineInfo', mineMoudle.update_mineInfo);
 router.get('/mine/concerns_list', mineMoudle.concerns_list);
+router.post('/mine/follow_users', mineMoudle.follow_users);
+router.post('/mine/cancel_users', mineMoudle.cancel_users);
 
 // 话题模块
 var conversationMoudle = require('./compontent/conversation_moudle')
