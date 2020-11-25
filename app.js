@@ -37,7 +37,8 @@ app.all('*', function(req, res, next) {
   res.header("X-Powered-By", ' 3.2.1')
   /* 让options请求快速返回 */
   if(req.method === "OPTIONS") res.send(200);
-  else  next();
+  else next();
+  app.get('/favicon.ico', (req, res) => res.status(204));
 });
 
 app.use('/api', mainRouter);
