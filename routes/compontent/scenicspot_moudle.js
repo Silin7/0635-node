@@ -11,6 +11,10 @@ var connection = mysql.createConnection(sqlConfig);
 
 connection.connect();
 
+connection.on('error',err => {
+  connection = mysql.createConnection(sqlConfig)
+})
+
 // 景点列表
 const scenicspot_list = (req, res, next) => {
   let data = req.query
@@ -151,12 +155,6 @@ const cancel_scenicspot = (req, res, next) => {
   })
 }
 
-connection.on('error',err => {
-  connection = mysql.createConnection(sqlConfig)
-})
-
 module.exports = {
   scenicspot_list, scenicspot_info, mine_scenicspot_list, is_follow_scenicspot, follow_scenicspot, cancel_scenicspot
 }
-
-// SELECT * FROM `scenicspot_relations` WHERE `followers_id` = '100001' AND `scenicSpot_id` = '2' 

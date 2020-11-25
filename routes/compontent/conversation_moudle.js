@@ -11,6 +11,10 @@ var connection = mysql.createConnection(sqlConfig);
 
 connection.connect();
 
+connection.on('error',err => {
+  connection = mysql.createConnection(sqlConfig)
+})
+
 // 话题列表
 const conversation_list = (req, res, next) => {
   let data = req.query
@@ -149,10 +153,6 @@ const cancel_conversation = (req, res, next) => {
     }
   })
 }
-
-connection.on('error',err => {
-  connection = mysql.createConnection(sqlConfig)
-})
 
 module.exports = {
   conversation_list, conversation_info, mine_conversation_list, is_follow_conversation, follow_conversation, cancel_conversation
