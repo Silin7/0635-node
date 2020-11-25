@@ -94,11 +94,19 @@ const is_follow_conversation = (req, res, next) => {
         msg: err
       })
     } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        data: result
-      })
+      if (result.length > 0) {
+        res.json({
+          code: 0,
+          msg: 'success',
+          type: '1'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: 'success',
+          type: '0'
+        })
+      }
     }
   })
 }
