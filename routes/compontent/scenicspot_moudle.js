@@ -1,15 +1,4 @@
-var mysql = require('mysql');
-
-var sqlConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
-  database: 'test_library'
-};
-
-var connection = mysql.createConnection(sqlConfig);
-
-connection.connect();
+const conn = require('./mySQL')
 
 // 景点列表
 const scenicspot_list = (req, res, next) => {
@@ -27,7 +16,7 @@ const scenicspot_list = (req, res, next) => {
   if (data.scenicSpot_place) {
     sql = sql + scenicSpot_place
   }
-  connection.query(sql, function (err, result) {
+  conn().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -47,7 +36,7 @@ const scenicspot_list = (req, res, next) => {
 const scenicspot_info = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`scenicspot_list\` WHERE \`id\` = '${data.id}'`
-  connection.query(sql, function (err, result) {
+  conn().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -67,7 +56,7 @@ const scenicspot_info = (req, res, next) => {
 const mine_scenicspot_list = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}'`
-  connection.query(sql, function (err, result) {
+  conn().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -87,7 +76,7 @@ const mine_scenicspot_list = (req, res, next) => {
 const is_follow_scenicspot = (req, res, next) => {
   let data = req.body
   let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`scenicSpot_id\` = '${data.scenicSpot_id}'`
-  connection.query(sql, function (err, result) {
+  conn().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -116,7 +105,7 @@ const follow_scenicspot = (req, res, next) => {
   let data = req.body
   let sql = 'INSERT INTO `scenicspot_relations` (`id`, `followers_id`, `scenicSpot_id`, `scenicSpot_name`, `scenicSpot_img`) VALUES (NULL, ?, ?, ?, ?)'
   let sqlParams = [data.followers_id, data.scenicSpot_id, data.scenicSpot_name, data.scenicSpot_img]
-  connection.query(sql, sqlParams, function (err, result) {
+  conn().query(sql, sqlParams, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -136,7 +125,7 @@ const cancel_scenicspot = (req, res, next) => {
   let data = req.body
   let sql = `DELETE FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`scenicSpot_id\` = '${data.scenicSpot_id}'`
   console.log(sql)
-  connection.query(sql, function (err, result) {
+  conn().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -150,10 +139,6 @@ const cancel_scenicspot = (req, res, next) => {
     }
   })
 }
-
-connection.on('error',err => {
-  connection = mysql.createConnection(sqlConfig)
-})
 
 module.exports = {
   scenicspot_list, scenicspot_info, mine_scenicspot_list, is_follow_scenicspot, follow_scenicspot, cancel_scenicspot

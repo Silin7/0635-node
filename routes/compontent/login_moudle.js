@@ -1,21 +1,9 @@
-var mysql = require('mysql');
+const conn = require('./mySQL')
 
-var sqlConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
-  database: 'test_library'
-};
-
-var connection = mysql.createConnection(sqlConfig);
-
-connection.connect();
-
-// 判断账号是否存在
 const is_register = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`personnel_information\` WHERE userName = '${data.userName}'`
-  connection.query(sql, function (err, result) {
+  conn().query(sql, function (err, result) {
     if (err) {
       res.end(JSON.stringify({
         code: 500,
@@ -78,7 +66,7 @@ const register_inster = (req, res, next) => {
   let data = req.body
   let sql = 'INSERT INTO `personnel_information` (`id`, `userName`, `password`, `nickName`, `avatarUrl`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)'
   let sqlParams = [data.userName, data.password, data.nickName, data.avatarUrl, data.gender]
-  connection.query(sql, sqlParams, function (err, result) {
+  conn().query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -98,7 +86,7 @@ const register_inster = (req, res, next) => {
 const change_password = (req, res, next) => {
   let data = req.body
   let sql = `UPDATE \`personnel_information\` SET \`password\` = '${data.newPassword}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
-  connection.query(sql, function (err, result) {
+  conn().query(sql, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -118,7 +106,7 @@ const change_password = (req, res, next) => {
 const sign_in = (req, res, next) => {
   let data = req.body
   let sql = `SELECT * FROM \`personnel_information\` WHERE \`userName\` = '${data.userName}'`
-  connection.query(sql, function (err, result) {
+  conn().query(sql, function (err, result) {
     if(err){
       res.end(JSON.stringify({
         code: 500,
@@ -146,10 +134,6 @@ const sign_in = (req, res, next) => {
     }
   })
 }
-
-connection.on('error',err => {
-  connection = mysql.createConnection(sqlConfig)
-})
 
 module.exports = {
   is_register, register_inster, change_password, sign_in
