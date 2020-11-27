@@ -11,10 +11,6 @@ var connection = mysql.createConnection(sqlConfig);
 
 connection.connect();
 
-connection.on('error',err => {
-  connection = mysql.createConnection(sqlConfig)
-})
-
 // 判断账号是否存在
 const is_register = (req, res, next) => {
   let data = req.query
@@ -150,6 +146,10 @@ const sign_in = (req, res, next) => {
     }
   })
 }
+
+connection.on('error',err => {
+  connection = mysql.createConnection(sqlConfig)
+})
 
 module.exports = {
   is_register, register_inster, change_password, sign_in

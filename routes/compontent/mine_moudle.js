@@ -11,10 +11,6 @@ var connection = mysql.createConnection(sqlConfig);
 
 connection.connect();
 
-connection.on('error',err => {
-  connection = mysql.createConnection(sqlConfig)
-})
-
 // 获取个人信息详情
 const mine_info = (req, res, next) => {
   let data = req.query
@@ -141,6 +137,10 @@ const cancel_users = (req, res, next) => {
     }
   })
 }
+
+connection.on('error',err => {
+  connection = mysql.createConnection(sqlConfig)
+})
 
 module.exports = {
   mine_info, update_mineInfo, concerns_list, is_follow_users, follow_users, cancel_users
