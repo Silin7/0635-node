@@ -82,7 +82,7 @@
 ### 其他
 * * *
 > 历史上的今天
-+ https://www.mxnzp.com/api/history/today?type=0&app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
++ https://www.mxnzp.com/api/history/today?type=0&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
 + type: 类型(0: 列表/1: 详情)
 
 * * *
@@ -91,7 +91,7 @@
 + https://www.mxnzp.com/api/weather/current/阳谷县?app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
 
 + 获取特定城市今天及未来天气信息
-+ https://www.mxnzp.com/api/weather/forecast/阳谷县?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
++ https://www.mxnzp.com/api/weather/forecast/阳谷县?app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
 
 * * *
 > 每日最新新闻
@@ -104,6 +104,10 @@
 + 根据新闻id获取新闻详情
 + https://www.mxnzp.com/api/news/details?newsId=EJA5MJQ30001875N&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
 
+* * *
+> 文本多语种翻译
++ https://api.66mz8.com/api/rand.music.163.php?format=json
++ https://www.mxnzp.com/api/convert/translate?content=我是一个好人&from=zh&to=en&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
 * * *
 > 随机获取网易云音乐热门歌曲接口
 + https://api.66mz8.com/api/rand.music.163.php?format=json

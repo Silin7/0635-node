@@ -63,6 +63,17 @@ const news_details = (req, res) => {
   })
 }
 
+// 文本多语种翻译
+const translate = (req, res) => {
+  let query = Object.assign({}, req.query, req.body)
+  query.content = encodeURI(query.content)
+  api.translate(query, request).then(answer => {
+    res.status(answer.status).send(answer.body)
+  }).catch(answer => {
+    res.status(answer.status).send(answer.body)
+  })
+}
+
 module.exports = {
-  history_today, weather_current, weather_forecast, news_types, news_list, news_details
+  history_today, weather_current, weather_forecast, news_types, news_list, news_details, translate
 }

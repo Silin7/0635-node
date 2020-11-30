@@ -49,5 +49,6 @@ router.get('/other/weather_forecast', otherModules.weather_forecast);
 router.get('/other/news_types', otherModules.news_types);
 router.get('/other/news_list', otherModules.news_list);
 router.get('/other/news_details', otherModules.news_details);
+router.get('/other/translate', otherModules.translate);
 
 module.exports = router;

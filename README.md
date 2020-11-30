@@ -180,3 +180,8 @@
 + 类型: GET
 + 接口: /other/news_details
 + 参数: newsId
+* * *
++ 文本多语种翻译
++ 类型: GET
++ 接口: /other/translate
++ 参数: content, from, to
