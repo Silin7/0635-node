@@ -40,7 +40,10 @@ const recipeMoudle = require('./compontent/recipe_moudle')
 router.get('/recipe/recipe_catalogs', recipeMoudle.recipe_catalogs);
 router.get('/recipe/recipe_list', recipeMoudle.recipe_list);
 router.get('/recipe/recipe_detail', recipeMoudle.recipe_detail);
-router.get('/recipe/haha', recipeMoudle.haha);
+
+// 其他模块
+const otherModules = require('./compontent/other_modules')
+router.get('/other/history_today', otherModules.history_today);
 
 
 module.exports = router;

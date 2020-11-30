@@ -3,9 +3,6 @@ const recipeCatalogs = require('./recipe_api/recipe_catalogs')
 const recipeList = require('./recipe_api/recipe_list')
 const recipeDetail = require('./recipe_api/recipe_detail')
 
-const haha2 = require('./small_function/haha')
-const request2 = require('./request/index')
-
 //菜肴分类
 const recipe_catalogs = (req, res) => {
   let query = Object.assign({}, req.query, req.body, { cookie: req.cookies })
@@ -36,16 +33,6 @@ const recipe_detail = (req, res) => {
   })
 }
 
-//随机头像
-const haha = (req, res) => {
-  let query = Object.assign({}, req.query, req.body)
-  haha2(query, request2).then(answer => {
-    res.status(answer.status).send(answer.body)
-  }).catch(answer => {
-    res.status(answer.status).send(answer.body)
-  })
-}
-
 module.exports = {
-  recipe_catalogs, recipe_list, recipe_detail, haha
+  recipe_catalogs, recipe_list, recipe_detail
 }
