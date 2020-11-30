@@ -117,7 +117,8 @@ const sign_in = (req, res, next) => {
         if (result[0].password === req.body.password) {
           res.end(JSON.stringify({
             code: 0,
-            msg: 'success'
+            msg: 'success',
+            data: result[0]
           }))
         } else {
           res.end(JSON.stringify({
