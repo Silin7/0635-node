@@ -88,10 +88,21 @@
 * * *
 > 全国天气查询
 + 获取特定城市今日天气信息
-+ https://www.mxnzp.com/api/weather/current/位置?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
++ https://www.mxnzp.com/api/weather/current/阳谷县?app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
 
 + 获取特定城市今天及未来天气信息
-+ https://www.mxnzp.com/api/weather/forecast/位置?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
++ https://www.mxnzp.com/api/weather/forecast/阳谷县?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
+
+* * *
+> 每日最新新闻
++ 获取所有新闻类型列表
++ https://www.mxnzp.com/api/news/types?app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
+
++ 根据新闻类型获取新闻列表
++ https://www.mxnzp.com/api/news/list?typeId=509&page=1&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
+
++ 根据新闻id获取新闻详情
++ https://www.mxnzp.com/api/news/details?newsId=EJA5MJQ30001875N&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
 
 * * *
 > 随机获取网易云音乐热门歌曲接口
