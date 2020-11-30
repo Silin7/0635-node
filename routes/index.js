@@ -44,6 +44,10 @@ router.get('/recipe/recipe_detail', recipeMoudle.recipe_detail);
 // 其他模块
 const otherModules = require('./compontent/other_modules')
 router.get('/other/history_today', otherModules.history_today);
-
+router.get('/other/weather_current', otherModules.weather_current);
+router.get('/other/weather_forecast', otherModules.weather_forecast);
+router.get('/other/news_types', otherModules.news_types);
+router.get('/other/news_list', otherModules.news_list);
+router.get('/other/news_details', otherModules.news_details);
 
 module.exports = router;

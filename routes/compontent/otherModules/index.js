@@ -1,29 +1,57 @@
-const request = require('request');
-const queryString = require('querystring')
-
-const createRequest = (method, url, data) => {
-  //两个参数 resolve 异步执行成功的回调函数,reject异步执行失败的回调函数
-  return new Promise((resolve, reject) => {
-    const answer = { status: 500, body: {}}
-    const settings = {
-      method: method,
-      url: url,
-      body: queryString.stringify(data)
-    }
-    request(settings, (err, res, body) => {
-      if (err) {
-        answer.status = 502;
-        answer.body = { code: 502, msg: err.stack};
-        reject(answer);
-      } else {
-        answer.body = JSON.parse(body)
-        answer.body = body
-        answer.status = answer.body.code || res.statusCode
-        answer.status = 100 < answer.status && answer.status < 600 ? answer.status : 400
-        if (answer.status == 200) resolve(answer)
-        else reject(answer)
-      }
-    })
-  })
+// 历史上的今天
+const history_today = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/history/today?type=${query.type}&app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09`,
+    {},
+  )
 }
-module.exports = createRequest
+
+// 获取特定城市今日天气信息
+const weather_current = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/weather/current/${query.position}?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09`,
+    {},
+  )
+}
+
+// 获取特定城市今天及未来天气信息
+const weather_forecast = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/weather/forecast/${query.position}?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09`,
+    {},
+  )
+}
+
+// 获取所有新闻类型列表
+const news_types = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/news/types?app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09`,
+    {},
+  )
+}
+
+// 根据新闻类型获取新闻列表
+const news_list = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/news/list?typeId=${query.typeId}&page=${query.page}&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09`,
+    {},
+  )
+}
+
+// 根据新闻id获取新闻详情
+const news_details = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/news/details?newsId=${query.newsId}&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09`,
+    {},
+  )
+}
+
+module.exports = {
+  history_today, weather_current, weather_forecast, news_types, news_list, news_details
+}

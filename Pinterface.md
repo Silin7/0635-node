@@ -68,7 +68,7 @@
 ### 段子相关
 * * *
 > 段子列表
-+ https://api.apiopen.top/getJoke
++ https://api.apiopen.top/getJoke?page=1&count=10&type=all
 + type: 指定查询类型，可选参数(all/video/image/gif/text) all
 + page: 页码(传0或者不传会随机推荐) 1
 + count: 每页返回数量 10
@@ -78,23 +78,27 @@
 + https://api.apiopen.top/getSingleJoke?sid=sid
 + sid: 段子ID
 
+
+### 其他
 * * *
 > 历史上的今天
 + https://www.mxnzp.com/api/history/today?type=0&app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
 + type: 类型(0: 列表/1: 详情)
 
+* * *
+> 全国天气查询
++ 获取特定城市今日天气信息
++ https://www.mxnzp.com/api/weather/current/位置?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
 
-### 其他
++ 获取特定城市今天及未来天气信息
++ https://www.mxnzp.com/api/weather/forecast/位置?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
+
 * * *
 > 随机获取网易云音乐热门歌曲接口
-+ 接口地址：https://api.66mz8.com/api/rand.music.163.php
-+ 返回格式：json/mp3
-+ 请求方式：get/post
-+ 请求示例：https://api.66mz8.com/api/rand.music.163.php?format=json
++ https://api.66mz8.com/api/rand.music.163.php?format=json
 
 * * *
 > 快递接口
 + 申通: shentong; EMS: ems; 顺丰: shunfeng; 圆通: yuantong; 中通: zhongtong; 韵达: yunda; 天天: tiantian;
 + 德邦: debangwuliu; 宅急送: zhaijisong; 全峰: quanfengkuaidi; 汇通: huitongkuaidi;
 + http://www.kuaidi100.com/query?type=快递公司编码&postid=快递单号
-+ http://www.kuaidi100.com/query?type=zhongtong&postid=75416402603866

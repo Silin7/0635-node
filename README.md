@@ -146,3 +146,37 @@
 + 类型: GET
 + 接口: /recipe/recipe_detail
 + 参数: id
+
+* * *
+
+> other_modules（其他模块）
+* * *
++ 历史上的今天
++ 类型: GET
++ 接口: /other/history_today
++ 参数: 无
+* * *
++ 获取特定城市今日天气信息
++ 类型: GET
++ 接口: /other/weather_current
++ 参数: position
+* * *
++ 获取特定城市今天及未来天气信息
++ 类型: GET
++ 接口: /other/weather_forecast
++ 参数: position
+* * *
++ 获取所有新闻类型列表
++ 类型: GET
++ 接口: /other/news_types
++ 参数: 无
+* * *
++ 根据新闻类型获取新闻列表
++ 类型: GET
++ 接口: /other/news_list
++ 参数: typeId, page
+* * *
++ 根据新闻id获取新闻详情
++ 类型: GET
++ 接口: /other/news_details
++ 参数: newsId
