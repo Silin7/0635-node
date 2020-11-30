@@ -62,5 +62,5 @@ const translate = (query, request) => {
 }
 
 module.exports = {
-  history_today, weather_current, weather_forecast, news_types, news_list, translate
+  history_today, weather_current, weather_forecast, news_types, news_list, news_details, translate
 }
