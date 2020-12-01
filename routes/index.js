@@ -41,6 +41,16 @@ router.get('/recipe/recipe_catalogs', recipeMoudle.recipe_catalogs);
 router.get('/recipe/recipe_list', recipeMoudle.recipe_list);
 router.get('/recipe/recipe_detail', recipeMoudle.recipe_detail);
 
+// 消息模块
+const messageModules = require('./compontent/message_moudle')
+router.get('/message/message_list', messageModules.message_list);
+router.get('/message/message_details', messageModules.message_details);
+
+// 动态模块
+const dynamicModules = require('./compontent/dynamic_moudle')
+router.get('/dynamic/dynamic_list', dynamicModules.dynamic_list);
+router.get('/dynamic/dynamic_details', dynamicModules.dynamic_details);
+
 // 其他模块
 const otherModules = require('./compontent/other_modules')
 router.get('/other/history_today', otherModules.history_today);

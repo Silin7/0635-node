@@ -62,7 +62,18 @@
 + 科技: tech, 育儿: baby, 时尚: fashion, 文化: cul, 星座: astro, 明星: star, 动漫: comic, 历史: history,
 + 数码: digi, 美容: makeup, 山东: sd, IT: internet, 电竞: esports, 游戏: games, 游戏: games, 游戏: games, 
 + 教育: edu, 高考: gaokao, 养生: yangsheng, 孕产: yunc
-+ https://pacaio.match.qq.com/irs/rcd?page=0&num=10&cid=56&ext=XXX&token=c786875b8e04da17b24ea5e332745e0f&expIds=20190106A13PFT|20190108A04MLS
++ https://pacaio.match.qq.com/irs/rcd?page=0&num=10&cid=56&ext=games&token=c786875b8e04da17b24ea5e332745e0f&expIds=20190106A13PFT|20190108A04MLS
+
+* * *
+> 每日最新新闻
++ 获取所有新闻类型列表
++ https://www.mxnzp.com/api/news/types?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
+
++ 根据新闻类型获取新闻列表
++ https://www.mxnzp.com/api/news/list?typeId=509&page=1&app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
+
++ 根据新闻id获取新闻详情
++ https://www.mxnzp.com/api/news/details?newsId=EJA5MJQ30001875N&app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
 
 
 ### 段子相关
@@ -82,32 +93,23 @@
 ### 其他
 * * *
 > 历史上的今天
-+ https://www.mxnzp.com/api/history/today?type=0&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
++ https://www.mxnzp.com/api/history/today?type=0&app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
 + type: 类型(0: 列表/1: 详情)
 
 * * *
 > 全国天气查询
 + 获取特定城市今日天气信息
-+ https://www.mxnzp.com/api/weather/current/阳谷县?app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
++ https://www.mxnzp.com/api/weather/current/阳谷县?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
 
 + 获取特定城市今天及未来天气信息
-+ https://www.mxnzp.com/api/weather/forecast/阳谷县?app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
++ https://www.mxnzp.com/api/weather/forecast/阳谷县?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
 
-* * *
-> 每日最新新闻
-+ 获取所有新闻类型列表
-+ https://www.mxnzp.com/api/news/types?app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
-
-+ 根据新闻类型获取新闻列表
-+ https://www.mxnzp.com/api/news/list?typeId=509&page=1&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
-
-+ 根据新闻id获取新闻详情
-+ https://www.mxnzp.com/api/news/details?newsId=EJA5MJQ30001875N&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
 
 * * *
 > 文本多语种翻译
 + https://api.66mz8.com/api/rand.music.163.php?format=json
-+ https://www.mxnzp.com/api/convert/translate?content=我是一个好人&from=zh&to=en&app_id=mkchnijvsjunmmco&app_secret=ckp0YkZyL2V4QVV0ZXRaaUFhMWV4dz09
++ https://www.mxnzp.com/api/convert/translate?content=我是一个好人&from=zh&to=en&app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
+
 * * *
 > 随机获取网易云音乐热门歌曲接口
 + https://api.66mz8.com/api/rand.music.163.php?format=json
