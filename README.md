@@ -149,6 +149,34 @@
 
 * * *
 
+> messageModules（消息模块）
+* * *
++ 消息列表
++ 类型: GET
++ 接口: /message/message_list
++ 参数: receiver_id
+* * *
++ 消息详情
++ 类型: GET
++ 接口: /message/message_details
++ 参数: id
+
+* * *
+
+> dynamicModules（动态模块）
+* * *
++ 动态列表
++ 类型: GET
++ 接口: /dynamic/dynamic_list
++ 参数: 无
+* * *
++ 动态详情
++ 类型: GET
++ 接口: /dynamic/dynamic_details
++ 参数: id
+
+* * *
+
 > other_modules（其他模块）
 * * *
 + 历史上的今天
