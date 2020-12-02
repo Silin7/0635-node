@@ -11,7 +11,7 @@ const handleDisconnection = function() {
   var pool = mysql.createPool(sqlConfig);
   pool.getConnection(function(err) {
     if (err) {
-      setTimeout('handleDisconnection()', 2000);
+      setTimeout(handleDisconnection(), 2000);
     }
   });
   pool.on('error', function(err) {
