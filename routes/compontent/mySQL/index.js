@@ -7,16 +7,25 @@ var sqlConfig = {
   database: 'test_library'
 }
 
-var conn = function(){
-  var connection = mysql.createConnection(sqlConfig)
-  connection.connect()
-  connection.on('error',err=>{
-    console.log('Re-connecting lost connection: ');
-    connection = mysql.createConnection(sqlConfig)
-  })
+const handleDisconnection = function() {
+  var pool = mysql.createPool(sqlConfig);
+  pool.getConnection(function(err) {
+    if (err) {
+      setTimeout('handleDisconnection()', 2000);
+    }
+  });
+  pool.on('error', function(err) {
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      console.log('db error执行重连:' + err.message);
+      handleDisconnection();
+      // pool.threadId()
+    } else {
+      throw err;
+    }
+  });
   return function(){
-    return connection
+    return pool
   }
 }
 
-module.exports = conn()
+module.exports = handleDisconnection()
