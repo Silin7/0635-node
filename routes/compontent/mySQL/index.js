@@ -4,7 +4,8 @@ var sqlConfig = {
   host: 'localhost',
   user: 'root',
   password: '123456',
-  database: 'test_library'
+  database: 'test_library',
+  timezone: "08:00"
 }
 
 const handleDisconnection = function() {

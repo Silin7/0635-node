@@ -151,14 +151,24 @@
 
 > messageModules（消息模块）
 * * *
-+ 消息列表
++ 私信消息列表
 + 类型: GET
-+ 接口: /message/message_list
++ 接口: /message/permessage_list
 + 参数: receiver_id
 * * *
-+ 消息详情
++ 私信消息详情
 + 类型: GET
-+ 接口: /message/message_details
++ 接口: /message/permessage_details
++ 参数: id
+* * *
++ 系统消息列表
++ 类型: GET
++ 接口: /message/sysmessage_list
++ 参数: receiver_id
+* * *
++ 系统消息详情
++ 类型: GET
++ 接口: /message/sysmessage_details
 + 参数: id
 
 * * *

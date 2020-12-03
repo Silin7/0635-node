@@ -43,8 +43,10 @@ router.get('/recipe/recipe_detail', recipeMoudle.recipe_detail);
 
 // 消息模块
 const messageModules = require('./compontent/message_moudle')
-router.get('/message/message_list', messageModules.message_list);
-router.get('/message/message_details', messageModules.message_details);
+router.get('/message/permessage_list', messageModules.permessage_list);
+router.get('/message/permessage_details', messageModules.permessage_details);
+router.get('/message/sysmessage_list', messageModules.sysmessage_list);
+router.get('/message/sysmessage_details', messageModules.sysmessage_details);
 
 // 动态模块
 const dynamicModules = require('./compontent/dynamic_moudle')
