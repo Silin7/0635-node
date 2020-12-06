@@ -46,7 +46,7 @@ const scenicspot_info = (req, res, next) => {
       res.json({
         code: 0,
         msg: 'success',
-        data: result
+        data: result[0]
       })
     }
   })
