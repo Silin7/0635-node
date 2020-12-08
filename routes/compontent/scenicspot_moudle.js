@@ -4,18 +4,14 @@ const conn = require('./mySQL')
 const scenicspot_list = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`scenicspot_list\` WHERE 1`
-  let scenicSpot_name = ` AND \`scenicSpot_name\` Like '%${data.scenicSpot_name}%'`
-  let scenicSpot_type = ` AND \`scenicSpot_type\` = '${data.scenicSpot_type}'`
-  let scenicSpot_place = ` AND \`scenicSpot_place\` Like '%${data.scenicSpot_place}%'`
-    if (data.scenicSpot_name) {
-    sql = sql + scenicSpot_name
+  let scenicspot_position = ` AND \`scenicspot_position\` = '${data.scenicspot_position}'`
+  // let scenicSpot_name = ` AND \`scenicSpot_name\` Like '%${data.scenicSpot_name}%'`
+  if (data.scenicspot_position) {
+    sql = sql + scenicspot_position
   }
-  if (data.scenicSpot_type) {
-    sql = sql + scenicSpot_type
-  }
-  if (data.scenicSpot_place) {
-    sql = sql + scenicSpot_place
-  }
+  // if (data.scenicSpot_name) {
+  //   sql = sql + scenicSpot_name
+  // }
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -55,7 +51,7 @@ const scenicspot_info = (req, res, next) => {
 // 我关注的景点列表
 const mine_scenicspot_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}'`
+  let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`scenicSpot_id\` = '${data.scenicSpot_id}' AND \`followers_id\` = '${data.followers_id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -75,7 +71,7 @@ const mine_scenicspot_list = (req, res, next) => {
 // 是否关注此景点
 const is_follow_scenicspot = (req, res, next) => {
   let data = req.body
-  let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`scenicSpot_id\` = '${data.scenicSpot_id}'`
+  let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`scenicSpot_id\` = '${data.scenicSpot_id}' AND \`followers_id\` = '${data.followers_id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
