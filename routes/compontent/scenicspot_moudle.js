@@ -3,15 +3,17 @@ const conn = require('./mySQL')
 // 景点列表
 const scenicspot_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`scenicspot_list\` WHERE 1`
+  let slimit = (data.page - 1) * 10
+  let elimit = (data.page) * 10
+  let sql = `SELECT * FROM \`scenicspot_list\` LIMIT ${slimit},${elimit}`
   let scenicspot_position = ` AND \`scenicspot_position\` = '${data.scenicspot_position}'`
-  // let scenicSpot_name = ` AND \`scenicSpot_name\` Like '%${data.scenicSpot_name}%'`
+  let scenicSpot_name = ` AND \`scenicSpot_name\` Like '%${data.scenicSpot_name}%'`
   if (data.scenicspot_position) {
     sql = sql + scenicspot_position
   }
-  // if (data.scenicSpot_name) {
-  //   sql = sql + scenicSpot_name
-  // }
+  if (data.scenicSpot_name) {
+    sql = sql + scenicSpot_name
+  }
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
