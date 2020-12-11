@@ -3,28 +3,45 @@ const conn = require('./mySQL')
 // 景点列表
 const scenicspot_list = (req, res, next) => {
   let data = req.query
-  let slimit = (data.page - 1) * 10
-  let elimit = (data.page) * 10
-  let sql = `SELECT * FROM \`scenicspot_list\` LIMIT ${slimit},${elimit}`
-  let scenicspot_position = ` AND \`scenicspot_position\` = '${data.scenicspot_position}'`
+  let slimit = (data.page - 1) * data.limit
+  let elimit = (data.page) * data.limit
+  let sql1 = 'SELECT * FROM `scenicspot_list`'
+  let sql2 = 'SELECT COUNT(*) FROM `scenicspot_list`'
+  let scenicspot_position = ` WHERE \`scenicspot_position\` = '${data.scenicspot_position}'`
   let scenicSpot_name = ` AND \`scenicSpot_name\` Like '%${data.scenicSpot_name}%'`
+  let scenicSpot_limit = ` LIMIT ${slimit},${elimit}`
   if (data.scenicspot_position) {
-    sql = sql + scenicspot_position
+    sql1 = sql1 + scenicspot_position
+    sql2 = sql2 + `WHERE \`scenicspot_position\` = '${data.scenicspot_position}'`
   }
   if (data.scenicSpot_name) {
-    sql = sql + scenicSpot_name
+    sql1 = sql1 + scenicSpot_name
   }
-  conn().query(sql, function (err, result) {
-    if(err){
+  sql1 = sql1 + scenicSpot_limit
+  conn().query(sql2, function (err1, result1) {
+    if(err1){
       res.json({
         code: 500,
-        msg: err
+        msg: err1
       })
     } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        data: result
+      let totalCount = result1[0][`COUNT(*)`]
+      conn().query(sql1, function (err2, result2) {
+        if(err2){
+          res.json({
+            code: 500,
+            msg: err2
+          })
+        } else {
+          res.json({
+            code: 0,
+            msg: 'success',
+            page: data.page,
+            limit: data.limit,
+            totalCount: totalCount,
+            data: result2
+          })
+        }
       })
     }
   })

@@ -101,7 +101,7 @@
 + 景点列表
 + 类型: GET
 + 接口: /scenicspot/scenicspot_list
-+ 参数: page, scenicSpot_name, scenicSpot_place
++ 参数: page, limit, scenicSpot_name, scenicSpot_place
 * * *
 + 景点详情
 + 类型: GET
