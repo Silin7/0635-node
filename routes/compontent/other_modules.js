@@ -36,7 +36,6 @@ const weather_forecast = (req, res) => {
 // 随机获取笑话段子列表
 const jokes_random = (req, res) => {
   let query = Object.assign({}, req.query, req.body)
-  query.position = encodeURI(query.position)
   api.jokes_random(query, request).then(answer => {
     res.status(answer.status).send(answer.body)
   }).catch(answer => {
@@ -84,10 +83,10 @@ const girl_random = (req, res) => {
   })
 }
 
-//  文本多语种翻译
+// 文本多语种翻译
 const translate = (req, res) => {
   let query = Object.assign({}, req.query, req.body)
-  query.content = encodeURI(query.content)
+  query.position = encodeURI(query.position)
   api.translate(query, request).then(answer => {
     res.status(answer.status).send(answer.body)
   }).catch(answer => {
@@ -95,6 +94,27 @@ const translate = (req, res) => {
   })
 }
 
+// 垃圾分类查询
+const rubbish = (req, res) => {
+  let query = Object.assign({}, req.query, req.body)
+  query.name = encodeURI(query.name)
+  api.rubbish(query, request).then(answer => {
+    res.status(answer.status).send(answer.body)
+  }).catch(answer => {
+    res.status(answer.status).send(answer.body)
+  })
+}
+
+// 手机号码归属地查询
+const aim_mobile = (req, res) => {
+  let query = Object.assign({}, req.query, req.body)
+  api.aim_mobile(query, request).then(answer => {
+    res.status(answer.status).send(answer.body)
+  }).catch(answer => {
+    res.status(answer.status).send(answer.body)
+  })
+}
+
 module.exports = {
-  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate
+  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate, rubbish, aim_mobile
 }

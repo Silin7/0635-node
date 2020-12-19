@@ -237,3 +237,8 @@
 + 类型: GET
 + 接口: /other/translate
 + 参数: content, from, to
+* * *
++ 垃圾分类查询
++ 类型: GET
++ 接口: /other/rubbish
++ 参数: name

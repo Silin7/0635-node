@@ -64,5 +64,7 @@ router.get('/other/news_list', otherModules.news_list);
 router.get('/other/news_details', otherModules.news_details);
 router.get('/other/girl_random', otherModules.girl_random);
 router.get('/other/translate', otherModules.translate);
+router.get('/other/rubbish', otherModules.rubbish);
+router.get('/other/aim_mobile', otherModules.aim_mobile);
 
 module.exports = router;

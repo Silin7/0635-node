@@ -79,6 +79,24 @@ const translate = (query, request) => {
   )
 }
 
+// 垃圾分类查询
+const rubbish = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/rubbish/type?name=${query.name}&app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09`,
+    {},
+  )
+}
+
+// 手机号码归属地查询
+const aim_mobile = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/mobile_location/aim_mobile?mobile=${query.mobile}&app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09`,
+    {},
+  )
+}
+
 module.exports = {
-  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate
+  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate, rubbish, aim_mobile
 }
