@@ -1,5 +1,5 @@
-const api = require('./otherModules')
-const request = require('./otherModules/request')
+const api = require('./other_api')
+const request = require('./request')
 
 // 历史上的今天
 const history_today = (req, res) => {
