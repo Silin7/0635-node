@@ -232,7 +232,6 @@
 + 接口: /other/girl_random
 + 参数: 无
 * * *
-* * *
 + 文本多语种翻译
 + 类型: GET
 + 接口: /other/translate
