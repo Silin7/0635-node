@@ -25,6 +25,15 @@ const weather_forecast = (query, request) => {
   )
 }
 
+// 随机获取笑话段子列表
+const jokes_random = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/jokes/list/random?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09`,
+    {},
+  )
+}
+
 // 获取所有新闻类型列表
 const news_types = (query, request) => {
   return request(
@@ -52,6 +61,15 @@ const news_details = (query, request) => {
   )
 }
 
+// 随机获取美女福利图片
+const girl_random = (query, request) => {
+  return request(
+    'GET',
+    `https://www.mxnzp.com/api/image/girl/list/random?app_id=rtqbawfrwfapaxrq&app_secret=R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09`,
+    {},
+  )
+}
+
 // 文本多语种翻译
 const translate = (query, request) => {
   return request(
@@ -62,5 +80,5 @@ const translate = (query, request) => {
 }
 
 module.exports = {
-  history_today, weather_current, weather_forecast, news_types, news_list, news_details, translate
+  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate
 }

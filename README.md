@@ -189,6 +189,9 @@
 
 > other_modules（其他模块）
 * * *
++ app_id: rtqbawfrwfapaxrq
++ app_secret: R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
+* * *
 + 历史上的今天
 + 类型: GET
 + 接口: /other/history_today
@@ -204,6 +207,11 @@
 + 接口: /other/weather_forecast
 + 参数: position
 * * *
++ 随机获取笑话段子列表
++ 类型: GET
++ 接口: /other/jokes_random
++ 参数: 无
+* * *
 + 获取所有新闻类型列表
 + 类型: GET
 + 接口: /other/news_types
@@ -218,6 +226,12 @@
 + 类型: GET
 + 接口: /other/news_details
 + 参数: newsId
+* * *
++ 随机获取美女福利图片
++ 类型: GET
++ 接口: /other/girl_random
++ 参数: 无
+* * *
 * * *
 + 文本多语种翻译
 + 类型: GET
