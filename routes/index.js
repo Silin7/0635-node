@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+// 权限模块
+const adminMoudle = require('./compontent/admin_moudle')
+router.get('/admin/admin_news_type', adminMoudle.admin_news_type);
+router.get('/admin/admin_city_type', adminMoudle.admin_city_type);
+
+
 // 注册，登录模块
 const loginMoudle = require('./compontent/login_moudle')
 router.get('/login/is_register', loginMoudle.is_register);

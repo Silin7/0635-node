@@ -4,6 +4,20 @@
 
 * * *
 
+> admin_moudle
+* * *
++ 新闻类型列表
++ 类型: GET
++ 接口: /admin/admin_news_type
++ 参数: 无
+* * *
++ 县市类型列表
++ 类型: GET
++ 接口: /admin/admin_city_type
++ 参数: 无
+
+* * *
+
 > login_moudle（登录模块）
 * * *
 + 判断账号是否存在
