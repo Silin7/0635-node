@@ -35,6 +35,10 @@ router.post('/scenicspot/is_follow_scenicspot', scenicspotMoudle.is_follow_sceni
 router.post('/scenicspot/follow_scenicspot', scenicspotMoudle.follow_scenicspot);
 router.post('/scenicspot/cancel_scenicspot', scenicspotMoudle.cancel_scenicspot);
 
+// 历史模块
+const historyModule = require('./compontent/history_module')
+router.get('/history/historical_evolution', historyModule.historical_evolution);
+
 // 菜单模块
 const recipeMoudle = require('./compontent/recipe_moudle')
 router.get('/recipe/recipe_catalogs', recipeMoudle.recipe_catalogs);
