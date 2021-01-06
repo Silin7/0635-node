@@ -1,5 +1,25 @@
 const conn = require('./mySQL')
 
+// 县市新闻列表
+const dynamic_news_list = (req, res, next) => {
+  let data = req.query
+  let sql = `SELECT B.* FROM admin_city_type A INNER JOIN news_module B ON A.type_id = B.type_id WHERE A.type_id = '${data.type_id}'`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success',
+        data: result
+      })
+    }
+  })
+}
+
 // 动态列表
 const dynamic_list = (req, res, next) => {
   let sql = `SELECT * FROM \`square_dynamic_list\` WHERE 1`
@@ -48,5 +68,5 @@ const dynamic_details = (req, res, next) => {
 }
 
 module.exports = {
-  dynamic_list, dynamic_details
+  dynamic_news_list, dynamic_list, dynamic_details
 }

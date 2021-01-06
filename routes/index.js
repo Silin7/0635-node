@@ -60,6 +60,7 @@ router.get('/message/sysmessage_details', messageModules.sysmessage_details);
 
 // 动态模块
 const dynamicModules = require('./compontent/dynamic_moudle')
+router.get('/dynamic/dynamic_news_list', dynamicModules.dynamic_news_list);
 router.get('/dynamic/dynamic_list', dynamicModules.dynamic_list);
 router.get('/dynamic/dynamic_details', dynamicModules.dynamic_details);
 
