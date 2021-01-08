@@ -20,6 +20,26 @@ const dynamic_news_list = (req, res, next) => {
   })
 }
 
+// 县市新闻详情
+const dynamic_news_details = (req, res, next) => {
+  let data = req.query
+  let sql = `SELECT * FROM \`news_module\` WHERE \`id\` = '${data.id}'`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success',
+        data: result[0]
+      })
+    }
+  })
+}
+
 // 动态列表
 const dynamic_list = (req, res, next) => {
   let sql = `SELECT * FROM \`square_dynamic_list\` WHERE 1`
@@ -68,5 +88,5 @@ const dynamic_details = (req, res, next) => {
 }
 
 module.exports = {
-  dynamic_news_list, dynamic_list, dynamic_details
+  dynamic_news_list, dynamic_news_details, dynamic_list, dynamic_details
 }

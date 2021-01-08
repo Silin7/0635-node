@@ -4,7 +4,7 @@
 
 * * *
 
-> admin_moudle
+> admin_moudle（权限模块）
 * * *
 + 新闻类型列表
 + 类型: GET
@@ -144,6 +144,15 @@
 
 * * *
 
+> scenicspotMoudle（历史模块）
+* * *
++ 县市历史详情
++ 类型: GET
++ 接口: /history/historical_evolution
++ 参数: id
+
+* * *
+
 > recipe_moudle（菜单模块）
 * * *
 + 菜肴分类
@@ -188,6 +197,16 @@
 * * *
 
 > dynamicModules（动态模块）
+* * *
++ 县市新闻列表
++ 类型: GET
++ 接口: /dynamic/dynamic_news_list
++ 参数: type_id
+* * *
++ 县市新闻详情
++ 类型: GET
++ 接口: /dynamic/dynamic_news_details
++ 参数: type_id
 * * *
 + 动态列表
 + 类型: GET

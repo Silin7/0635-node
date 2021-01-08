@@ -1,6 +1,6 @@
 const conn = require('./mySQL')
 
-// 动态列表
+// 县市历史详情
 const historical_evolution = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`historical_evolution\` WHERE \`id\` = ${data.id}`
