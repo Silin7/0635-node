@@ -3,7 +3,7 @@ const conn = require('./mySQL')
 // 县市新闻列表
 const dynamic_news_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT B.* FROM admin_city_type A INNER JOIN news_module B ON A.type_id = B.type_id WHERE A.type_id = '${data.type_id}'`
+  let sql = `SELECT B.* FROM admin_city_type a LEFT JOIN news_module b ON a.type_id = b.type_id WHERE a.type_id = '${data.type_id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
