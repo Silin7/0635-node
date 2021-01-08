@@ -4,7 +4,7 @@
 
 * * *
 
-> admin_moudle（权限模块）
+> admin_module（权限模块）
 * * *
 + 新闻类型列表
 + 类型: GET
@@ -18,7 +18,7 @@
 
 * * *
 
-> login_moudle（登录模块）
+> login_module（登录模块）
 * * *
 + 判断账号是否存在
 + 类型: GET
@@ -42,7 +42,7 @@
 
 * * *
 
-> mine_moudle（个人中心模块）
+> mine_module（个人中心模块）
 * * *
 + 获取个人信息
 + 类型: GET
@@ -76,7 +76,7 @@
 
 * * *
 
-> conversation_moudle（话题模块）
+> conversation_module（话题模块）
 * * *
 + 话题列表
 + 类型: GET
@@ -110,7 +110,7 @@
 
 * * *
 
-> scenicspotMoudle（景点模块）
+> scenicspotModule（景点模块）
 * * *
 + 景点列表
 + 类型: GET
@@ -144,7 +144,7 @@
 
 * * *
 
-> scenicspotMoudle（历史模块）
+> scenicspotModule（历史模块）
 * * *
 + 县市历史详情
 + 类型: GET
@@ -153,7 +153,21 @@
 
 * * *
 
-> recipe_moudle（菜单模块）
+> wallpaperModule（壁纸模块）
+* * *
++ 壁纸分类
++ 类型: GET
++ 接口: /wallpaper/wallpaper_type
++ 参数: 无
+* * *
++ 壁纸列表
++ 类型: GET
++ 接口: /wallpaper/wallpaper_list
++ 参数: type_id
+
+* * *
+
+> recipe_module（菜单模块）
 * * *
 + 菜肴分类
 + 类型: GET

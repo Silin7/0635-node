@@ -2,54 +2,58 @@ const express = require('express');
 const router = express.Router();
 
 // 权限模块
-const adminMoudle = require('./compontent/admin_module')
-router.get('/admin/admin_news_type', adminMoudle.admin_news_type);
-router.get('/admin/admin_city_type', adminMoudle.admin_city_type);
-
+const adminModule = require('./compontent/admin_module')
+router.get('/admin/admin_news_type', adminModule.admin_news_type);
+router.get('/admin/admin_city_type', adminModule.admin_city_type);
 
 // 注册，登录模块
-const loginMoudle = require('./compontent/login_module')
-router.get('/login/is_register', loginMoudle.is_register);
-router.post('/login/register_inster', loginMoudle.register_inster);
-router.post('/login/change_password', loginMoudle.change_password);
-router.post('/login/sign_in', loginMoudle.sign_in);
+const loginModule = require('./compontent/login_module')
+router.get('/login/is_register', loginModule.is_register);
+router.post('/login/register_inster', loginModule.register_inster);
+router.post('/login/change_password', loginModule.change_password);
+router.post('/login/sign_in', loginModule.sign_in);
 
 // 个人中心模块
-const mineMoudle = require('./compontent/mine_module')
-router.get('/mine/mine_info', mineMoudle.mine_info);
-router.post('/mine/update_mineInfo', mineMoudle.update_mineInfo);
-router.get('/mine/concerns_list', mineMoudle.concerns_list);
-router.post('/mine/is_follow_users', mineMoudle.is_follow_users);
-router.post('/mine/follow_users', mineMoudle.follow_users);
-router.post('/mine/cancel_users', mineMoudle.cancel_users);
+const mineModule = require('./compontent/mine_module')
+router.get('/mine/mine_info', mineModule.mine_info);
+router.post('/mine/update_mineInfo', mineModule.update_mineInfo);
+router.get('/mine/concerns_list', mineModule.concerns_list);
+router.post('/mine/is_follow_users', mineModule.is_follow_users);
+router.post('/mine/follow_users', mineModule.follow_users);
+router.post('/mine/cancel_users', mineModule.cancel_users);
 
 // 话题模块
-const conversationMoudle = require('./compontent/conversation_module')
-router.get('/conversation/conversation_list', conversationMoudle.conversation_list);
-router.get('/conversation/conversation_info', conversationMoudle.conversation_info);
-router.get('/conversation/mine_conversation_list', conversationMoudle.mine_conversation_list);
-router.post('/conversation/is_follow_conversation', conversationMoudle.is_follow_conversation);
-router.post('/conversation/follow_conversation', conversationMoudle.follow_conversation);
-router.post('/conversation/cancel_conversation', conversationMoudle.cancel_conversation);
+const conversationModule = require('./compontent/conversation_module')
+router.get('/conversation/conversation_list', conversationModule.conversation_list);
+router.get('/conversation/conversation_info', conversationModule.conversation_info);
+router.get('/conversation/mine_conversation_list', conversationModule.mine_conversation_list);
+router.post('/conversation/is_follow_conversation', conversationModule.is_follow_conversation);
+router.post('/conversation/follow_conversation', conversationModule.follow_conversation);
+router.post('/conversation/cancel_conversation', conversationModule.cancel_conversation);
 
 // 景点模块
-const scenicspotMoudle = require('./compontent/scenicspot_module')
-router.get('/scenicspot/scenicspot_list', scenicspotMoudle.scenicspot_list);
-router.get('/scenicspot/scenicspot_info', scenicspotMoudle.scenicspot_info);
-router.get('/scenicspot/mine_scenicspot_list', scenicspotMoudle.mine_scenicspot_list);
-router.post('/scenicspot/is_follow_scenicspot', scenicspotMoudle.is_follow_scenicspot);
-router.post('/scenicspot/follow_scenicspot', scenicspotMoudle.follow_scenicspot);
-router.post('/scenicspot/cancel_scenicspot', scenicspotMoudle.cancel_scenicspot);
+const scenicspotModule = require('./compontent/scenicspot_module')
+router.get('/scenicspot/scenicspot_list', scenicspotModule.scenicspot_list);
+router.get('/scenicspot/scenicspot_info', scenicspotModule.scenicspot_info);
+router.get('/scenicspot/mine_scenicspot_list', scenicspotModule.mine_scenicspot_list);
+router.post('/scenicspot/is_follow_scenicspot', scenicspotModule.is_follow_scenicspot);
+router.post('/scenicspot/follow_scenicspot', scenicspotModule.follow_scenicspot);
+router.post('/scenicspot/cancel_scenicspot', scenicspotModule.cancel_scenicspot);
 
 // 历史模块
 const historyModule = require('./compontent/history_module')
 router.get('/history/historical_evolution', historyModule.historical_evolution);
 
+// 壁纸模块
+const wallpaperModule = require('./compontent/wallpaper_module')
+router.get('/wallpaper/wallpaper_type', wallpaperModule.wallpaper_type);
+router.get('/wallpaper/wallpaper_list', wallpaperModule.wallpaper_list);
+
 // 菜单模块
-const recipeMoudle = require('./compontent/recipe_module')
-router.get('/recipe/recipe_catalogs', recipeMoudle.recipe_catalogs);
-router.get('/recipe/recipe_list', recipeMoudle.recipe_list);
-router.get('/recipe/recipe_detail', recipeMoudle.recipe_detail);
+const recipeModule = require('./compontent/recipe_module')
+router.get('/recipe/recipe_catalogs', recipeModule.recipe_catalogs);
+router.get('/recipe/recipe_list', recipeModule.recipe_list);
+router.get('/recipe/recipe_detail', recipeModule.recipe_detail);
 
 // 消息模块
 const messageModules = require('./compontent/message_module')
