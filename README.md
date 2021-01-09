@@ -111,6 +111,23 @@
 
 * * *
 
+> record_module（记录模块）
+* * *
++ 日记列表
++ 类型: GET
++ 接口: /record/diary_list
++ 参数: user_id
+* * *
++ 日记详情
++ 类型: GET
++ 接口: /record/diary_details
++ 参数: id
+* * *
++ 写日记
++ 类型: POST
++ 接口: /record/keep_diary
++ 参数: diary_date, diary_weather, diary_content
+
 > scenicspotModule（景点模块）
 * * *
 + 景点列表

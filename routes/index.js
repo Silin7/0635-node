@@ -31,6 +31,12 @@ router.post('/conversation/is_follow_conversation', conversationModule.is_follow
 router.post('/conversation/follow_conversation', conversationModule.follow_conversation);
 router.post('/conversation/cancel_conversation', conversationModule.cancel_conversation);
 
+// 记录模块
+const recordModule = require('./compontent/record_module')
+router.get('/record/diary_list', recordModule.diary_list);
+router.get('/record/diary_details', recordModule.diary_details);
+router.post('/record/keep_diary', recordModule.keep_diary);
+
 // 景点模块
 const scenicspotModule = require('./compontent/scenicspot_module')
 router.get('/scenicspot/scenicspot_list', scenicspotModule.scenicspot_list);
