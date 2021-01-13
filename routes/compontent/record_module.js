@@ -61,7 +61,7 @@ const keep_diary = (req, res, next) => {
 
 // 删除日记
 const delete_diary = (req, res, next) => {
-  let data = req.body
+  let data = req.query
   let sql = `DELETE FROM \`diary_module\` WHERE \`diary_module\`.\`id\` = ${data.id}`
   conn().query(sql, function (err, result) {
     if(err){
