@@ -127,6 +127,11 @@
 + 类型: POST
 + 接口: /record/keep_diary
 + 参数: diary_date, diary_weather, diary_content
+* * *
++ 删除日记
++ 类型: GET
++ 接口: /record/delete_diary
++ 参数: id
 
 > scenicspotModule（景点模块）
 * * *

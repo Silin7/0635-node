@@ -4,7 +4,7 @@
   "author": "silin7",
   "private": true,
   "scripts": {
-        "start": "pm2 start ./bin/www"
+    "start": "pm2 start ./bin/www"
   },
   "license": "ISC",
   "dependencies": {

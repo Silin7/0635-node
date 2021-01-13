@@ -36,6 +36,7 @@ const recordModule = require('./compontent/record_module')
 router.get('/record/diary_list', recordModule.diary_list);
 router.get('/record/diary_details', recordModule.diary_details);
 router.post('/record/keep_diary', recordModule.keep_diary);
+router.post('/record/delete_diary', recordModule.delete_diary);
 
 // 景点模块
 const scenicspotModule = require('./compontent/scenicspot_module')

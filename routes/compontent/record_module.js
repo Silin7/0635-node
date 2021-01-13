@@ -43,7 +43,6 @@ const diary_details = (req, res, next) => {
 // 写日记
 const keep_diary = (req, res, next) => {
   let data = req.body
-  console.log(data)
   let sql = `INSERT INTO \`diary_module\` (\`id\`, \`user_id\`, \`diary_date\`, \`diary_weather\`, \`diary_content\`) VALUES (NULL, '${data.user_id}', '${data.diary_date}', '${data.diary_weather}', '${data.diary_content}');`
   conn().query(sql, function (err, result) {
     if(err){
@@ -60,8 +59,25 @@ const keep_diary = (req, res, next) => {
   })
 }
 
-// 
+// 删除日记
+const delete_diary = (req, res, next) => {
+  let data = req.body
+  let sql = `DELETE FROM \`diary_module\` WHERE \`diary_module\`.\`id\` = ${data.id}`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
 
 module.exports = {
-  diary_list, diary_details, keep_diary
+  diary_list, diary_details, keep_diary, delete_diary
 }
