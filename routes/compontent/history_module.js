@@ -1,9 +1,9 @@
 const conn = require('./mySQL')
 
 // 县市历史详情
-const historical_evolution = (req, res, next) => {
+const local_historical = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`historical_evolution\` WHERE \`id\` = ${data.id}`
+  let sql = `SELECT * FROM \`local_historical\` WHERE \`id\` = ${data.id}`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -21,5 +21,5 @@ const historical_evolution = (req, res, next) => {
 }
 
 module.exports = {
-  historical_evolution
+  local_historical
 }

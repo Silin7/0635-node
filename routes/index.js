@@ -33,7 +33,7 @@ router.post('/conversation/cancel_conversation', conversationModule.cancel_conve
 
 // 记录模块
 const recordModule = require('./compontent/record_module')
-router.get('/record/diary_list', recordModule.diary_list);
+router.get('/record/record_diary', recordModule.record_diary);
 router.get('/record/diary_details', recordModule.diary_details);
 router.post('/record/keep_diary', recordModule.keep_diary);
 router.get('/record/delete_diary', recordModule.delete_diary);
@@ -49,7 +49,7 @@ router.post('/scenicspot/cancel_scenicspot', scenicspotModule.cancel_scenicspot)
 
 // 历史模块
 const historyModule = require('./compontent/history_module')
-router.get('/history/historical_evolution', historyModule.historical_evolution);
+router.get('/history/local_historical', historyModule.local_historical);
 
 // 壁纸模块
 const wallpaperModule = require('./compontent/wallpaper_module')

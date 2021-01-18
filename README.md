@@ -115,7 +115,7 @@
 * * *
 + 日记列表
 + 类型: GET
-+ 接口: /record/diary_list
++ 接口: /record/record_diary
 + 参数: user_id
 * * *
 + 日记详情
@@ -171,7 +171,7 @@
 * * *
 + 县市历史详情
 + 类型: GET
-+ 接口: /history/historical_evolution
++ 接口: /history/local_historical
 + 参数: id
 
 * * *

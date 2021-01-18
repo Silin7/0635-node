@@ -3,7 +3,7 @@ const conn = require('./mySQL')
 // 县市新闻列表
 const dynamic_news_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT B.* FROM admin_city_type a LEFT JOIN news_module b ON a.type_id = b.type_id WHERE a.type_id = '${data.type_id}'`
+  let sql = `SELECT B.* FROM admin_city_type a LEFT JOIN local_news b ON a.type_id = b.type_id WHERE a.type_id = '${data.type_id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -23,7 +23,7 @@ const dynamic_news_list = (req, res, next) => {
 // 县市新闻详情
 const dynamic_news_details = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`news_module\` WHERE \`id\` = '${data.id}'`
+  let sql = `SELECT * FROM \`local_news\` WHERE \`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -42,7 +42,7 @@ const dynamic_news_details = (req, res, next) => {
 
 // 动态列表
 const dynamic_list = (req, res, next) => {
-  let sql = `SELECT * FROM \`square_dynamic_list\` WHERE 1`
+  let sql = `SELECT * FROM \`local_dynamic\` WHERE 1`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -62,7 +62,7 @@ const dynamic_list = (req, res, next) => {
 // 动态详情
 const dynamic_details = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`square_dynamic_list\` WHERE \`id\` = '${data.id}'`
+  let sql = `SELECT * FROM \`local_dynamic\` WHERE \`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({

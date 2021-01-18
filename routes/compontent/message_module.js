@@ -3,7 +3,7 @@ const conn = require('./mySQL')
 // 私信消息列表
 const permessage_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`personal_message_list\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
+  let sql = `SELECT * FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -23,7 +23,7 @@ const permessage_list = (req, res, next) => {
 // 私信消息详情
 const permessage_details = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`personal_message_list\` WHERE \`id\` = '${data.id}'`
+  let sql = `SELECT * FROM \`message_personal\` WHERE \`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -51,7 +51,7 @@ const permessage_details = (req, res, next) => {
 // 系统消息列表
 const sysmessage_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`system_message_list\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
+  let sql = `SELECT * FROM \`message_system\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -71,7 +71,7 @@ const sysmessage_list = (req, res, next) => {
 // 系统消息详情
 const sysmessage_details = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`system_message_list\` WHERE \`id\` = '${data.id}'`
+  let sql = `SELECT * FROM \`message_system\` WHERE \`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
