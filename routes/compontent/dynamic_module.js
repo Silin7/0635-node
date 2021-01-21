@@ -3,7 +3,8 @@ const conn = require('./mySQL')
 // 县市新闻列表
 const dynamic_news_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT B.* FROM admin_city_type a LEFT JOIN local_news b ON a.type_id = b.type_id WHERE a.type_id = '${data.type_id}'`
+  let sql = `SELECT b.* FROM admin_city_type a INNER JOIN local_news b ON a.type_id = b.type_id WHERE a.type_id = '${data.type_id}'`
+	console.log(sql)
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -24,6 +25,7 @@ const dynamic_news_list = (req, res, next) => {
 const dynamic_news_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`local_news\` WHERE \`id\` = '${data.id}'`
+	// let sql = `SELECT * FROM \`local_news\` WHERE \`id\` = '2'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({

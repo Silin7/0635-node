@@ -6,6 +6,11 @@ const adminModule = require('./compontent/admin_module')
 router.get('/admin/admin_news_type', adminModule.admin_news_type);
 router.get('/admin/admin_city_type', adminModule.admin_city_type);
 
+// 相亲模块
+const marryModule = require('./compontent/marry_module')
+router.get('/marry/marry_list', marryModule.marry_list);
+router.get('/marry/marry_details', marryModule.marry_details);
+
 // 注册，登录模块
 const loginModule = require('./compontent/login_module')
 router.get('/login/is_register', loginModule.is_register);
