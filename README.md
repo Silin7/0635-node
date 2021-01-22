@@ -68,7 +68,8 @@
 + 关注此用户
 + 类型: POST
 + 接口: /mine/follow_users
-+ 参数: followers_id, watched_id, watched_nickName, watched_avatarUrl, watched_signature
++ 参数: followers_id, watched_id, nick_name, gender, photo, introduce
++ 返回值：已关注返回：1，未关注返回：0
 * * *
 + 取消关注此用户
 + 类型: POST
@@ -220,6 +221,16 @@
 + 类型: GET
 + 接口: /message/permessage_details
 + 参数: id
+* * *
++ 确认是否发过私信
++ 类型: GET
++ 接口: /message/is_permessage
++ 参数: receiver_id, sender_id, message_type
+* * *
+* + 发送私信消息
++ 类型: POST
++ 接口: /message/permessage_send
++ 参数: receiver_id, sender_id, sender_name, sender_img, message_title, message_content, message_type
 * * *
 + 系统消息列表
 + 类型: GET

@@ -60,9 +60,9 @@ const concerns_list = (req, res, next) => {
   })
 }
 
-// 是否关注此用户
+// 是否关注此用户，已关注返回：1，未关注返回：0
 const is_follow_users = (req, res, next) => {
-  let data = req.body
+  let data = req.query
   let sql = `SELECT * FROM \`personnel_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`watched_id\` = '${data.watched_id}'`
   conn().query(sql, function (err, result) {
     if(err){
@@ -91,8 +91,8 @@ const is_follow_users = (req, res, next) => {
 // 关注此用户
 const follow_users = (req, res, next) => {
   let data = req.body
-  let sql = 'INSERT INTO `personnel_relations` (`id`, `followers_id`, `watched_id`, `watched_nickName`, `watched_avatarUrl`, `watched_signature`) VALUES (NULL, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.followers_id, data.watched_id, data.watched_nickName, data.watched_avatarUrl, data.watched_signature]
+  let sql = 'INSERT INTO `personnel_relations` (`id`, `followers_id`, `watched_id`, `nick_name`, `gender`, `photo`, `introduce`) VALUES (NULL, ?, ?, ?, ?, ?, ?)'
+  let sqlParams = [data.followers_id, data.watched_id, data.nick_name, data.gender, data.photo, data.introduce]
   conn().query(sql, sqlParams, function (err, result) {
     if(err){
       res.json({
@@ -110,7 +110,7 @@ const follow_users = (req, res, next) => {
 
 // 取消关注此用户
 const cancel_users = (req, res, next) => {
-  let data = req.body
+  let data = req.query
   let sql = `DELETE FROM \`personnel_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`watched_id\` = '${data.watched_id}'`
   conn().query(sql, function (err, result) {
     if(err){

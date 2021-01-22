@@ -43,7 +43,54 @@ const permessage_details = (req, res, next) => {
           msg: '消息为空'
         })
       }
-      
+    }
+  })
+}
+
+// 确认是否发过私信
+const is_permessage = (req, res, next) => {
+	let data = req.query
+	let sql = `SELECT * FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' AND \`sender_id\` = '${data.sender_id}' AND \`message_type\` = '${data.message_type}'`
+	conn().query(sql, function (err, result) {
+	  if(err){
+	    res.json({
+	      code: 500,
+	      msg: err
+	    })
+	  } else {
+			if (result.length > 0) {
+			  res.json({
+			    code: 0,
+			    msg: 'success',
+			    type: '1'
+			  })
+			} else {
+			  res.json({
+			    code: 0,
+			    msg: 'success',
+			    type: '0'
+			  })
+			}
+	  }
+	})
+}
+
+// 发私信
+const permessage_send =  (req, res, next) => {
+  let data = req.body
+	let sql = 'INSERT INTO `message_personal` (`id`, `receiver_id`, `sender_id`, `sender_name`, `sender_img`, `message_title`, `message_content`, `message_type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)'
+	let sqlParams = [data.receiver_id, data.sender_id, data.sender_name, data.sender_img, data.message_title, data.message_content, data.message_type]
+	conn().query(sql, sqlParams, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
     }
   })
 }
@@ -97,5 +144,5 @@ const sysmessage_details = (req, res, next) => {
 }
 
 module.exports = {
-  permessage_list, permessage_details, sysmessage_list, sysmessage_details
+  permessage_list, permessage_details, is_permessage, permessage_send, sysmessage_list, sysmessage_details
 }
