@@ -60,50 +60,42 @@ const concerns_list = (req, res, next) => {
   })
 }
 
-// 是否关注此用户，已关注返回：1，未关注返回：0
-const is_follow_users = (req, res, next) => {
-  let data = req.query
-  let sql = `SELECT * FROM \`personnel_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`watched_id\` = '${data.watched_id}'`
-  conn().query(sql, function (err, result) {
-    if(err){
+// 关注此用户（0：关注成功；1：已经关注过了）
+const follow_users = (req, res, next) => {
+  let data = req.body
+  let sql1 = `SELECT COUNT(*) FROM \`personnel_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`watched_id\` = '${data.watched_id}'`
+  let sql2 = 'INSERT INTO `personnel_relations` (`id`, `followers_id`, `watched_id`, `nick_name`, `photo`, `introduce`) VALUES (NULL, ?, ?, ?, ?, ?)'
+  let sqlParams = [data.followers_id, data.watched_id, data.nick_name, data.photo, data.introduce]
+  conn().query(sql1, function (err1, result1) {
+    if(err1){
       res.json({
         code: 500,
-        msg: err
+        msg: err1
       })
     } else {
-      if (result.length > 0) {
+      let count = result1[0][`COUNT(*)`]
+      if (Number(count) > 0) {
         res.json({
           code: 0,
           msg: 'success',
           type: '1'
         })
       } else {
-        res.json({
-          code: 0,
-          msg: 'success',
-          type: '0'
+        conn().query(sql2, sqlParams, function (err2, result2) {
+          if(err2){
+            res.json({
+              code: 500,
+              msg: err2
+            })
+          } else {
+            res.json({
+              code: 0,
+              msg: 'success',
+              type: '0'
+            })
+          }
         })
       }
-    }
-  })
-}
-
-// 关注此用户
-const follow_users = (req, res, next) => {
-  let data = req.body
-  let sql = 'INSERT INTO `personnel_relations` (`id`, `followers_id`, `watched_id`, `nick_name`, `gender`, `photo`, `introduce`) VALUES (NULL, ?, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.followers_id, data.watched_id, data.nick_name, data.gender, data.photo, data.introduce]
-  conn().query(sql, sqlParams, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success'
-      })
     }
   })
 }
@@ -128,5 +120,5 @@ const cancel_users = (req, res, next) => {
 }
 
 module.exports = {
-  mine_info, update_mineInfo, concerns_list, is_follow_users, follow_users, cancel_users
+  mine_info, update_mineInfo, concerns_list, follow_users, cancel_users
 }

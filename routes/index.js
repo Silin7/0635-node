@@ -23,7 +23,6 @@ const mineModule = require('./compontent/mine_module')
 router.get('/mine/mine_info', mineModule.mine_info);
 router.post('/mine/update_mineInfo', mineModule.update_mineInfo);
 router.get('/mine/concerns_list', mineModule.concerns_list);
-router.get('/mine/is_follow_users', mineModule.is_follow_users);
 router.post('/mine/follow_users', mineModule.follow_users);
 router.get('/mine/cancel_users', mineModule.cancel_users);
 
@@ -71,7 +70,6 @@ router.get('/recipe/recipe_detail', recipeModule.recipe_detail);
 const messageModules = require('./compontent/message_module')
 router.get('/message/permessage_list', messageModules.permessage_list);
 router.get('/message/permessage_details', messageModules.permessage_details);
-router.get('/message/is_permessage', messageModules.is_permessage);
 router.post('/message/permessage_send', messageModules.permessage_send);
 router.get('/message/sysmessage_list', messageModules.sysmessage_list);
 router.get('/message/sysmessage_details', messageModules.sysmessage_details);

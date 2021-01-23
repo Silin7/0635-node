@@ -74,16 +74,11 @@
 + 接口: /mine/concerns_list
 + 参数: followers_id
 * * *
-+ 是否关注此用户
-+ 类型: POST
-+ 接口: /mine/is_follow_users
-+ 参数: followers_id, watched_id
-* * *
 + 关注此用户
 + 类型: POST
 + 接口: /mine/follow_users
-+ 参数: followers_id, watched_id, nick_name, gender, photo, introduce
-+ 返回值：已关注返回：1，未关注返回：0
++ 参数: followers_id, watched_id, nick_name, photo, introduce
++ 返回值：关注成功返回：0，已关注返回：1
 * * *
 + 取消关注此用户
 + 类型: POST
@@ -235,11 +230,6 @@
 + 类型: GET
 + 接口: /message/permessage_details
 + 参数: id
-* * *
-+ 确认是否发过私信
-+ 类型: GET
-+ 接口: /message/is_permessage
-+ 参数: receiver_id, sender_id, message_type
 * * *
 * + 发送私信消息
 + 类型: POST
