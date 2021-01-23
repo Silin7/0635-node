@@ -19,6 +19,20 @@
 
 * * *
 
+> marry_module（相亲模块）
+* * *
++ 新闻类型列表
++ 类型: GET
++ 接口: /marry/marry_list
++ 参数: page, limit, gender, marry, friends, is_top
+* * *
++ 县市类型列表
++ 类型: GET
++ 接口: /marry/marry_details
++ 参数: user_id
+
+* * *
+
 > login_module（登录模块）
 * * *
 + 判断账号是否存在
