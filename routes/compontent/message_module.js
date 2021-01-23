@@ -3,18 +3,34 @@ const conn = require('./mySQL')
 // 私信消息列表
 const permessage_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
-  conn().query(sql, function (err, result) {
-    if(err){
+  let slimit = (data.page - 1) * data.limit
+  let elimit = (data.page) * data.limit
+  let sql1 = `SELECT COUNT(*) FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
+  let sql2 = `SELECT * FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL LIMIT ${slimit},${elimit}`
+  conn().query(sql1, function (err1, result1) {
+    if(err1){
       res.json({
         code: 500,
-        msg: err
+        msg: err1
       })
     } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        data: result
+      let totalCount = result1[0][`COUNT(*)`]
+      conn().query(sql2, function (err2, result2) {
+        if(err2){
+          res.json({
+            code: 500,
+            msg: err2
+          })
+        } else {
+          res.json({
+            code: 0,
+            msg: 'success',
+            page: data.page,
+            limit: data.limit,
+            totalCount: totalCount,
+            data: result2
+          })
+        }
       })
     }
   })
@@ -90,18 +106,34 @@ const permessage_send = (req, res, next) => {
 // 系统消息列表
 const sysmessage_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`message_system\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
-  conn().query(sql, function (err, result) {
-    if(err){
+  let slimit = (data.page - 1) * data.limit
+  let elimit = (data.page) * data.limit
+  let sql1 = `SELECT COUNT(*) FROM \`message_system\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
+  let sql2 = `SELECT * FROM \`message_system\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL LIMIT ${slimit},${elimit}`
+  conn().query(sql1, function (err1, result1) {
+    if(err1){
       res.json({
         code: 500,
-        msg: err
+        msg: err1
       })
     } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        data: result
+      let totalCount = result1[0][`COUNT(*)`]
+      conn().query(sql2, function (err2, result2) {
+        if(err2){
+          res.json({
+            code: 500,
+            msg: err2
+          })
+        } else {
+          res.json({
+            code: 0,
+            msg: 'success',
+            page: data.page,
+            limit: data.limit,
+            totalCount: totalCount,
+            data: result2
+          })
+        }
       })
     }
   })
