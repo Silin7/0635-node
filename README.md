@@ -148,7 +148,7 @@
 + 景点列表
 + 类型: GET
 + 接口: /scenicspot/scenicspot_list
-+ 参数: page, limit, scenicSpot_name, scenicSpot_place
++ 参数: page, limit, scenicspot_name, scenicspot_place
 * * *
 + 景点详情
 + 类型: GET
@@ -163,17 +163,17 @@
 + 是否关注此景点
 + 类型: POST
 + 接口: /scenicspot/is_follow_scenicspot
-+ 参数: followers_id, scenicSpot_id
++ 参数: followers_id, scenicspot_id
 * * *
 + 关注此景点
 + 类型: POST
 + 接口: /scenicspot/follow_scenicspot
-+ 参数: followers_id, scenicSpot_id, scenicSpot_name, scenicSpot_img
++ 参数: followers_id, scenicspot_id, scenicspot_name, scenicspot_img
 * * *
 + 取消关注此景点
 + 类型: POST
 + 接口: /scenicspot/cancel_scenicspot
-+ 参数: followers_id, scenicSpot_id
++ 参数: followers_id, scenicspot_id
 
 * * *
 

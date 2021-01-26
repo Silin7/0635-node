@@ -8,16 +8,16 @@ const scenicspot_list = (req, res, next) => {
   let sql1 = 'SELECT * FROM `scenicspot_list`'
   let sql2 = 'SELECT COUNT(*) FROM `scenicspot_list`'
   let scenicspot_position = ` WHERE \`scenicspot_position\` = '${data.scenicspot_position}'`
-  let scenicSpot_name = ` AND \`scenicSpot_name\` Like '%${data.scenicSpot_name}%'`
-  let scenicSpot_limit = ` LIMIT ${slimit},${elimit}`
+  let scenicspot_name = ` AND \`scenicspot_name\` Like '%${data.scenicspot_name}%'`
+  let scenicspot_limit = ` LIMIT ${slimit},${elimit}`
   if (data.scenicspot_position) {
     sql1 = sql1 + scenicspot_position
     sql2 = sql2 + `WHERE \`scenicspot_position\` = '${data.scenicspot_position}'`
   }
-  if (data.scenicSpot_name) {
-    sql1 = sql1 + scenicSpot_name
+  if (data.scenicspot_name) {
+    sql1 = sql1 + scenicspot_name
   }
-  sql1 = sql1 + scenicSpot_limit
+  sql1 = sql1 + scenicspot_limit
   conn().query(sql2, function (err1, result1) {
     if(err1){
       res.json({
@@ -70,7 +70,7 @@ const scenicspot_info = (req, res, next) => {
 // 我关注的景点列表
 const mine_scenicspot_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`scenicSpot_id\` = '${data.scenicSpot_id}' AND \`followers_id\` = '${data.followers_id}'`
+  let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -90,7 +90,7 @@ const mine_scenicspot_list = (req, res, next) => {
 // 是否关注此景点
 const is_follow_scenicspot = (req, res, next) => {
   let data = req.body
-  let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`scenicSpot_id\` = '${data.scenicSpot_id}' AND \`followers_id\` = '${data.followers_id}'`
+  let sql = `SELECT * FROM \`scenicspot_relations\` WHERE \`scenicspot_id\` = '${data.scenicspot_id}' AND \`followers_id\` = '${data.followers_id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -118,8 +118,8 @@ const is_follow_scenicspot = (req, res, next) => {
 // 关注此景点
 const follow_scenicspot = (req, res, next) => {
   let data = req.body
-  let sql = 'INSERT INTO `scenicspot_relations` (`id`, `followers_id`, `scenicSpot_id`, `scenicSpot_name`, `scenicSpot_img`) VALUES (NULL, ?, ?, ?, ?)'
-  let sqlParams = [data.followers_id, data.scenicSpot_id, data.scenicSpot_name, data.scenicSpot_img]
+  let sql = 'INSERT INTO `scenicspot_relations` (`id`, `followers_id`, `scenicspot_id`, `scenicspot_name`, `scenicspot_img`) VALUES (NULL, ?, ?, ?, ?)'
+  let sqlParams = [data.followers_id, data.scenicspot_id, data.scenicspot_name, data.scenicspot_img]
   conn().query(sql, sqlParams, function (err, result) {
     if(err){
       res.json({
@@ -138,7 +138,7 @@ const follow_scenicspot = (req, res, next) => {
 // 取消关注此景点
 const cancel_scenicspot = (req, res, next) => {
   let data = req.body
-  let sql = `DELETE FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`scenicSpot_id\` = '${data.scenicSpot_id}'`
+  let sql = `DELETE FROM \`scenicspot_relations\` WHERE \`followers_id\` = '${data.followers_id}' AND \`scenicspot_id\` = '${data.scenicspot_id}'`
   console.log(sql)
   conn().query(sql, function (err, result) {
     if(err){
