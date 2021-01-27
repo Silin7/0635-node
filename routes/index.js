@@ -71,6 +71,7 @@ const messageModules = require('./compontent/message_module')
 router.get('/message/permessage_list', messageModules.permessage_list);
 router.get('/message/permessage_details', messageModules.permessage_details);
 router.post('/message/permessage_send', messageModules.permessage_send);
+router.get('/message/permessage_delete', messageModules.permessage_delete);
 router.get('/message/sysmessage_list', messageModules.sysmessage_list);
 router.get('/message/sysmessage_details', messageModules.sysmessage_details);
 

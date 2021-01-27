@@ -236,6 +236,11 @@
 + 接口: /message/permessage_send
 + 参数: receiver_id, sender_id, sender_name, sender_img, message_title, message_content, message_type
 * * *
++ 删除私信消息
++ 类型: GET
++ 接口: /message/permessage_delete
++ 参数: id
+* * *
 + 系统消息列表
 + 类型: GET
 + 接口: /message/sysmessage_list

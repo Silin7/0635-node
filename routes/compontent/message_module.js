@@ -103,6 +103,25 @@ const permessage_send = (req, res, next) => {
   })
 }
 
+// 删除私信
+const permessage_delete = (req, res, next) => {
+  let data = req.query
+  let sql1 = `DELETE FROM \`message_personal\` WHERE \`message_personal\`.\`id\` = ${data.id}`
+  conn().query(sql1, function (err1, result1) {
+    if(err1){
+      res.json({
+        code: 500,
+        msg: err1
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
+
 // 系统消息列表
 const sysmessage_list = (req, res, next) => {
   let data = req.query
@@ -168,5 +187,5 @@ const sysmessage_details = (req, res, next) => {
 }
 
 module.exports = {
-  permessage_list, permessage_details, permessage_send, sysmessage_list, sysmessage_details
+  permessage_list, permessage_details, permessage_send, permessage_delete, sysmessage_list, sysmessage_details
 }
