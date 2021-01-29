@@ -3,7 +3,7 @@ const conn = require('./mySQL')
 // 县市历史详情
 const local_historical = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`local_historical\` WHERE \`id\` = ${data.id}`
+  let sql = `SELECT * FROM \`local_historical\` WHERE \`city_id\` = ${data.city_id}`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({

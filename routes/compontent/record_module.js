@@ -3,7 +3,8 @@ const conn = require('./mySQL')
 // 日记列表
 const record_diary = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`record_diary\` WHERE \`user_id\` = '${data.user_id}' ORDER BY \`record_diary\`.\`creat_time\` DESC`
+  let sql = `SELECT * FROM \`record_diary\` WHERE \`user_id\` = '${data.user_id}' ORDER BY \`record_diary\`.\`create_time\` DESC`
+	console.log(sql)
   conn().query(sql, function (err, result) {
     if(err){
       res.json({

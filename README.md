@@ -182,7 +182,7 @@
 + 县市历史详情
 + 类型: GET
 + 接口: /history/local_historical
-+ 参数: id
++ 参数: city_id
 
 * * *
 
