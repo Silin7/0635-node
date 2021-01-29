@@ -6,6 +6,11 @@ const adminModule = require('./compontent/admin_module')
 router.get('/admin/admin_news_type', adminModule.admin_news_type);
 router.get('/admin/admin_city_type', adminModule.admin_city_type);
 
+// 特产模块
+const specialtyModule = require('./compontent/specialty_module')
+router.get('/specialty/specialty_list', specialtyModule.specialty_list);
+router.get('/specialty/specialty_details', specialtyModule.specialty_details);
+
 // 相亲模块
 const marryModule = require('./compontent/marry_module')
 router.get('/marry/marry_list', marryModule.marry_list);

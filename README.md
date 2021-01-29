@@ -143,6 +143,22 @@
 + 接口: /record/delete_diary
 + 参数: id
 
+* * *
+
+> specialtyModule（特产模块）
+* * *
++ 特产列表
++ 类型: GET
++ 接口: /specialty/specialty_list
++ 参数: 无
++ * * *
++ 特产详情
++ 类型: GET
++ 接口: /specialty/specialty_details
++ 参数: id
+
+* * *
+
 > scenicspotModule（景点模块）
 * * *
 + 景点列表
