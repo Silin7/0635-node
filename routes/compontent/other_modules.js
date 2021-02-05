@@ -115,6 +115,16 @@ const aim_mobile = (req, res) => {
   })
 }
 
+// 精神小伙社会语录
+const jsxh_quotations = (req, res) => {
+  let query = Object.assign({}, req.query, req.body)
+  api.jsxh_quotations(query, request).then(answer => {
+    res.status(answer.status).send(answer.body)
+  }).catch(answer => {
+    res.status(answer.status).send(answer.body)
+  })
+}
+
 module.exports = {
-  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate, rubbish, aim_mobile
+  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate, rubbish, aim_mobile, jsxh_quotations
 }

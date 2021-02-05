@@ -97,6 +97,15 @@ const aim_mobile = (query, request) => {
   )
 }
 
+// 精神小伙社会语录
+const jsxh_quotations = (query, request) => {
+  return request(
+    'GET',
+    `https://api.66mz8.com/api/social.php?format=json`,
+    {},
+  )
+}
+
 module.exports = {
-  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate, rubbish, aim_mobile
+  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate, rubbish, aim_mobile, jsxh_quotations
 }

@@ -100,5 +100,6 @@ router.get('/other/girl_random', otherModules.girl_random);
 router.get('/other/translate', otherModules.translate);
 router.get('/other/rubbish', otherModules.rubbish);
 router.get('/other/aim_mobile', otherModules.aim_mobile);
+router.get('/other/jsxh_quotations', otherModules.jsxh_quotations);
 
 module.exports = router;
