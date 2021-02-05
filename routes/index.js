@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-// 权限模块
-const adminModule = require('./compontent/admin_module')
-router.get('/admin/admin_news_type', adminModule.admin_news_type);
-router.get('/admin/admin_city_type', adminModule.admin_city_type);
+// 类别模块
+const classificationModule = require('./compontent/classification_module.js')
+router.get('/classification/classification_news', classificationModule.classification_news);
+router.get('/classification/classification_city', classificationModule.classification_city);
 
 // 特产模块
 const specialtyModule = require('./compontent/specialty_module')

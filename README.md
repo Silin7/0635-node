@@ -5,16 +5,16 @@
 
 * * *
 
-> admin_module（权限模块）
+> classification_module（类别模块）
 * * *
 + 新闻类型列表
 + 类型: GET
-+ 接口: /admin/admin_news_type
++ 接口: /classification/classification_news
 + 参数: 无
 * * *
 + 县市类型列表
 + 类型: GET
-+ 接口: /admin/admin_city_type
++ 接口: /classification/classification_city
 + 参数: 无
 
 * * *
