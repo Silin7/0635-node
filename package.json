@@ -4,8 +4,8 @@
   "author": "silin7",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "start2": "pm2 start ./bin/www --name birch-forest-node"
+    "start": "pm2 start ./bin/www --name birch-forest-node",
+    "start2": "nodemon ./bin/www"
   },
   "license": "ISC",
   "dependencies": {

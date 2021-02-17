@@ -202,16 +202,16 @@
 
 * * *
 
-> wallpaperModule（壁纸模块）
+> pictureModule（图片模块）
 * * *
-+ 壁纸分类
++ 头像系列
 + 类型: GET
-+ 接口: /wallpaper/wallpaper_type
++ 接口: /picture/wallportrait_series
 + 参数: 无
 * * *
-+ 壁纸列表
++ 头像列表
 + 类型: GET
-+ 接口: /wallpaper/wallpaper_list
++ 接口: /picture/wallportrait_list
 + 参数: type_id
 
 * * *

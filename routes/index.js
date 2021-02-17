@@ -60,10 +60,10 @@ router.post('/scenicspot/cancel_scenicspot', scenicspotModule.cancel_scenicspot)
 const historyModule = require('./compontent/history_module')
 router.get('/history/local_historical', historyModule.local_historical);
 
-// 壁纸模块
-const wallpaperModule = require('./compontent/wallpaper_module')
-router.get('/wallpaper/wallpaper_type', wallpaperModule.wallpaper_type);
-router.get('/wallpaper/wallpaper_list', wallpaperModule.wallpaper_list);
+// 图片模块
+const pictureModule = require('./compontent/picture_module')
+router.get('/picture/wallportrait_series', pictureModule.wallportrait_series);
+router.get('/picture/wallportrait_list', pictureModule.wallportrait_list);
 
 // 菜单模块
 const recipeModule = require('./compontent/recipe_module')
