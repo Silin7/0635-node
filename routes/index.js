@@ -64,6 +64,8 @@ router.get('/history/local_historical', historyModule.local_historical);
 const pictureModule = require('./compontent/picture_module')
 router.get('/picture/wallportrait_series', pictureModule.wallportrait_series);
 router.get('/picture/wallportrait_list', pictureModule.wallportrait_list);
+router.get('/picture/wallpaper_series', pictureModule.wallpaper_series);
+router.get('/picture/wallpaper_list', pictureModule.wallpaper_list);
 
 // 菜单模块
 const recipeModule = require('./compontent/recipe_module')

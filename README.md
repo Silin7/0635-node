@@ -207,12 +207,22 @@
 + 头像系列
 + 类型: GET
 + 接口: /picture/wallportrait_series
-+ 参数: 无
++ 参数: type_id, page, limit
 * * *
 + 头像列表
 + 类型: GET
 + 接口: /picture/wallportrait_list
-+ 参数: type_id
++ 参数: series_id, page, limit
+* * *
++ 壁纸系列
++ 类型: GET
++ 接口: /picture/wallpaper_series
++ 参数: type_id, page, limit
+* * *
++ 壁纸列表
++ 类型: GET
++ 接口: /picture/wallpaper_list
++ 参数: series_id, page, limit
 
 * * *
 
