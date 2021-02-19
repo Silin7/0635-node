@@ -202,30 +202,6 @@
 
 * * *
 
-> pictureModule（图片模块）
-* * *
-+ 头像系列
-+ 类型: GET
-+ 接口: /picture/wallportrait_series
-+ 参数: type_id, page, limit
-* * *
-+ 头像列表
-+ 类型: GET
-+ 接口: /picture/wallportrait_list
-+ 参数: series_id, page, limit
-* * *
-+ 壁纸系列
-+ 类型: GET
-+ 接口: /picture/wallpaper_series
-+ 参数: type_id, page, limit
-* * *
-+ 壁纸列表
-+ 类型: GET
-+ 接口: /picture/wallpaper_list
-+ 参数: series_id, page, limit
-
-* * *
-
 > recipe_module（菜单模块）
 * * *
 + 菜肴分类
@@ -357,3 +333,32 @@
 + 类型: GET
 + 接口: /other/rubbish
 + 参数: name
+
+* * *
+
+> pictureModule（图片模块）
+
+* * *
++ 头像列表
++ 类型: GET
++ 接口: /picture/wallportrait_list
++ 参数: series_id, page, limit
+* * *
++ 壁纸系列
++ 类型: GET
++ 接口: /picture/wallpaper_series
++ 参数: type_id, page, limit
+* * *
++ 壁纸列表
++ 类型: GET
++ 接口: /picture/wallpaper_list
++ 参数: series_id, page, limit
+
+* * *
+
+> happyModule（拯救不开心模块）
+* * *
++ 头像系列
++ 类型: GET
++ 接口: /happy/story_list
++ 参数: type_id

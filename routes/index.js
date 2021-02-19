@@ -60,6 +60,10 @@ router.post('/scenicspot/cancel_scenicspot', scenicspotModule.cancel_scenicspot)
 const historyModule = require('./compontent/history_module')
 router.get('/history/local_historical', historyModule.local_historical);
 
+// 拯救不开心模块
+const happyModule = require('./compontent/happy_module')
+router.get('/happy/story_list', happyModule.story_list);
+
 // 图片模块
 const pictureModule = require('./compontent/picture_module')
 router.get('/picture/wallportrait_series', pictureModule.wallportrait_series);
