@@ -60,17 +60,6 @@ router.post('/scenicspot/cancel_scenicspot', scenicspotModule.cancel_scenicspot)
 const historyModule = require('./compontent/history_module')
 router.get('/history/local_historical', historyModule.local_historical);
 
-// 拯救不开心模块
-const happyModule = require('./compontent/happy_module')
-router.get('/happy/story_list', happyModule.story_list);
-
-// 图片模块
-const pictureModule = require('./compontent/picture_module')
-router.get('/picture/wallportrait_series', pictureModule.wallportrait_series);
-router.get('/picture/wallportrait_list', pictureModule.wallportrait_list);
-router.get('/picture/wallpaper_series', pictureModule.wallpaper_series);
-router.get('/picture/wallpaper_list', pictureModule.wallpaper_list);
-
 // 菜单模块
 const recipeModule = require('./compontent/recipe_module')
 router.get('/recipe/recipe_catalogs', recipeModule.recipe_catalogs);
@@ -107,5 +96,21 @@ router.get('/other/translate', otherModules.translate);
 router.get('/other/rubbish', otherModules.rubbish);
 router.get('/other/aim_mobile', otherModules.aim_mobile);
 router.get('/other/jsxh_quotations', otherModules.jsxh_quotations);
+
+// 拯救不开心模块
+const happyModule = require('./compontent/happy_module')
+router.get('/happy/story_list', happyModule.story_list);
+
+// 图片模块
+const pictureModule = require('./compontent/picture_module')
+router.get('/picture/wallportrait_series', pictureModule.wallportrait_series);
+router.get('/picture/wallportrait_list', pictureModule.wallportrait_list);
+router.get('/picture/wallpaper_series', pictureModule.wallpaper_series);
+router.get('/picture/wallpaper_list', pictureModule.wallpaper_list);
+
+// 约会模块
+const appointmentModule = require('./compontent/appointment_module')
+router.get('/appointment/appointment_list', appointmentModule.appointment_list);
+router.get('/appointment/appointment_details', appointmentModule.appointment_details);
 
 module.exports = router;
