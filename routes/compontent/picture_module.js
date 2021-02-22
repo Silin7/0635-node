@@ -88,6 +88,50 @@ const wallpaper_list = (req, res, next) => {
   })
 }
 
+// 文案系列
+const wallwriting_series = (req, res, next) => {
+  let data = req.query
+  let slimit = (data.page - 1) * data.limit
+  let elimit = (data.page) * data.limit
+  let sql = `SELECT * FROM \`wallwriting_series\` WHERE \`type_id\` = '${data.type_id}' LIMIT ${slimit},${elimit}`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success',
+        data: result
+      })
+    }
+  })
+}
+
+// 文案列表
+const wallwriting_list = (req, res, next) => {
+  let data = req.query
+  let slimit = (data.page - 1) * data.limit
+  let elimit = (data.page) * data.limit
+  let sql = `SELECT * FROM \`wallwriting_list\` WHERE \`wallwriting_series\` = '${data.series_id}' LIMIT ${slimit},${elimit}`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success',
+        data: result
+      })
+    }
+  })
+}
+
 module.exports = {
-  wallportrait_series, wallportrait_list, wallpaper_series, wallpaper_list
+  wallportrait_series, wallportrait_list, wallpaper_series, wallpaper_list, wallwriting_series, wallwriting_list
 }

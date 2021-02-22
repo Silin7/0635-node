@@ -44,6 +44,8 @@ router.get('/picture/wallportrait_series', pictureModule.wallportrait_series);
 router.get('/picture/wallportrait_list', pictureModule.wallportrait_list);
 router.get('/picture/wallpaper_series', pictureModule.wallpaper_series);
 router.get('/picture/wallpaper_list', pictureModule.wallpaper_list);
+router.get('/picture/wallwriting_series', pictureModule.wallwriting_series);
+router.get('/picture/wallwriting_list', pictureModule.wallwriting_list);
 
 // 拯救不开心模块
 const happyModule = require('./compontent/happy_module')
