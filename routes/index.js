@@ -84,6 +84,7 @@ router.get('/message/sysmessage_details', messageModules.sysmessage_details);
 const mineModule = require('./compontent/mine_module')
 router.get('/mine/mine_info', mineModule.mine_info);
 router.post('/mine/update_mineInfo', mineModule.update_mineInfo);
+router.get('/mine/concerns_count', mineModule.concerns_count);
 router.get('/mine/concerns_list', mineModule.concerns_list);
 router.post('/mine/follow_users', mineModule.follow_users);
 router.get('/mine/cancel_users', mineModule.cancel_users);

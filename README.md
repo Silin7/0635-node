@@ -69,6 +69,11 @@
 + 接口: /mine/update_mineInfo
 + 参数: userPhone, age, birthday, constellation, address, personalSignature
 * * *
++ 我关注的人数量
++ 类型: GET
++ 接口: /mine/concerns_count
++ 参数: followers_id
+* * *
 + 我关注的人列表
 + 类型: GET
 + 接口: /mine/concerns_list
