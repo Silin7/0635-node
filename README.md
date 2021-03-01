@@ -277,9 +277,9 @@
 + 接口: /dynamic/dynamic_list
 + 参数: page, limit, is_pass
 * * *
-+ 广告详情
++ 动态详情
 + 类型: GET
-+ 接口: /dynamic/advertisement_details
++ 接口: /dynamic/dynamic_details
 + 参数: id
 
 * * *

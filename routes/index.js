@@ -63,7 +63,7 @@ router.get('/recipe/recipe_detail', recipeModule.recipe_detail);
 // 动态模块
 const dynamicModules = require('./compontent/dynamic_module')
 router.get('/dynamic/dynamic_list', dynamicModules.dynamic_list);
-router.get('/dynamic/advertisement_details', dynamicModules.advertisement_details);
+router.get('/dynamic/dynamic_details', dynamicModules.dynamic_details);
 
 /*                   消息                  */
 

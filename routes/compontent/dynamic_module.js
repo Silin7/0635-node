@@ -37,9 +37,9 @@ const dynamic_list = (req, res, next) => {
 }
 
 // 广告详情
-const advertisement_details = (req, res, next) => {
+const dynamic_details = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`local_advertisement\` WHERE \`id\` = '${data.id}'`
+  let sql = `SELECT * FROM \`local_dynamic\` WHERE \`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -57,5 +57,5 @@ const advertisement_details = (req, res, next) => {
 }
 
 module.exports = {
-  dynamic_list, advertisement_details
+  dynamic_list, dynamic_details
 }
