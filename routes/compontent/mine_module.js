@@ -63,7 +63,7 @@ const concerns_count = (req, res, next) => {
 // 我关注的人列表
 const concerns_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`relations_personnel\` WHERE \`followers_id\` = '${data.followers_id}'`
+  let sql = `SELECT * FROM \`relations_personnel\` WHERE \`followers_id\` = '${data.followers_id}' ORDER BY \`create_time\` DESC`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({

@@ -6,7 +6,7 @@ const permessage_list = (req, res, next) => {
   let slimit = (data.page - 1) * data.limit
   let elimit = (data.page) * data.limit
   let sql1 = `SELECT COUNT(*) FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
-  let sql2 = `SELECT * FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL LIMIT ${slimit},${elimit}`
+  let sql2 = `SELECT * FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
@@ -128,7 +128,7 @@ const sysmessage_list = (req, res, next) => {
   let slimit = (data.page - 1) * data.limit
   let elimit = (data.page) * data.limit
   let sql1 = `SELECT COUNT(*) FROM \`message_system\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
-  let sql2 = `SELECT * FROM \`message_system\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL LIMIT ${slimit},${elimit}`
+  let sql2 = `SELECT * FROM \`message_system\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql1, function (err1, result1) {
     if(err1){
       res.json({

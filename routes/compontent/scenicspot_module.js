@@ -70,7 +70,7 @@ const scenicspot_info = (req, res, next) => {
 // 我关注的景点列表
 const mine_scenicspot_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`relations_scenicspot\` WHERE \`followers_id\` = '${data.followers_id}'`
+  let sql = `SELECT * FROM \`relations_scenicspot\` WHERE \`followers_id\` = '${data.followers_id}' ORDER BY \`create_time\` DESC`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({

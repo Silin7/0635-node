@@ -8,22 +8,20 @@ const marry_list = (req, res, next) => {
   let elimit = (data.page) * data.limit
   if (data.is_top) {
     sql1 = `SELECT COUNT(*) FROM \`blind_date_list\` WHERE \`is_top\` = '${data.is_top}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`is_top\` = '${data.is_top}' AND \`is_pass\` = '02' LIMIT ${slimit},${elimit}`
+    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`is_top\` = '${data.is_top}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   if (data.gender) {
     sql1 = `SELECT COUNT(*) FROM \`blind_date_list\` WHERE \`gender\` = '${data.gender}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`gender\` = '${data.gender}' AND \`is_pass\` = '02' LIMIT ${slimit},${elimit}`
+    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`gender\` = '${data.gender}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   if (data.marry) {
     sql1 = `SELECT COUNT(*) FROM \`blind_date_list\` WHERE \`marry\` = '${data.marry}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`marry\` = '${data.marry}' AND \`is_pass\` = '02' LIMIT ${slimit},${elimit}`
+    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`marry\` = '${data.marry}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   if (data.friends) {
     sql1 = `SELECT COUNT(*) FROM \`blind_date_list\` WHERE \`friends\` = '${data.friends}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`friends\` = '${data.friends}' AND \`is_pass\` = '02' LIMIT ${slimit},${elimit}`
+    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`friends\` = '${data.friends}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
-  // let sql1 = `SELECT COUNT(*) FROM \`blind_date_list\` WHERE \`gender\` = '${data.gender}' OR \`marry\` = '${data.marry}' OR \`friends\` = '${data.friends}' OR \`is_top\` = '${data.is_top}'`
-  // let sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`gender\` = '${data.gender}' OR \`marry\` = '${data.marry}' OR \`friends\` = '${data.friends}' OR \`is_top\` = '${data.is_top}' LIMIT ${slimit},${elimit}`
   conn().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
