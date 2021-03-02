@@ -392,7 +392,7 @@
 + 接口: /appointment/appointment_list
 + 参数: page, limit, sponsor_gender, appointment_type, area_type
 * * *
-+ 约会详情
++ 线下活动详情
 + 类型: GET
 + 接口: /appointment/appointment_details
 + 参数: id
