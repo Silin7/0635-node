@@ -7,16 +7,16 @@ const appointment_list = (req, res, next) => {
   let slimit = (data.page - 1) * data.limit
   let elimit = (data.page) * data.limit
   if (data.sponsor_gender) {
-    sql1 = `SELECT COUNT(*) FROM \`appointment\` WHERE \`sponsor_gender\` = '${data.sponsor_gender}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`appointment\` WHERE \`sponsor_gender\` = '${data.sponsor_gender}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    sql1 = `SELECT COUNT(*) FROM \`activity_appointment\` WHERE \`sponsor_gender\` = '${data.sponsor_gender}' AND \`is_pass\` = '02'`
+    sql2 = `SELECT * FROM \`activity_appointment\` WHERE \`sponsor_gender\` = '${data.sponsor_gender}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   if (data.appointment_type) {
-    sql1 = `SELECT COUNT(*) FROM \`appointment\` WHERE \`appointment_type\` = '${data.appointment_type}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`appointment\` WHERE \`appointment_type\` = '${data.appointment_type}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    sql1 = `SELECT COUNT(*) FROM \`activity_appointment\` WHERE \`appointment_type\` = '${data.appointment_type}' AND \`is_pass\` = '02'`
+    sql2 = `SELECT * FROM \`activity_appointment\` WHERE \`appointment_type\` = '${data.appointment_type}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   if (data.appointment_pay) {
-    sql1 = `SELECT COUNT(*) FROM \`appointment\` WHERE \`appointment_pay\` = '${data.appointment_pay}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`appointment\` WHERE \`appointment_pay\` = '${data.appointment_pay}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    sql1 = `SELECT COUNT(*) FROM \`activity_appointment\` WHERE \`appointment_pay\` = '${data.appointment_pay}' AND \`is_pass\` = '02'`
+    sql2 = `SELECT * FROM \`activity_appointment\` WHERE \`appointment_pay\` = '${data.appointment_pay}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   conn().query(sql1, function (err1, result1) {
     if(err1){
@@ -50,7 +50,7 @@ const appointment_list = (req, res, next) => {
 // 约会详情
 const appointment_details = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`appointment\` WHERE \`id\` = '${data.id}'`
+  let sql = `SELECT * FROM \`activity_appointment\` WHERE \`id\` = '${data.id}'`
   console.log(sql)
   conn().query(sql, function (err, result) {
     if(err){

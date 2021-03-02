@@ -3,7 +3,7 @@ const conn = require('./mySQL')
 // 段子列表
 const story_list = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`save_unhappy\` WHERE \`type_id\` = '${data.type_id}'`
+  let sql = `SELECT * FROM \`funny_list\` WHERE \`type_id\` = '${data.type_id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
