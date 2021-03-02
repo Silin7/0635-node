@@ -394,5 +394,5 @@
 * * *
 + 约会详情
 + 类型: GET
-+ 接口: /appointment/appointment_list
++ 接口: /appointment/appointment_details
 + 参数: id
