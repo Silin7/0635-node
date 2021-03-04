@@ -55,11 +55,10 @@ const appointment_list = (req, res, next) => {
   })
 }
 
-// 约会详情
+// 线下活动详情
 const appointment_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`activity_appointment\` WHERE \`id\` = '${data.id}'`
-  console.log(sql)
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -76,6 +75,53 @@ const appointment_details = (req, res, next) => {
   })
 }
 
+// 是否报名参加活动
+const appointment_issign = (req, res, next) => {
+  let data = req.query
+  let sql = `SELECT * FROM \`activity_sign\` WHERE \`active_id\` = '${data.active_id}' AND \`followers_id\` = '${data.followers_id}'`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      if (result.length > 0) {
+        res.json({
+          code: 0,
+          msg: 'success',
+          type: '1'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: 'success',
+          type: '0'
+        })
+      }
+    }
+  })
+}
+
+// 报名参加活动
+const appointment_sign = (req, res, next) => {
+  let data = req.query
+  let sql = `INSERT INTO \`activity_sign\` (\`id\`, \`active_id\`, \`followers_id\`) VALUES (NULL, '${data.active_id}', '${data.followers_id}');`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
+
 module.exports = {
-  appointment_list, appointment_details
+  appointment_list, appointment_details, appointment_issign, appointment_sign
 }

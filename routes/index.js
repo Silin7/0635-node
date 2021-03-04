@@ -33,10 +33,12 @@ const marryModule = require('./compontent/marry_module')
 router.get('/marry/marry_list', marryModule.marry_list);
 router.get('/marry/marry_details', marryModule.marry_details);
 
-// 约会模块
+// 线下活动模块
 const appointmentModule = require('./compontent/appointment_module')
 router.get('/appointment/appointment_list', appointmentModule.appointment_list);
 router.get('/appointment/appointment_details', appointmentModule.appointment_details);
+router.get('/appointment/appointment_issign', appointmentModule.appointment_issign);
+router.get('/appointment/appointment_sign', appointmentModule.appointment_sign);
 
 // 图片模块
 const pictureModule = require('./compontent/picture_module')
@@ -72,6 +74,7 @@ const messageModules = require('./compontent/message_module')
 router.get('/message/permessage_list', messageModules.permessage_list);
 router.get('/message/permessage_details', messageModules.permessage_details);
 router.post('/message/permessage_send', messageModules.permessage_send);
+router.post('/message/permessage_active', messageModules.permessage_active);
 router.get('/message/permessage_delete', messageModules.permessage_delete);
 router.get('/message/sysmessage_list', messageModules.sysmessage_list);
 router.get('/message/sysmessage_details', messageModules.sysmessage_details);

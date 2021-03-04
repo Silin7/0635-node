@@ -243,6 +243,11 @@
 + 接口: /message/permessage_send
 + 参数: receiver_id, sender_id, sender_name, sender_img, message_title, message_content, message_type
 * * *
+* + 发送活动私信消息
++ 类型: POST
++ 接口: /message/permessage_active
++ 参数: receiver_id, sender_id, sender_name, sender_img, message_title, message_content, message_type
+* * *
 + 删除私信消息
 + 类型: GET
 + 接口: /message/permessage_delete
@@ -385,7 +390,7 @@
 
 * * *
 
-> appointmentModule（约会模块）
+> appointmentModule（线下活动模块）
 * * *
 + 线下活动列表
 + 类型: GET
@@ -396,3 +401,13 @@
 + 类型: GET
 + 接口: /appointment/appointment_details
 + 参数: id
+* * *
++ 是否报名参加活动
++ 类型: GET
++ 接口: /appointment/appointment_issign
++ 参数: active_id, followers_id
+* * *
++ 报名参加活动
++ 类型: GET
++ 接口: /appointment/appointment_sign
++ 参数: active_id, followers_id
