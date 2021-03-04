@@ -32,6 +32,8 @@ router.get('/specialty/specialty_details', specialtyModule.specialty_details);
 const marryModule = require('./compontent/marry_module')
 router.get('/marry/marry_list', marryModule.marry_list);
 router.get('/marry/marry_details', marryModule.marry_details);
+router.get('/marry/marry_issign', marryModule.marry_issign);
+router.get('/marry/marry_sign', marryModule.marry_sign);
 
 // 线下活动模块
 const appointmentModule = require('./compontent/appointment_module')

@@ -21,15 +21,26 @@
 
 > marry_module（相亲模块）
 * * *
-+ 新闻类型列表
++ 相亲列表
 + 类型: GET
 + 接口: /marry/marry_list
 + 参数: page, limit, gender, marry, friends, is_top
 * * *
-+ 县市类型列表
++ 相亲详情
 + 类型: GET
 + 接口: /marry/marry_details
 + 参数: user_id
+* * *
++ 是否报名参加相亲
++ 类型: GET
++ 接口: /marry/marry_issign
++ 参数: register_id, followers_id
+* * *
++ 报名参加相亲
++ 类型: GET
++ 接口: /marry/marry_sign
++ 参数: register_id, followers_id
+
 
 * * *
 

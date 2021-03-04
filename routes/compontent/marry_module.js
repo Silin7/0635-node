@@ -7,20 +7,20 @@ const marry_list = (req, res, next) => {
   let slimit = (data.page - 1) * data.limit
   let elimit = (data.page) * data.limit
   if (data.is_top) {
-    sql1 = `SELECT COUNT(*) FROM \`blind_date_list\` WHERE \`is_top\` = '${data.is_top}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`is_top\` = '${data.is_top}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    sql1 = `SELECT COUNT(*) FROM \`marry_register\` WHERE \`is_top\` = '${data.is_top}' AND \`is_pass\` = '02'`
+    sql2 = `SELECT * FROM \`marry_register\` WHERE \`is_top\` = '${data.is_top}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   if (data.gender) {
-    sql1 = `SELECT COUNT(*) FROM \`blind_date_list\` WHERE \`gender\` = '${data.gender}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`gender\` = '${data.gender}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    sql1 = `SELECT COUNT(*) FROM \`marry_register\` WHERE \`gender\` = '${data.gender}' AND \`is_pass\` = '02'`
+    sql2 = `SELECT * FROM \`marry_register\` WHERE \`gender\` = '${data.gender}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   if (data.marry) {
-    sql1 = `SELECT COUNT(*) FROM \`blind_date_list\` WHERE \`marry\` = '${data.marry}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`marry\` = '${data.marry}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    sql1 = `SELECT COUNT(*) FROM \`marry_register\` WHERE \`marry\` = '${data.marry}' AND \`is_pass\` = '02'`
+    sql2 = `SELECT * FROM \`marry_register\` WHERE \`marry\` = '${data.marry}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   if (data.friends) {
-    sql1 = `SELECT COUNT(*) FROM \`blind_date_list\` WHERE \`friends\` = '${data.friends}' AND \`is_pass\` = '02'`
-    sql2 = `SELECT * FROM \`blind_date_list\` WHERE \`friends\` = '${data.friends}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    sql1 = `SELECT COUNT(*) FROM \`marry_register\` WHERE \`friends\` = '${data.friends}' AND \`is_pass\` = '02'`
+    sql2 = `SELECT * FROM \`marry_register\` WHERE \`friends\` = '${data.friends}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   }
   conn().query(sql1, function (err1, result1) {
     if(err1){
@@ -54,7 +54,7 @@ const marry_list = (req, res, next) => {
 // 相亲详情
 const marry_details = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`blind_date_bank\` WHERE \`user_id\` = ${data.user_id}`
+  let sql = `SELECT * FROM \`marry_details\` WHERE \`register_id\` = ${data.register_id}`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -71,6 +71,53 @@ const marry_details = (req, res, next) => {
   })
 }
 
+// 是否报名参加相亲
+const marry_issign = (req, res, next) => {
+  let data = req.query
+  let sql = `SELECT * FROM \`marry_sign\` WHERE \`register_id\` = '${data.register_id}' AND \`followers_id\` = '${data.followers_id}'`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      if (result.length > 0) {
+        res.json({
+          code: 0,
+          msg: 'success',
+          type: '1'
+        })
+      } else {
+        res.json({
+          code: 0,
+          msg: 'success',
+          type: '0'
+        })
+      }
+    }
+  })
+}
+
+// 报名参加相亲
+const marry_sign = (req, res, next) => {
+  let data = req.query
+  let sql = `INSERT INTO \`marry_sign\` (\`id\`, \`register_id\`, \`followers_id\`) VALUES (NULL, '${data.register_id}', '${data.followers_id}');`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
+
 module.exports = {
-  marry_list, marry_details
+  marry_list, marry_details, marry_issign, marry_sign
 }
