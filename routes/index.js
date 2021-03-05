@@ -8,7 +8,9 @@ router.post('/login/register_inster', loginModule.register_inster);
 router.post('/login/change_password', loginModule.change_password);
 router.post('/login/sign_in', loginModule.sign_in);
 
+
 /*                   首页                  */
+
 
 // 景点模块
 const scenicspotModule = require('./compontent/scenicspot_module')
@@ -61,15 +63,23 @@ router.get('/recipe/recipe_catalogs', recipeModule.recipe_catalogs);
 router.get('/recipe/recipe_list', recipeModule.recipe_list);
 router.get('/recipe/recipe_detail', recipeModule.recipe_detail);
 
+// 新闻模块
+const journalismModules = require('./compontent/journalism_module')
+router.get('/journalism/journalism_list', journalismModules.journalism_list);
+router.get('/journalism/journalism_details', journalismModules.journalism_details);
+
 
 /*                   发现                  */
+
 
 // 动态模块
 const dynamicModules = require('./compontent/dynamic_module')
 router.get('/dynamic/dynamic_list', dynamicModules.dynamic_list);
 router.get('/dynamic/dynamic_details', dynamicModules.dynamic_details);
 
+
 /*                   消息                  */
+
 
 // 消息模块
 const messageModules = require('./compontent/message_module')
@@ -81,7 +91,9 @@ router.get('/message/permessage_delete', messageModules.permessage_delete);
 router.get('/message/sysmessage_list', messageModules.sysmessage_list);
 router.get('/message/sysmessage_details', messageModules.sysmessage_details);
 
+
 /*                   我的                  */
+
 
 // 个人中心模块
 const mineModule = require('./compontent/mine_module')
@@ -92,16 +104,9 @@ router.get('/mine/concerns_list', mineModule.concerns_list);
 router.post('/mine/follow_users', mineModule.follow_users);
 router.get('/mine/cancel_users', mineModule.cancel_users);
 
-// 话题模块
-const conversationModule = require('./compontent/conversation_module')
-router.get('/conversation/conversation_list', conversationModule.conversation_list);
-router.get('/conversation/conversation_info', conversationModule.conversation_info);
-router.get('/conversation/mine_conversation_list', conversationModule.mine_conversation_list);
-router.post('/conversation/is_follow_conversation', conversationModule.is_follow_conversation);
-router.post('/conversation/follow_conversation', conversationModule.follow_conversation);
-router.post('/conversation/cancel_conversation', conversationModule.cancel_conversation);
 
 /*                   删除以下功能                  */
+
 
 // 类别模块
 const classificationModule = require('./compontent/classification_module.js')
