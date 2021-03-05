@@ -5,18 +5,19 @@ const journalism_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
   let elimit = (data.page) * data.limit
-  let sql1 = 'SELECT COUNT(*) FROM `local_journalism`'
-  let sql2 = `SELECT * FROM \`local_journalism\` WHERE \`journalism_type\` = '${data.type}'`
+  let sql1 = `SELECT COUNT(*) FROM \`local_journalism\` WHERE \`journalism_type\` = '${data.type}'`
+  let sql2 = `SELECT id, journalism_title, journalism_img, journalism_info FROM \`local_journalism\` WHERE \`journalism_type\` = '${data.type}'`
   let journalism_area = ` AND \`journalism_area\` = '${data.area}'`
   let journalism_class = ` AND \`journalism_class\` = '${data.class}'`
   let create_time = ` ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   if (data.area) {
+    sql1 = sql1 + journalism_area
     sql2 = sql2 + journalism_area + create_time
   }
   if (data.class) {
+    sql1 = sql1 + journalism_class
     sql2 = sql2 + journalism_class + create_time
   }
-  console.log(sql2)
   conn().query(sql1, function (err1, result1) {
     if(err1){
       res.json({

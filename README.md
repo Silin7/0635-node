@@ -103,37 +103,17 @@
 
 * * *
 
-> conversation_module（话题模块）
+> journalism_module（新闻模块）
 * * *
-+ 话题列表
++ 新闻列表
 + 类型: GET
-+ 接口: /conversation/conversation_list
-+ 参数: conversation_type, conversation_date, conversation_title
++ 接口: /journalism/journalism_list
++ 参数: page, limit, type, area, class
 * * *
-+ 话题详情
++ 新闻详情
 + 类型: GET
-+ 接口: /conversation/conversation_info
++ 接口: /journalism/journalism_details
 + 参数: id
-* * *
-+ 我关注的话题列表
-+ 类型: GET
-+ 接口: /conversation/mine_conversation_list
-+ 参数: followers_id
-* * *
-+ 是否关注此话题
-+ 类型: POST
-+ 接口: /conversation/is_follow_conversation
-+ 参数: followers_id, conversation_id
-* * *
-+ 关注此话题
-+ 类型: POST
-+ 接口: /conversation/follow_conversation
-+ 参数: followers_id, conversation_id, conversation_type, conversation_title, conversation_avatarUrl, conversation_date
-* * *
-+ 取消关注此话题
-+ 类型: POST
-+ 接口: /conversation/cancel_conversation
-+ 参数: followers_id, conversation_id
 
 * * *
 
@@ -277,16 +257,6 @@
 * * *
 
 > dynamicModules（动态模块）
-* * *
-+ 县市新闻列表
-+ 类型: GET
-+ 接口: /dynamic/dynamic_news_list
-+ 参数: type_id
-* * *
-+ 县市新闻详情
-+ 类型: GET
-+ 接口: /dynamic/dynamic_news_details
-+ 参数: type_id
 * * *
 + 动态列表
 + 类型: GET
