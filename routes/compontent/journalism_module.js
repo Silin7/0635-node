@@ -6,7 +6,7 @@ const journalism_list = (req, res, next) => {
   let slimit = (data.page - 1) * data.limit
   let elimit = (data.page) * data.limit
   let sql1 = `SELECT COUNT(*) FROM \`local_journalism\` WHERE \`journalism_type\` = '${data.type}'`
-  let sql2 = `SELECT id, journalism_title, journalism_img, journalism_info FROM \`local_journalism\` WHERE \`journalism_type\` = '${data.type}'`
+  let sql2 = `SELECT id, journalism_title, journalism_img, create_time FROM \`local_journalism\` WHERE \`journalism_type\` = '${data.type}'`
   let journalism_area = ` AND \`journalism_area\` = '${data.area}'`
   let journalism_class = ` AND \`journalism_class\` = '${data.class}'`
   let create_time = ` ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
