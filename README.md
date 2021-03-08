@@ -97,9 +97,30 @@
 + 返回值：关注成功返回：0，已关注返回：1
 * * *
 + 取消关注此用户
-+ 类型: POST
++ 类型: GET
 + 接口: /mine/cancel_users
 + 参数: followers_id, watched_id
+* * *
++ 我的收藏数量
++ 类型: GET
++ 接口: /mine/collection_count
++ 参数: followers_id
+* * *
++ 我的收藏列表
++ 类型: GET
++ 接口: /mine/collection_list
++ 参数: followers_id
+* * *
++ 收藏本菜谱
++ 类型: POST
++ 接口: /mine/follow_collection
++ 参数: followers_id, menu_id, menu_name, menu_info, menu_image
++ 返回值：收藏成功返回：0，已收藏返回：1
+* * *
++ 取消收藏菜谱
++ 类型: GET
++ 接口: /mine/cancel_collection
++ 参数: followers_id, menu_id
 
 * * *
 

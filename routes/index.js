@@ -103,6 +103,10 @@ router.get('/mine/concerns_count', mineModule.concerns_count);
 router.get('/mine/concerns_list', mineModule.concerns_list);
 router.post('/mine/follow_users', mineModule.follow_users);
 router.get('/mine/cancel_users', mineModule.cancel_users);
+router.get('/mine/collection_count', mineModule.collection_count);
+router.get('/mine/collection_list', mineModule.collection_list);
+router.post('/mine/follow_collection', mineModule.follow_collection);
+router.get('/mine/cancel_collection', mineModule.cancel_collection);
 
 
 /*                   删除以下功能                  */
