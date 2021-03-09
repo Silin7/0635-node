@@ -88,7 +88,7 @@
 + 我关注的人列表
 + 类型: GET
 + 接口: /mine/concerns_list
-+ 参数: followers_id
++ 参数: page, limit, followers_id
 * * *
 + 关注此用户
 + 类型: POST
@@ -109,7 +109,7 @@
 + 我的收藏列表
 + 类型: GET
 + 接口: /mine/collection_list
-+ 参数: followers_id
++ 参数: page, limit, followers_id
 * * *
 + 收藏本菜谱
 + 类型: POST
