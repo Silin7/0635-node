@@ -42,6 +42,9 @@ app.all('*', function(req, res, next) {
   app.get('/favicon.ico', (req, res) => res.status(204));
 });
 
+// node上传文件，拿到图片链接
+app.use(express.static('upload'))
+
 app.use('/api', mainRouter);
 
 // catch 404 and forward to error handler

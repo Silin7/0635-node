@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+// 上传文件到服务器
+const uploadModule = require('./compontent/upload/index')
+router.post('/upload/upload_image', uploadModule.upload_image);
+
 // 注册，登录模块
 const loginModule = require('./compontent/login_module')
 router.get('/login/is_register', loginModule.is_register);
