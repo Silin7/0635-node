@@ -40,7 +40,7 @@ const update_mineInfo = (req, res, next) => {
   })
 }
 
-// 我关注的人数量
+// 我关注（marry）的人数量
 const concerns_count = (req, res, next) => {
   let data = req.query
   let sql = `SELECT COUNT(*) FROM \`relations_personnel\` WHERE \`followers_id\` = '${data.followers_id}'`
@@ -60,7 +60,7 @@ const concerns_count = (req, res, next) => {
   })
 }
 
-// 我关注的人列表
+// 我关注（marry）的人列表
 const concerns_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
@@ -96,7 +96,7 @@ const concerns_list = (req, res, next) => {
   })
 }
 
-// 关注此用户（0：关注成功；1：已经关注过了）
+// 关注（marry）此用户（0：关注成功；1：已经关注过了）
 const follow_users = (req, res, next) => {
   let data = req.body
   let sql1 = `SELECT COUNT(*) FROM \`relations_personnel\` WHERE \`followers_id\` = '${data.followers_id}' AND \`watched_id\` = '${data.watched_id}'`
@@ -136,7 +136,7 @@ const follow_users = (req, res, next) => {
   })
 }
 
-// 取消关注此用户
+// 取消关注（marry）此用户
 const cancel_users = (req, res, next) => {
   let data = req.query
   let sql = `DELETE FROM \`relations_personnel\` WHERE \`followers_id\` = '${data.followers_id}' AND \`watched_id\` = '${data.watched_id}'`
@@ -155,10 +155,10 @@ const cancel_users = (req, res, next) => {
   })
 }
 
-// 我关注的人数量
+// 我关注(user)的人数量
 const collection_count = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT COUNT(*) FROM \`relations_food\` WHERE \`followers_id\` = '${data.followers_id}'`
+  let sql = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -175,13 +175,13 @@ const collection_count = (req, res, next) => {
   })
 }
 
-// 我的收藏列表
+// 我的关注(user)列表
 const collection_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
-  let sql1 = `SELECT COUNT(*) FROM \`relations_food\` WHERE \`followers_id\` = '${data.followers_id}'`
-  let sql2 = `SELECT * FROM \`relations_food\` WHERE \`followers_id\` = '${data.followers_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  let sql1 = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}'`
+  let sql2 = `SELECT * FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
@@ -211,12 +211,12 @@ const collection_list = (req, res, next) => {
   })
 }
 
-// 收藏本菜谱（0：收藏成功；1：已经关注收藏）
+// 关注此(user)用户（0：收藏成功；1：已经关注收藏）
 const follow_collection = (req, res, next) => {
   let data = req.body
-  let sql1 = `SELECT COUNT(*) FROM \`relations_food\` WHERE \`followers_id\` = '${data.followers_id}' AND \`menu_id\` = '${data.menu_id}'`
-  let sql2 = 'INSERT INTO `relations_food` (`id`, `followers_id`, `menu_id`, `menu_name`, `menu_info`, `menu_image`) VALUES (NULL, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.followers_id, data.menu_id, data.menu_name, data.menu_info, data.menu_image]
+  let sql1 = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}' AND \`user_id\` = '${data.user_id}'`
+  let sql2 = 'INSERT INTO `relations_user` (`id`, `followers_id`, `user_id`, `user_name`, `user_info`, `user_image`) VALUES (NULL, ?, ?, ?, ?, ?)'
+  let sqlParams = [data.followers_id, data.user_id, data.user_name, data.user_info, data.user_image]
   conn().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
@@ -251,10 +251,10 @@ const follow_collection = (req, res, next) => {
   })
 }
 
-// 取消收藏菜谱
+// 取消关注(user)
 const cancel_collection = (req, res, next) => {
   let data = req.query
-  let sql = `DELETE FROM \`relations_food\` WHERE \`followers_id\` = '${data.followers_id}' AND \`menu_id\` = '${data.menu_id}'`
+  let sql = `DELETE FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}' AND \`user_id\` = '${data.user_id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
