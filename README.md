@@ -80,44 +80,44 @@
 + 接口: /mine/update_mineInfo
 + 参数: userPhone, age, birthday, constellation, address, personalSignature
 * * *
-+ 我关注的人数量
++ 我关注(marry)的人数量
 + 类型: GET
 + 接口: /mine/concerns_count
 + 参数: followers_id
 * * *
-+ 我关注的人列表
++ 我关注(marry)的人列表
 + 类型: GET
 + 接口: /mine/concerns_list
 + 参数: page, limit, followers_id
 * * *
-+ 关注此用户
++ 关注(marry)此用户
 + 类型: POST
 + 接口: /mine/follow_users
 + 参数: followers_id, watched_id, nick_name, photo, introduce
 + 返回值：关注成功返回：0，已关注返回：1
 * * *
-+ 取消关注此用户
++ 取消关注(marry)此用户
 + 类型: GET
 + 接口: /mine/cancel_users
 + 参数: followers_id, watched_id
 * * *
-+ 我的收藏数量
++ 我关注(user)的人数量
 + 类型: GET
 + 接口: /mine/collection_count
 + 参数: followers_id
 * * *
-+ 我的收藏列表
++ 我关注(user)的人列表
 + 类型: GET
 + 接口: /mine/collection_list
 + 参数: page, limit, followers_id
 * * *
-+ 收藏本菜谱
++ 关注(user)此用户
 + 类型: POST
 + 接口: /mine/follow_collection
 + 参数: followers_id, menu_id, menu_name, menu_info, menu_image
 + 返回值：收藏成功返回：0，已收藏返回：1
 * * *
-+ 取消收藏菜谱
++ 取消关注(user)此用户
 + 类型: GET
 + 接口: /mine/cancel_collection
 + 参数: followers_id, menu_id
@@ -293,6 +293,21 @@
 + 类型: GET
 + 接口: /dynamic/dynamic_details
 + 参数: id
+* * *
++ 删除动态
++ 类型: GET
++ 接口: /dynamic/cancel_dynamic
++ 参数: id, author_id
+* * *
++ 写评论
++ 类型: GET
++ 接口: /dynamic/write_comment
++ 参数: dynamic_id, comment_content, reviewer_id, reviewer_name, reviewer_image
+* * *
++ 动态评论的列表
++ 类型: GET
++ 接口: /dynamic/comment_list
++ 参数: page, limit, dynamic_id
 
 * * *
 

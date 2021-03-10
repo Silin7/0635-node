@@ -80,6 +80,9 @@ router.get('/journalism/journalism_details', journalismModules.journalism_detail
 const dynamicModules = require('./compontent/dynamic_module')
 router.get('/dynamic/dynamic_list', dynamicModules.dynamic_list);
 router.get('/dynamic/dynamic_details', dynamicModules.dynamic_details);
+router.get('/dynamic/cancel_dynamic', dynamicModules.cancel_dynamic);
+router.post('/dynamic/write_comment', dynamicModules.write_comment);
+router.get('/dynamic/comment_list', dynamicModules.comment_list);
 
 
 /*                   消息                  */
