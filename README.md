@@ -121,6 +121,11 @@
 + 类型: GET
 + 接口: /mine/cancel_collection
 + 参数: followers_id, menu_id
+* * *
++ 我的动态列表
++ 类型: GET
++ 接口: /mine/my_dynamic_list
++ 参数: page, limit, author_id
 
 * * *
 

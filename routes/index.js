@@ -111,6 +111,7 @@ router.get('/mine/collection_count', mineModule.collection_count);
 router.get('/mine/collection_list', mineModule.collection_list);
 router.post('/mine/follow_collection', mineModule.follow_collection);
 router.get('/mine/cancel_collection', mineModule.cancel_collection);
+router.get('/mine/my_dynamic_list', mineModule.my_dynamic_list);
 
 
 /*                   删除以下功能                  */

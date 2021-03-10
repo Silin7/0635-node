@@ -4,7 +4,7 @@ const conn = require('./mySQL')
 const specialty_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
-  let elimit = (data.page) * data.limit
+  let elimit = data.limit
   let sql1 = 'SELECT COUNT(*) FROM `local_specialty`'
   let sql2 = `SELECT id, specialty_name, specialty_cover, specialty_position FROM \`local_specialty\` WHERE \`specialty_show\` = '01'`
   let specialty_position = ` AND \`specialty_position\` = '${data.specialty_position}'`

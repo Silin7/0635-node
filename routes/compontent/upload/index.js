@@ -1,3 +1,5 @@
+// cnpm i silly-datetime
+// cnpm i formidable
 const formidable = require("formidable");
 const path = require("path")
 const fs = require("fs")

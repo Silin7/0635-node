@@ -4,7 +4,7 @@ const conn = require('./mySQL')
 const dynamic_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
-  let elimit = (data.page) * data.limit
+  let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`is_pass\` = '02'`
   let sql2 = `SELECT * FROM \`local_dynamic\` WHERE \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql1, function (err1, result1) {

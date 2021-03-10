@@ -4,7 +4,7 @@ const conn = require('./mySQL')
 const journalism_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
-  let elimit = (data.page) * data.limit
+  let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`local_journalism\` WHERE \`journalism_type\` = '${data.type}'`
   let sql2 = `SELECT id, journalism_title, journalism_img, create_time FROM \`local_journalism\` WHERE \`journalism_type\` = '${data.type}'`
   let journalism_area = ` AND \`journalism_area\` = '${data.area}'`

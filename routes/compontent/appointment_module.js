@@ -4,7 +4,7 @@ const conn = require('./mySQL')
 const appointment_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
-  let elimit = (data.page) * data.limit
+  let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`activity_appointment\` WHERE`
   let sql2 = `SELECT * FROM \`activity_appointment\` WHERE`
   let sponsor_gender = ` \`sponsor_gender\` = '${data.sponsor_gender}' AND`

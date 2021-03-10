@@ -4,12 +4,14 @@ const conn = require('./mySQL')
 const scenicspot_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
-  let elimit = (data.page) * data.limit
+  let elimit = data.limit
   let sql1 = 'SELECT * FROM `local_scenicspot`'
   let sql2 = 'SELECT COUNT(*) FROM `local_scenicspot`'
   let scenicspot_position = ` WHERE \`scenicspot_position\` = '${data.scenicspot_position}'`
   let scenicspot_name = ` AND \`scenicspot_name\` Like '%${data.scenicspot_name}%'`
   let scenicspot_limit = ` LIMIT ${slimit},${elimit}`
+  console.log('slimit', slimit)
+  console.log('elimit', elimit)
   if (data.scenicspot_position) {
     sql1 = sql1 + scenicspot_position
     sql2 = sql2 + `WHERE \`scenicspot_position\` = '${data.scenicspot_position}'`
@@ -18,6 +20,7 @@ const scenicspot_list = (req, res, next) => {
     sql1 = sql1 + scenicspot_name
   }
   sql1 = sql1 + scenicspot_limit
+  console.log('sql1', sql1)
   conn().query(sql2, function (err1, result1) {
     if(err1){
       res.json({

@@ -64,7 +64,7 @@ const concerns_count = (req, res, next) => {
 const concerns_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
-  let elimit = (data.page) * data.limit
+  let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`relations_personnel\` WHERE \`followers_id\` = '${data.followers_id}'`
   let sql2 = `SELECT * FROM \`relations_personnel\` WHERE \`followers_id\` = '${data.followers_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql1, function (err1, result1) {
@@ -179,7 +179,7 @@ const collection_count = (req, res, next) => {
 const collection_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
-  let elimit = (data.page) * data.limit
+  let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`relations_food\` WHERE \`followers_id\` = '${data.followers_id}'`
   let sql2 = `SELECT * FROM \`relations_food\` WHERE \`followers_id\` = '${data.followers_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql1, function (err1, result1) {
@@ -270,6 +270,42 @@ const cancel_collection = (req, res, next) => {
   })
 }
 
+// 我的动态列表
+const my_dynamic_list = (req, res, next) => {
+  let data = req.query
+  let slimit = (data.page - 1) * data.limit
+  let elimit = data.limit
+  let sql1 = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`author_id\` = '${data.author_id}'`
+  let sql2 = `SELECT * FROM \`local_dynamic\` WHERE \`author_id\` = '${data.author_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  conn().query(sql1, function (err1, result1) {
+    if(err1){
+      res.json({
+        code: 500,
+        msg: err1
+      })
+    } else {
+      let totalCount = result1[0][`COUNT(*)`]
+      conn().query(sql2, function (err2, result2) {
+        if(err2){
+          res.json({
+            code: 500,
+            msg: err2
+          })
+        } else {
+          res.json({
+            code: 0,
+            msg: 'success',
+            page: data.page,
+            limit: data.limit,
+            totalCount: totalCount,
+            data: result2
+          })
+        }
+      })
+    }
+  })
+}
+
 module.exports = {
-  mine_info, update_mineInfo, concerns_count, concerns_list, follow_users, cancel_users, collection_count, collection_list, follow_collection, cancel_collection
+  mine_info, update_mineInfo, concerns_count, concerns_list, follow_users, cancel_users, collection_count, collection_list, follow_collection, cancel_collection, my_dynamic_list
 }

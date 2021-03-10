@@ -5,7 +5,7 @@ const marry_list = (req, res, next) => {
   let sql1, sql2 = ''
   let data = req.query
   let slimit = (data.page - 1) * data.limit
-  let elimit = (data.page) * data.limit
+  let elimit = data.limit
   if (data.is_top) {
     sql1 = `SELECT COUNT(*) FROM \`marry_register\` WHERE \`is_top\` = '${data.is_top}' AND \`is_pass\` = '02'`
     sql2 = `SELECT * FROM \`marry_register\` WHERE \`is_top\` = '${data.is_top}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
