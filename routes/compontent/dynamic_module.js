@@ -1,4 +1,71 @@
 const conn = require('./mySQL')
+const formidable = require('formidable');
+const path = require('path')
+const fs = require('fs')
+
+// 发动态(图片)
+const dynamic_release_img = (req, res, next) => {
+  //既处理表单，又处理文件上传
+  let form = new formidable.IncomingForm();
+  let uploadDir = path.join(__dirname, '../../../birch-forest-media/dynamicModules');
+  //本地文件夹目录路径
+  form.uploadDir = uploadDir;
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      //这里的路径是图片的本地路径
+      let oldPath = files.file.path;
+      //图片传过来的名字
+      let newPath = path.join(path.dirname(oldPath), files.file.name);
+      // let newPath2 = path.join('https://www.silin7.cn/birch-forest-media/dynamicModules', files.file.name);
+      let newPath2 = 'https://www.silin7.cn/birch-forest-media/dynamicModules/' + files.file.name
+      //fs.rename重命名图片名称
+      fs.rename(oldPath, newPath, () => {
+        let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar_url`, `content`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)'
+        let sqlParams = [fields.author_id, fields.author_name, fields.author_avatar_url, fields.content, newPath2]
+        conn().query(sql, sqlParams, function (err, result) {
+          if (err) {
+            res.json({
+              code: 500,
+              msg: err
+            })
+            return
+          } else {
+            res.json({
+              code: 0,
+              msg: 'success'
+            })
+          }
+        })
+      })
+    }
+  })
+}
+
+// 发动态（文字）
+const dynamic_release_txt = (req, res, next) => {
+  let data = req.body
+  let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar_url`, `content`) VALUES (NULL, ?, ?, ?, ?)'
+  let sqlParams = [data.author_id, data.author_name, data.author_avatar_url, data.content]
+  conn().query(sql, sqlParams, function (err, result) {
+    if (err) {
+      res.json({
+        code: 500,
+        msg: err
+      })
+      return
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
 
 // 动态列表
 const dynamic_list = (req, res, next) => {
@@ -132,5 +199,5 @@ const comment_list = (req, res, next) => {
 }
 
 module.exports = {
-  dynamic_list, dynamic_details, cancel_dynamic, write_comment, comment_list
+  dynamic_release_img, dynamic_release_txt, dynamic_list, dynamic_details, cancel_dynamic, write_comment, comment_list
 }

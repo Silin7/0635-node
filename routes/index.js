@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// 上传文件到服务器
-const uploadModule = require('./compontent/upload/index')
-router.post('/upload/upload_image', uploadModule.upload_image);
 
 // 注册，登录模块
 const loginModule = require('./compontent/login_module')
@@ -78,6 +75,8 @@ router.get('/journalism/journalism_details', journalismModules.journalism_detail
 
 // 动态模块
 const dynamicModules = require('./compontent/dynamic_module')
+router.post('/dynamic/dynamic_release_img', dynamicModules.dynamic_release_img);
+router.post('/dynamic/dynamic_release_txt', dynamicModules.dynamic_release_txt);
 router.get('/dynamic/dynamic_list', dynamicModules.dynamic_list);
 router.get('/dynamic/dynamic_details', dynamicModules.dynamic_details);
 router.get('/dynamic/cancel_dynamic', dynamicModules.cancel_dynamic);
