@@ -1,4 +1,71 @@
 const conn = require('./mySQL')
+const formidable = require('formidable');
+const path = require('path')
+const fs = require('fs')
+
+// 发起活动(图片)
+const appointment_release_img = (req, res, next) => {
+  //既处理表单，又处理文件上传
+  let form = new formidable.IncomingForm();
+  let uploadDir = path.join(__dirname, '../../../birch-forest-media/appointmentModule');
+  //本地文件夹目录路径
+  form.uploadDir = uploadDir;
+  form.parse(req, (err, fields, files) => {
+    console.log(fields)
+    if (err) {
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      //这里的路径是图片的本地路径
+      let oldPath = files.file.path;
+      //图片传过来的名字
+      let newPath = path.join(path.dirname(oldPath), files.file.name);
+      let newPath2 = 'https://www.silin7.cn/birch-forest-media/appointmentModule/' + files.file.name
+      //fs.rename重命名图片名称
+      fs.rename(oldPath, newPath, () => {
+        let sql = 'INSERT INTO `activity_appointment` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`, `activity_poster`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        let sqlParams = [fields.sponsor_id, fields.sponsor_name, fields.sponsor_gender, fields.sponsor_age, fields.sponsor_img, fields.appointment_title, fields.appointment_info, fields.appointment_time, fields.appointment_place, fields.appointment_wx, fields.area_type, fields.appointment_type, fields.appointment_pay, fields.appointment_gander, fields.appointment_details, newPath2]
+        conn().query(sql, sqlParams, function (err, result) {
+          if (err) {
+            res.json({
+              code: 500,
+              msg: err
+            })
+            return
+          } else {
+            res.json({
+              code: 0,
+              msg: 'success'
+            })
+          }
+        })
+      })
+    }
+  })
+}
+
+// 发起活动（文字）
+const appointment_release_txt = (req, res, next) => {
+  let data = req.body
+  let sql = 'INSERT INTO `activity_appointment` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  let sqlParams = [data.sponsor_id, data.sponsor_name, data.sponsor_gender, data.sponsor_age, data.sponsor_img, data.appointment_title, data.appointment_info, data.appointment_time, data.appointment_place, data.appointment_wx, data.area_type, data.appointment_type, data.appointment_pay, data.appointment_gander, data.appointment_details]
+  conn().query(sql, sqlParams, function (err, result) {
+    if (err) {
+      res.json({
+        code: 500,
+        msg: err
+      })
+      return
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
 
 // 线下活动列表
 const appointment_list = (req, res, next) => {
@@ -123,5 +190,5 @@ const appointment_sign = (req, res, next) => {
 }
 
 module.exports = {
-  appointment_list, appointment_details, appointment_issign, appointment_sign
+  appointment_release_img, appointment_release_txt, appointment_list, appointment_details, appointment_issign, appointment_sign
 }

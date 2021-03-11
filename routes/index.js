@@ -40,6 +40,8 @@ router.get('/marry/marry_sign', marryModule.marry_sign);
 
 // 线下活动模块
 const appointmentModule = require('./compontent/appointment_module')
+router.post('/appointment/appointment_release_img', appointmentModule.appointment_release_img);
+router.post('/appointment/appointment_release_txt', appointmentModule.appointment_release_txt);
 router.get('/appointment/appointment_list', appointmentModule.appointment_list);
 router.get('/appointment/appointment_details', appointmentModule.appointment_details);
 router.get('/appointment/appointment_issign', appointmentModule.appointment_issign);
