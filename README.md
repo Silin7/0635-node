@@ -255,12 +255,12 @@
 + 发动态(图片)
 + 类型: GET
 + 接口: /dynamic/dynamic_release_img
-+ 参数: author_id, author_name, author_avatar_url, content, image
++ 参数: author_id, author_name, author_avatar, content, image
 * * *
 + 发动态（文字）
 + 类型: GET
 + 接口: /dynamic/dynamic_release_txt
-+ 参数: author_id, author_name, author_avatar_url, content
++ 参数: author_id, author_name, author_avatar, content
 * * *
 + 动态列表
 + 类型: GET
