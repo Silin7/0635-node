@@ -70,7 +70,7 @@
 + 修改保存个人信息
 + 类型: POST
 + 接口: /mine/update_mineInfo
-+ 参数: user_phone, age, birthday, constellation, address, personal_signature
++ 参数: nick_name, gender, user_phone, age, birthday, constellation, address, personal_signature
 * * *
 + 我关注(marry)的人数量
 + 类型: GET
