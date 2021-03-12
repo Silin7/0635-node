@@ -385,7 +385,7 @@
 * * *
 + 头像系列
 + 类型: GET
-+ 接口: /happy/story_list
++ 接口: /happy/entertainment_list
 + 参数: type_id
 
 * * *
