@@ -19,24 +19,29 @@
 
 * * *
 
-> marry_module（相亲模块）
+> marry_module（社交模块）
 * * *
-+ 相亲列表
++ 参与社交
++ 类型: GET
++ 接口: /marry/marry_release
++ 参数: 
+* * *
++ 社交列表
 + 类型: GET
 + 接口: /marry/marry_list
-+ 参数: page, limit, gender, marry, friends, is_top
++ 参数: page, limit, address, type, gender
 * * *
-+ 相亲详情
++ 社交详情
 + 类型: GET
 + 接口: /marry/marry_details
-+ 参数: user_id
++ 参数: id
 * * *
-+ 是否报名参加相亲
++ 是否报名参加社交
 + 类型: GET
 + 接口: /marry/marry_issign
 + 参数: register_id, followers_id
 * * *
-+ 报名参加相亲
++ 报名参加社交
 + 类型: GET
 + 接口: /marry/marry_sign
 + 参数: register_id, followers_id
@@ -139,30 +144,6 @@
 + 新闻详情
 + 类型: GET
 + 接口: /journalism/journalism_details
-+ 参数: id
-
-* * *
-
-> record_module（记录模块）
-* * *
-+ 日记列表
-+ 类型: GET
-+ 接口: /record/record_diary
-+ 参数: user_id
-* * *
-+ 日记详情
-+ 类型: GET
-+ 接口: /record/diary_details
-+ 参数: id
-* * *
-+ 写日记
-+ 类型: POST
-+ 接口: /record/keep_diary
-+ 参数: diary_date, diary_weather, diary_content
-* * *
-+ 删除日记
-+ 类型: GET
-+ 接口: /record/delete_diary
 + 参数: id
 
 * * *

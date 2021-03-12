@@ -25,7 +25,7 @@ const appointment_release_img = (req, res, next) => {
       let newPath2 = 'https://www.silin7.cn/birch-forest-media/appointmentModule/' + files.file.name
       //fs.rename重命名图片名称
       fs.rename(oldPath, newPath, () => {
-        let sql = 'INSERT INTO `activity_appointment` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`, `activity_poster`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+        let sql = 'INSERT INTO `activity_library` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`, `activity_poster`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         let sqlParams = [fields.sponsor_id, fields.sponsor_name, fields.sponsor_gender, fields.sponsor_age, fields.sponsor_img, fields.appointment_title, fields.appointment_info, fields.appointment_time, fields.appointment_place, fields.appointment_wx, fields.area_type, fields.appointment_type, fields.appointment_pay, fields.appointment_gander, fields.appointment_details, newPath2]
         conn().query(sql, sqlParams, function (err, result) {
           if (err) {
@@ -49,7 +49,7 @@ const appointment_release_img = (req, res, next) => {
 // 发起活动（文字）
 const appointment_release_txt = (req, res, next) => {
   let data = req.body
-  let sql = 'INSERT INTO `activity_appointment` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  let sql = 'INSERT INTO `activity_library` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
   let sqlParams = [data.sponsor_id, data.sponsor_name, data.sponsor_gender, data.sponsor_age, data.sponsor_img, data.appointment_title, data.appointment_info, data.appointment_time, data.appointment_place, data.appointment_wx, data.area_type, data.appointment_type, data.appointment_pay, data.appointment_gander, data.appointment_details]
   conn().query(sql, sqlParams, function (err, result) {
     if (err) {
@@ -72,8 +72,8 @@ const appointment_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
-  let sql1 = `SELECT COUNT(*) FROM \`activity_appointment\` WHERE`
-  let sql2 = `SELECT * FROM \`activity_appointment\` WHERE`
+  let sql1 = `SELECT COUNT(*) FROM \`activity_library\` WHERE`
+  let sql2 = `SELECT * FROM \`activity_library\` WHERE`
   let sponsor_gender = ` \`sponsor_gender\` = '${data.sponsor_gender}' AND`
   let appointment_type = ` \`appointment_type\` = '${data.appointment_type}' AND`
   let area_type = ` \`area_type\` = '${data.area_type}' AND`
@@ -125,7 +125,7 @@ const appointment_list = (req, res, next) => {
 // 线下活动详情
 const appointment_details = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`activity_appointment\` WHERE \`id\` = '${data.id}'`
+  let sql = `SELECT * FROM \`activity_library\` WHERE \`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({

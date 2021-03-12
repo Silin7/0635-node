@@ -31,8 +31,9 @@ const specialtyModule = require('./compontent/specialty_module')
 router.get('/specialty/specialty_list', specialtyModule.specialty_list);
 router.get('/specialty/specialty_details', specialtyModule.specialty_details);
 
-// 相亲模块
+// 社交模块
 const marryModule = require('./compontent/marry_module')
+router.post('/marry/marry_release', marryModule.marry_release);
 router.get('/marry/marry_list', marryModule.marry_list);
 router.get('/marry/marry_details', marryModule.marry_details);
 router.get('/marry/marry_issign', marryModule.marry_issign);
@@ -126,12 +127,6 @@ const classificationModule = require('./compontent/classification_module.js')
 router.get('/classification/classification_news', classificationModule.classification_news);
 router.get('/classification/classification_city', classificationModule.classification_city);
 
-// 日记模块
-const recordModule = require('./compontent/record_module')
-router.get('/record/record_diary', recordModule.record_diary);
-router.get('/record/diary_details', recordModule.diary_details);
-router.post('/record/keep_diary', recordModule.keep_diary);
-router.get('/record/delete_diary', recordModule.delete_diary);
 
 // 其他模块
 const otherModules = require('./compontent/other_modules')
