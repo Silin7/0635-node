@@ -3,19 +3,6 @@
 ## Author silin.wang
 ### CreatTime 2020-10-18
 
-* * *
-
-> classification_module（类别模块）
-* * *
-+ 新闻类型列表
-+ 类型: GET
-+ 接口: /classification/classification_news
-+ 参数: 无
-* * *
-+ 县市类型列表
-+ 类型: GET
-+ 接口: /classification/classification_city
-+ 参数: 无
 
 * * *
 

@@ -121,13 +121,6 @@ router.get('/mine/my_dynamic_list', mineModule.my_dynamic_list);
 
 /*                   删除以下功能                  */
 
-
-// 类别模块
-const classificationModule = require('./compontent/classification_module.js')
-router.get('/classification/classification_news', classificationModule.classification_news);
-router.get('/classification/classification_city', classificationModule.classification_city);
-
-
 // 其他模块
 const otherModules = require('./compontent/other_modules')
 router.get('/other/history_today', otherModules.history_today);
