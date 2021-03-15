@@ -25,8 +25,8 @@ const dynamic_release_img = (req, res, next) => {
       let newPath2 = 'https://www.silin7.cn/birch-forest-media/dynamicModules/' + files.file.name
       //fs.rename重命名图片名称
       fs.rename(oldPath, newPath, () => {
-        let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar_url`, `content`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)'
-        let sqlParams = [fields.author_id, fields.author_name, fields.author_avatar_url, fields.content, newPath2]
+        let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)'
+        let sqlParams = [fields.author_id, fields.author_name, fields.author_avatar, fields.content, newPath2]
         conn().query(sql, sqlParams, function (err, result) {
           if (err) {
             res.json({
@@ -49,8 +49,8 @@ const dynamic_release_img = (req, res, next) => {
 // 发动态（文字）
 const dynamic_release_txt = (req, res, next) => {
   let data = req.body
-  let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar_url`, `content`) VALUES (NULL, ?, ?, ?, ?)'
-  let sqlParams = [data.author_id, data.author_name, data.author_avatar_url, data.content]
+  let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`) VALUES (NULL, ?, ?, ?, ?)'
+  let sqlParams = [data.author_id, data.author_name, data.author_avatar, data.content]
   conn().query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({

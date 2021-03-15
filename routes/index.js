@@ -59,7 +59,7 @@ router.get('/picture/wallwriting_list', pictureModule.wallwriting_list);
 
 // 拯救不开心模块
 const happyModule = require('./compontent/happy_module')
-router.get('/happy/story_list', happyModule.story_list);
+router.get('/entertainment/entertainment_list', happyModule.entertainment_list);
 
 // 菜谱模块
 const recipeModule = require('./compontent/recipe_module')

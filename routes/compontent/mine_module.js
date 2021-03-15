@@ -23,7 +23,7 @@ const mine_info = (req, res, next) => {
 // 修改保存个人信息
 const update_mineInfo = (req, res, next) => {
   let data = req.body
-  let sql = `UPDATE \`personnel_information\` SET \`userPhone\` = '${data.userPhone}', \`birthday\` = '${data.birthday}', \`age\` = '${data.age}', \`constellation\` = '${data.constellation}', \`address\` = '${data.address}', \`personalSignature\` = '${data.personalSignature}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
+  let sql = `UPDATE \`personnel_information\` SET \`nick_name\` = '${data.nick_name}', \`gender\` = '${data.gender}', \`user_phone\` = '${data.user_phone}', \`birthday\` = '${data.birthday}', \`age\` = '${data.age}', \`constellation\` = '${data.constellation}', \`address\` = '${data.address}', \`personal_signature\` = '${data.personal_signature}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if (err) {
       res.json({

@@ -2,7 +2,7 @@ const conn = require('./mySQL')
 
 const is_register = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`personnel_information\` WHERE userName = '${data.userName}'`
+  let sql = `SELECT * FROM \`personnel_information\` WHERE user_name = '${data.user_name}'`
   conn().query(sql, function (err, result) {
     if (err) {
       res.end(JSON.stringify({
@@ -64,8 +64,8 @@ const is_register = (req, res, next) => {
 // 将注册信息写入数据库（
 const register_inster = (req, res, next) => {
   let data = req.body
-  let sql = 'INSERT INTO `personnel_information` (`id`, `userName`, `password`, `nickName`, `avatarUrl`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.userName, data.password, data.nickName, data.avatarUrl, data.gender]
+  let sql = 'INSERT INTO `personnel_information` (`id`, `user_name`, `password`, `nick_name`, `avatar_url`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)'
+  let sqlParams = [data.user_name, data.password, data.nick_name, data.avatar_url, data.gender]
   conn().query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({
@@ -105,7 +105,7 @@ const change_password = (req, res, next) => {
 // 判断账号密码是否正确
 const sign_in = (req, res, next) => {
   let data = req.body
-  let sql = `SELECT * FROM \`personnel_information\` WHERE \`userName\` = '${data.userName}'`
+  let sql = `SELECT * FROM \`personnel_information\` WHERE \`user_name\` = '${data.user_name}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.end(JSON.stringify({

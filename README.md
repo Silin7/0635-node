@@ -41,12 +41,12 @@
 + 判断账号是否存在
 + 类型: GET
 + 接口: /login/is_register
-+ 参数: userName, state
++ 参数: user_name, state
 * * *
 + 将注册信息写入数据库
 + 类型: POST
 + 接口: /login/register_inster
-+ 参数: userName, password, nickName, avatarUrl, gender
++ 参数: user_name, password, nick_name, avatar_url, gender
 * * *
 + 修改密码
 + 类型: POST
@@ -56,7 +56,7 @@
 + 判断账号密码是否正确
 + 类型: POST
 + 接口: /login/sign_in
-+ 参数: userName, password
++ 参数: user_name, password
 
 * * *
 
@@ -70,7 +70,7 @@
 + 修改保存个人信息
 + 类型: POST
 + 接口: /mine/update_mineInfo
-+ 参数: userPhone, age, birthday, constellation, address, personalSignature
++ 参数: nick_name, gender, user_phone, age, birthday, constellation, address, personal_signature
 * * *
 + 我关注(marry)的人数量
 + 类型: GET
@@ -255,12 +255,12 @@
 + 发动态(图片)
 + 类型: GET
 + 接口: /dynamic/dynamic_release_img
-+ 参数: author_id, author_name, author_avatar_url, content, image
++ 参数: author_id, author_name, author_avatar, content, image
 * * *
 + 发动态（文字）
 + 类型: GET
 + 接口: /dynamic/dynamic_release_txt
-+ 参数: author_id, author_name, author_avatar_url, content
++ 参数: author_id, author_name, author_avatar, content
 * * *
 + 动态列表
 + 类型: GET
@@ -385,7 +385,7 @@
 * * *
 + 头像系列
 + 类型: GET
-+ 接口: /happy/story_list
++ 接口: /happy/entertainment_list
 + 参数: type_id
 
 * * *
