@@ -5,7 +5,7 @@ const wallportrait_series = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
-  let sql = `SELECT * FROM \`wallportrait_series\` WHERE \`type_id\` = '${data.type_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  let sql = `SELECT id, series_id, series_name, series_image FROM \`wallportrait_series\` WHERE \`series_id\` = '${data.series_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -25,9 +25,7 @@ const wallportrait_series = (req, res, next) => {
 // 头像列表
 const wallportrait_list = (req, res, next) => {
   let data = req.query
-  let slimit = (data.page - 1) * data.limit
-  let elimit = data.limit
-  let sql = `SELECT * FROM \`wallportrait_list\` WHERE \`wallportrait_series\` = '${data.series_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  let sql = `SELECT * FROM \`wallportrait_series\` WHERE \`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -38,7 +36,7 @@ const wallportrait_list = (req, res, next) => {
       res.json({
         code: 0,
         msg: 'success',
-        data: result
+        data: result[0]
       })
     }
   })
@@ -49,7 +47,7 @@ const wallpaper_series = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
-  let sql = `SELECT * FROM \`wallpaper_series\` WHERE \`type_id\` = '${data.type_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  let sql = `SELECT id, series_id, series_name, series_image FROM \`wallpaper_series\` WHERE \`series_id\` = '${data.series_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -69,9 +67,7 @@ const wallpaper_series = (req, res, next) => {
 // 壁纸列表
 const wallpaper_list = (req, res, next) => {
   let data = req.query
-  let slimit = (data.page - 1) * data.limit
-  let elimit = data.limit
-  let sql = `SELECT * FROM \`wallpaper_list\` WHERE \`wallpaper_series\` = '${data.series_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  let sql = `SELECT * FROM \`wallpaper_series\` WHERE \`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -82,7 +78,7 @@ const wallpaper_list = (req, res, next) => {
       res.json({
         code: 0,
         msg: 'success',
-        data: result
+        data: result[0]
       })
     }
   })
@@ -93,7 +89,7 @@ const wallwriting_series = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
-  let sql = `SELECT * FROM \`wallwriting_series\` WHERE \`type_id\` = '${data.type_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  let sql = `SELECT id, series_id, series_name, series_image FROM \`wallwriting_series\` WHERE \`series_id\` = '${data.series_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -113,9 +109,7 @@ const wallwriting_series = (req, res, next) => {
 // 文案列表
 const wallwriting_list = (req, res, next) => {
   let data = req.query
-  let slimit = (data.page - 1) * data.limit
-  let elimit = data.limit
-  let sql = `SELECT * FROM \`wallwriting_list\` WHERE \`wallwriting_series\` = '${data.series_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  let sql = `SELECT * FROM \`wallwriting_series\` WHERE \`id\` = '${data.id}'`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({
@@ -126,7 +120,7 @@ const wallwriting_list = (req, res, next) => {
       res.json({
         code: 0,
         msg: 'success',
-        data: result
+        data: result[0]
       })
     }
   })

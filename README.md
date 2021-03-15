@@ -352,32 +352,32 @@
 + 头像系列
 + 类型: GET
 + 接口: /picture/wallportrait_series
-+ 参数: type_id, page, limit
++ 参数: series_id, page, limit
 * * *
 + 头像列表
 + 类型: GET
 + 接口: /picture/wallportrait_list
-+ 参数: series_id, page, limit
++ 参数: id
 * * *
 + 壁纸系列
 + 类型: GET
 + 接口: /picture/wallpaper_series
-+ 参数: type_id, page, limit
++ 参数: series_id, page, limit
 * * *
 + 壁纸列表
 + 类型: GET
 + 接口: /picture/wallpaper_list
-+ 参数: series_id, page, limit
++ 参数: id
 * * *
 + 文案系列
 + 类型: GET
 + 接口: /picture/wallwriting_series
-+ 参数: type_id, page, limit
++ 参数: series_id, page, limit
 * * *
 + 文案列表
 + 类型: GET
 + 接口: /picture/wallwriting_list
-+ 参数: series_id, page, limit
++ 参数: id
 
 * * *
 
