@@ -275,8 +275,8 @@ const my_dynamic_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
-  let sql1 = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`author_id\` = '${data.author_id}'`
-  let sql2 = `SELECT * FROM \`local_dynamic\` WHERE \`author_id\` = '${data.author_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  let sql1 = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`author_id\` = '${data.author_id}' AND \`is_pass\` = '02'`
+  let sql2 = `SELECT * FROM \`local_dynamic\` WHERE \`author_id\` = '${data.author_id}' AND \`is_pass\` = '02' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
