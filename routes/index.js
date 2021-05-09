@@ -72,6 +72,11 @@ const journalismModules = require('./compontent/journalism_module')
 router.get('/journalism/journalism_list', journalismModules.journalism_list);
 router.get('/journalism/journalism_details', journalismModules.journalism_details);
 
+// 话题模块
+const topicModule = require('./compontent/topic_module')
+router.get('/topic/topic_class', topicModule.topic_class);
+router.get('/topic/topic_class_details', topicModule.topic_class_details);
+
 
 /*                   发现                  */
 
