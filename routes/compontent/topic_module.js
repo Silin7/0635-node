@@ -3,7 +3,7 @@ const conn = require('./mySQL')
 // 话题分类列表
 const topic_class = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`topic_class\` WHERE \`is_pass\` = '${data.is_pass}' ORDER BY \`create_time\` DESC`
+  let sql = `SELECT * FROM \`topic_class\` WHERE \`state\` = '${data.state}' ORDER BY \`create_time\` DESC`
   conn().query(sql, function (err, result) {
     if(err){
       res.json({

@@ -128,17 +128,6 @@ router.get('/mine/my_dynamic_list', mineModule.my_dynamic_list);
 
 // 其他模块
 const otherModules = require('./compontent/other_modules')
-router.get('/other/history_today', otherModules.history_today);
-router.get('/other/weather_current', otherModules.weather_current);
-router.get('/other/weather_forecast', otherModules.weather_forecast);
-router.get('/other/jokes_random', otherModules.jokes_random);
-router.get('/other/news_types', otherModules.news_types);
-router.get('/other/news_list', otherModules.news_list);
-router.get('/other/news_details', otherModules.news_details);
 router.get('/other/girl_random', otherModules.girl_random);
-router.get('/other/translate', otherModules.translate);
-router.get('/other/rubbish', otherModules.rubbish);
-router.get('/other/aim_mobile', otherModules.aim_mobile);
-router.get('/other/jsxh_quotations', otherModules.jsxh_quotations);
 
 module.exports = router;

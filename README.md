@@ -290,59 +290,12 @@
 * * *
 
 > other_modules（其他模块）
-* * *
-+ app_id: rtqbawfrwfapaxrq
-+ app_secret: R1JRaDBFYnZHR3Q5TmhidTV5OTlsZz09
-* * *
-+ 历史上的今天
-+ 类型: GET
-+ 接口: /other/history_today
-+ 参数: type (0: 简 / 1: 详)
-* * *
-+ 获取特定城市今日天气信息
-+ 类型: GET
-+ 接口: /other/weather_current
-+ 参数: position
-* * *
-+ 获取特定城市今天及未来天气信息
-+ 类型: GET
-+ 接口: /other/weather_forecast
-+ 参数: position
-* * *
-+ 随机获取笑话段子列表
-+ 类型: GET
-+ 接口: /other/jokes_random
-+ 参数: 无
-* * *
-+ 获取所有新闻类型列表
-+ 类型: GET
-+ 接口: /other/news_types
-+ 参数: 无
-* * *
-+ 根据新闻类型获取新闻列表
-+ 类型: GET
-+ 接口: /other/news_list
-+ 参数: typeId, page
-* * *
-+ 根据新闻id获取新闻详情
-+ 类型: GET
-+ 接口: /other/news_details
-+ 参数: newsId
+
 * * *
 + 随机获取美女福利图片
 + 类型: GET
 + 接口: /other/girl_random
 + 参数: 无
-* * *
-+ 文本多语种翻译
-+ 类型: GET
-+ 接口: /other/translate
-+ 参数: content, from, to
-* * *
-+ 垃圾分类查询
-+ 类型: GET
-+ 接口: /other/rubbish
-+ 参数: name
 
 * * *
 
