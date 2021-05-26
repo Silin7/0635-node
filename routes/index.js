@@ -76,6 +76,8 @@ router.get('/journalism/journalism_details', journalismModules.journalism_detail
 const topicModule = require('./compontent/topic_module')
 router.get('/topic/topic_class', topicModule.topic_class);
 router.get('/topic/topic_class_details', topicModule.topic_class_details);
+router.get('/topic/topic_list', topicModule.topic_list);
+router.get('/topic/topic_list_details', topicModule.topic_list_details);
 
 
 /*                   发现                  */
