@@ -55,7 +55,7 @@ const marry_list = (req, res, next) => {
   let gender = ` \`gender\` = '${data.gender}' AND`
   let type = ` \`type\` = '${data.type}' AND`
   let address = ` \`address\` = '${data.address}' AND`
-  let is_pass = ` \`is_pass\` = '02'`
+  let is_pass = ` \`is_pass\` = '${is_pass}'`
   let create_time = ` ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   if (data.gender) {
     sql1 = sql1 + gender

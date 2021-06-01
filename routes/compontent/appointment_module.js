@@ -77,7 +77,7 @@ const appointment_list = (req, res, next) => {
   let sponsor_gender = ` \`sponsor_gender\` = '${data.sponsor_gender}' AND`
   let appointment_type = ` \`appointment_type\` = '${data.appointment_type}' AND`
   let area_type = ` \`area_type\` = '${data.area_type}' AND`
-  let is_pass = ` \`is_pass\` = '02'`
+  let is_pass = ` \`is_pass\` = '${data.is_pass}'`
   let create_time = ` ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   if (data.sponsor_gender) {
     sql1 = sql1 + sponsor_gender

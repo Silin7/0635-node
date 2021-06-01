@@ -48,6 +48,12 @@ router.get('/appointment/appointment_details', appointmentModule.appointment_det
 router.get('/appointment/appointment_issign', appointmentModule.appointment_issign);
 router.get('/appointment/appointment_sign', appointmentModule.appointment_sign);
 
+// 线下活动模块
+const locatiomModule = require('./compontent/location_module')
+router.post('/location_work/work_add', locatiomModule.work_add);
+router.get('/location_work/work_list', locatiomModule.work_list);
+router.get('/location_work/work_details', locatiomModule.work_details);
+
 // 图片模块
 const pictureModule = require('./compontent/picture_module')
 router.get('/picture/wallportrait_series', pictureModule.wallportrait_series);
