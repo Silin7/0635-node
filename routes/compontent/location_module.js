@@ -3,7 +3,7 @@ const conn = require('./mySQL')
 // 新增岗位
 const work_add = (req, res, next) => {
   let data = req.body
-  let sql = 'INSERT INTO `local_work` (`id`, `basic_title`, `basic_salary`, `	basic_type`, `basic_education`, `basic_experience`, `basic_people`, `basic_area`, `basic_address`, `basic_welfare`, `basic_info`, `business_name`, `business_gsfr`, `business_zczb`, `business_xydm`, `business_clsj`, `business_zcdz`, `business_jyfw`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  let sql = 'INSERT INTO `local_work` (`id`, `basic_title`, `basic_salary`, `basic_type`, `basic_education`, `basic_experience`, `basic_people`, `basic_area`, `basic_address`, `basic_welfare`, `basic_info`, `business_name`, `business_gsfr`, `business_zczb`, `business_xydm`, `business_clsj`, `business_zcdz`, `business_jyfw`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
   let sqlParams = [data.basic_title, data.basic_salary, data.basic_type, data.basic_education, data.basic_experience, data.basic_people, data.basic_area, data.basic_address, data.basic_welfare, data.basic_info, data.business_name, data.business_gsfr, data.business_zczb, data.business_xydm, data.business_clsj, data.business_zcdz, data.business_jyfw]
   conn().query(sql, sqlParams, function (err, result) {
     if (err) {
