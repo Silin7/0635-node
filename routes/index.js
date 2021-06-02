@@ -48,7 +48,7 @@ router.get('/appointment/appointment_details', appointmentModule.appointment_det
 router.get('/appointment/appointment_issign', appointmentModule.appointment_issign);
 router.get('/appointment/appointment_sign', appointmentModule.appointment_sign);
 
-// 线下活动模块
+// 同城服务模块
 const locatiomModule = require('./compontent/location_module')
 router.post('/location_work/work_add', locatiomModule.work_add);
 router.get('/location_work/work_list', locatiomModule.work_list);
