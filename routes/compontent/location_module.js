@@ -31,7 +31,7 @@ const work_list = (req, res, next) => {
   let basic_area = ` \`basic_area\` = '${data.basic_area}' AND`
   let basic_type = ` \`basic_type\` = '${data.basic_type}' AND`
   let basic_salary = ` \`basic_salary\` = '${data.basic_salary}' AND`
-  let is_pass = ` \`is_pass\` = '${is_pass}'`
+  let is_pass = ` \`is_pass\` = '${data.is_pass}'`
   let create_time = ` ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   if (data.basic_area) {
     sql1 = sql1 + basic_area

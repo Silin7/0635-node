@@ -167,8 +167,8 @@ const comment_list = (req, res, next) => {
   let data = req.query
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
-  let sql1 = `SELECT COUNT(*) FROM \`local_comment\` WHERE \`dynamic_id\` = '${data.dynamic_id}' AND \`is_pass\` = '${is_pass}'`
-  let sql2 = `SELECT * FROM \`local_comment\` WHERE \`dynamic_id\` = '${data.dynamic_id}' AND \`is_pass\` = '${is_pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  let sql1 = `SELECT COUNT(*) FROM \`local_comment\` WHERE \`dynamic_id\` = '${data.dynamic_id}' AND \`is_pass\` = '${data.is_pass}'`
+  let sql2 = `SELECT * FROM \`local_comment\` WHERE \`dynamic_id\` = '${data.dynamic_id}' AND \`is_pass\` = '${data.is_pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
   conn().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
