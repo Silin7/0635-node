@@ -21,12 +21,11 @@ const dynamic_release_img = (req, res, next) => {
       let oldPath = files.file.path;
       //图片传过来的名字
       let newPath = path.join(path.dirname(oldPath), files.file.name);
-      // let newPath2 = path.join('https://www.silin7.cn/birch-forest-media/dynamicModules', files.file.name);
-      let newPath2 = 'https://www.silin7.cn/birch-forest-media/dynamicModules/' + files.file.name
+      let backPath = path.join('https://www.silin7.cn/birch-forest-media/dynamicModules', files.file.name)
       //fs.rename重命名图片名称
       fs.rename(oldPath, newPath, () => {
         let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)'
-        let sqlParams = [fields.author_id, fields.author_name, fields.author_avatar, fields.content, newPath2]
+        let sqlParams = [fields.author_id, fields.author_name, fields.author_avatar, fields.content, backPath]
         conn().query(sql, sqlParams, function (err, result) {
           if (err) {
             res.json({
