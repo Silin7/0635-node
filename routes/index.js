@@ -53,6 +53,9 @@ const locatiomModule = require('./compontent/location_module')
 router.post('/location_work/work_add', locatiomModule.work_add);
 router.get('/location_work/work_list', locatiomModule.work_list);
 router.get('/location_work/work_details', locatiomModule.work_details);
+router.post('/location_work/room_add', locatiomModule.room_add);
+router.get('/location_work/room_list', locatiomModule.room_list);
+router.get('/location_work/room_details', locatiomModule.room_details);
 
 // 图片模块
 const pictureModule = require('./compontent/picture_module')

@@ -96,6 +96,102 @@ const work_details = (req, res, next) => {
   })
 }
 
+// 新增房屋
+const room_add = (req, res, next) => {
+  let data = req.body
+  let sql = 'INSERT INTO `local_room` (`id`, `room_name`, `room_type`, `lxr_phone`, `pay_type`, `pay_rent`, `pay_method`, `room_areas`, `room_shape`, `room_orientation`, `basic_area`, `basic_address`, `room_renovation`, `room_height`, `room_elevator`, `room_refrigerator`, `room_washing`, `room_heater`, `room_broadband`, `room_toilet`, `room_bed`, `room_wardrobe`, `room_conditioner`, `room_heating`, `room_cook`, `room_info`, ) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  let sqlParams = [data.room_name, data.room_type, data.lxr_phone, data.pay_type, data.pay_rent, data.pay_method, data.room_areas, data.room_shape, data.room_orientation, data.basic_area, data.basic_address, data.room_renovation, data.room_height, data.room_elevator, data.room_refrigerator, data.room_washing, data.room_heater, data.room_broadband, data.room_toilet, data.room_bed, data.room_wardrobe, data.room_conditioner, data.room_heating, data.room_cook, data.room_info]
+  conn().query(sql, sqlParams, function (err, result) {
+    if (err) {
+      res.json({
+        code: 500,
+        msg: err
+      })
+      return
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success'
+      })
+    }
+  })
+}
+
+// 同城招租列表
+const room_list = (req, res, next) => {
+  let data = req.query
+  let slimit = (data.page - 1) * data.limit
+  let elimit = data.limit
+  let sql1 = `SELECT COUNT(*) FROM \`local_room\` WHERE`
+  let sql2 = `SELECT * FROM \`local_room\` WHERE`
+  let basic_area = ` \`basic_area\` = '${data.basic_area}' AND`
+  let room_type = ` \`room_type\` = '${data.room_type}' AND`
+  let pay_type = ` \`pay_type\` = '${data.pay_type}' AND`
+  let is_pass = ` \`is_pass\` = '${data.is_pass}'`
+  let create_time = ` ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+  if (data.basic_area) {
+    sql1 = sql1 + basic_area
+    sql2 = sql2 + basic_area
+  }
+  if (data.room_type) {
+    sql1 = sql1 + room_type
+    sql2 = sql2 + room_type
+  }
+  if (data.pay_type) {
+    sql1 = sql1 + pay_type
+    sql2 = sql2 + pay_type
+  }
+  sql1 = sql1 + is_pass
+  sql2 = sql2 + is_pass + create_time
+  conn().query(sql1, function (err1, result1) {
+    if(err1){
+      res.json({
+        code: 500,
+        msg: err1
+      })
+    } else {
+      let totalCount = result1[0][`COUNT(*)`]
+      conn().query(sql2, function (err2, result2) {
+        if(err2){
+          res.json({
+            code: 500,
+            msg: err2
+          })
+        } else {
+          res.json({
+            code: 0,
+            msg: 'success',
+            page: data.page,
+            limit: data.limit,
+            totalCount: totalCount,
+            data: result2
+          })
+        }
+      })
+    }
+  })
+}
+
+// 同城招租详情
+const room_details = (req, res, next) => {
+  let data = req.query
+  let sql = `SELECT * FROM \`local_room\` WHERE \`id\` = '${data.id}'`
+  conn().query(sql, function (err, result) {
+    if(err){
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      res.json({
+        code: 0,
+        msg: 'success',
+        data: result[0]
+      })
+    }
+  })
+}
+
 module.exports = {
-  work_add, work_list, work_details
+  work_add, work_list, work_details, room_add, room_list, room_details
 }
