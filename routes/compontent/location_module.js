@@ -99,8 +99,8 @@ const work_details = (req, res, next) => {
 // 新增房屋
 const room_add = (req, res, next) => {
   let data = req.body
-  let sql = 'INSERT INTO `local_room` (`id`, `room_name`, `room_type`, `lxr_phone`, `pay_type`, `pay_rent`, `pay_method`, `room_areas`, `room_shape`, `room_orientation`, `basic_area`, `basic_address`, `room_renovation`, `room_height`, `room_elevator`, `room_refrigerator`, `room_washing`, `room_heater`, `room_broadband`, `room_toilet`, `room_bed`, `room_wardrobe`, `room_conditioner`, `room_heating`, `room_cook`, `room_info`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.room_name, data.room_type, data.lxr_phone, data.pay_type, data.pay_rent, data.pay_method, data.room_areas, data.room_shape, data.room_orientation, data.basic_area, data.basic_address, data.room_renovation, data.room_height, data.room_elevator, data.room_refrigerator, data.room_washing, data.room_heater, data.room_broadband, data.room_toilet, data.room_bed, data.room_wardrobe, data.room_conditioner, data.room_heating, data.room_cook, data.room_info]
+  let sql = 'INSERT INTO `local_room` (`id`, `room_name`, `room_type`, `lxr_phone`, `pay_rent`, `pay_method`, `room_areas`, `room_shape`, `basic_address`, `room_renovation`, `room_height`, `room_elevator`, `room_refrigerator`, `room_washing`, `room_heater`, `room_broadband`, `room_toilet`, `room_bed`, `room_wardrobe`, `room_conditioner`, `room_heating`, `room_cook`, `room_info`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  let sqlParams = [data.room_name, data.room_type, data.lxr_phone, data.pay_rent, data.pay_method, data.room_areas, data.room_shape, data.basic_address, data.room_renovation, data.room_height, data.room_elevator, data.room_refrigerator, data.room_washing, data.room_heater, data.room_broadband, data.room_toilet, data.room_bed, data.room_wardrobe, data.room_conditioner, data.room_heating, data.room_cook, data.room_info]
   conn().query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({
