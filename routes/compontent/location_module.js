@@ -11,7 +11,6 @@ const work_add = (req, res, next) => {
         code: 500,
         msg: err
       })
-      return
     } else {
       res.json({
         code: 0,
@@ -107,7 +106,6 @@ const room_add = (req, res, next) => {
         code: 500,
         msg: err
       })
-      return
     } else {
       res.json({
         code: 0,

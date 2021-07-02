@@ -8,7 +8,17 @@ const dynamic_release_img = (req, res, next) => {
   //既处理表单，又处理文件上传
   let form = new formidable.IncomingForm();
   let uploadDir = path.join(__dirname, '../../../birch-forest-media/dynamicModules');
-  //本地文件夹目录路径
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdir(uploadDir, (error) => {
+      if (error) {
+        res.json({
+          code: 500,
+          data: error
+        })
+      }
+    })
+  }
+  // 本地文件夹目录路径
   form.uploadDir = uploadDir;
   form.parse(req, (err, fields, files) => {
     if (err) {
@@ -32,7 +42,6 @@ const dynamic_release_img = (req, res, next) => {
               code: 500,
               msg: err
             })
-            return
           } else {
             res.json({
               code: 0,
@@ -56,7 +65,6 @@ const dynamic_release_txt = (req, res, next) => {
         code: 500,
         msg: err
       })
-      return
     } else {
       res.json({
         code: 0,
@@ -152,7 +160,6 @@ const write_comment = (req, res, next) => {
         code: 500,
         msg: err
       })
-      return
     } else {
       res.json({
         code: 0,

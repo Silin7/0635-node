@@ -30,7 +30,6 @@ const update_mineInfo = (req, res, next) => {
         code: 500,
         msg: err
       })
-      return
     } else {
       res.json({
         code: 0,

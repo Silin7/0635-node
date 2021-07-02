@@ -9,7 +9,6 @@ const is_register = (req, res, next) => {
         code: 500,
         msg: err
       }))
-      return
     } else {
       // state为0：注册，state为1：修改密码
       if (data.state && data.state === '0') {
@@ -72,7 +71,6 @@ const register_inster = (req, res, next) => {
         code: 500,
         msg: err
       })
-      return
     } else {
       res.json({
         code: 0,
@@ -92,7 +90,6 @@ const change_password = (req, res, next) => {
         code: 500,
         msg: err
       })
-      return
     } else {
       res.json({
         code: 0,

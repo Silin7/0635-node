@@ -32,7 +32,6 @@ const marry_release = (req, res, next) => {
               code: 500,
               msg: err
             })
-            return
           } else {
             res.json({
               code: 0,

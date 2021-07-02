@@ -33,7 +33,6 @@ const appointment_release_img = (req, res, next) => {
               code: 500,
               msg: err
             })
-            return
           } else {
             res.json({
               code: 0,
@@ -57,7 +56,6 @@ const appointment_release_txt = (req, res, next) => {
         code: 500,
         msg: err
       })
-      return
     } else {
       res.json({
         code: 0,
