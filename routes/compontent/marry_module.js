@@ -5,10 +5,19 @@ const fs = require('fs')
 
 // 发起社交
 const marry_release = (req, res, next) => {
-  //既处理表单，又处理文件上传
+  let author_id = req.headers.author_id
   let form = new formidable.IncomingForm();
-  let uploadDir = path.join(__dirname, '../../../birch-forest-media/marryModule');
-  //本地文件夹目录路径
+  let uploadDir = path.join(__dirname, '../../../birch-forest-media/marryModule', author_id);
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdir(uploadDir, (error) => {
+      if (error) {
+        res.json({
+          code: 500,
+          data: error
+        })
+      }
+    })
+  }
   form.uploadDir = uploadDir;
   form.parse(req, (err, fields, files) => {
     if (err) {
@@ -17,9 +26,7 @@ const marry_release = (req, res, next) => {
         msg: err
       })
     } else {
-      //这里的路径是图片的本地路径
       let oldPath = files.file.path;
-      //图片传过来的名字
       let newPath = path.join(path.dirname(oldPath), files.file.name);
       let newPath2 = 'https://www.silin7.cn/birch-forest-media/marryModule/' + files.file.name
       //fs.rename重命名图片名称

@@ -5,9 +5,9 @@ const fs = require('fs')
 
 // 发动态(图片)
 const dynamic_release_img = (req, res, next) => {
-  //既处理表单，又处理文件上传
+  let author_id = req.headers.author_id
   let form = new formidable.IncomingForm();
-  let uploadDir = path.join(__dirname, '../../../birch-forest-media/dynamicModules');
+  let uploadDir = path.join(__dirname, '../../../birch-forest-media/dynamicModules', author_id);
   if (!fs.existsSync(uploadDir)) {
     fs.mkdir(uploadDir, (error) => {
       if (error) {
@@ -18,7 +18,6 @@ const dynamic_release_img = (req, res, next) => {
       }
     })
   }
-  // 本地文件夹目录路径
   form.uploadDir = uploadDir;
   form.parse(req, (err, fields, files) => {
     if (err) {
@@ -27,9 +26,7 @@ const dynamic_release_img = (req, res, next) => {
         msg: err
       })
     } else {
-      //这里的路径是图片的本地路径
       let oldPath = files.file.path;
-      //图片传过来的名字
       let newPath = path.join(path.dirname(oldPath), files.file.name);
       let backPath = path.join('https://www.silin7.cn/birch-forest-media/dynamicModules', files.file.name)
       //fs.rename重命名图片名称
