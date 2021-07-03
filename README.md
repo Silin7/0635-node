@@ -192,25 +192,6 @@
 
 * * *
 
-> recipe_module（菜单模块）
-* * *
-+ 菜肴分类
-+ 类型: GET
-+ 接口: /recipe/recipe_catalogs
-+ 参数: 无
-* * *
-+ 菜肴列表
-+ 类型: GET
-+ 接口: /recipe/recipe_list
-+ 参数: keyword
-* * *
-+ 菜肴详情
-+ 类型: GET
-+ 接口: /recipe/recipe_detail
-+ 参数: id
-
-* * *
-
 > messageModules（消息模块）
 * * *
 + 私信消息列表
