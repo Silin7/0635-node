@@ -1,11 +1,11 @@
 {
-  "name": "birch-forest-node",
+  "name": "0635-node",
   "version": "0.0.0",
   "author": "silin7",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "start2": "pm2 start ./bin/www --name birch-forest-node"
+    "start2": "pm2 start ./bin/www --name 0635-node"
   },
   "license": "ISC",
   "dependencies": {

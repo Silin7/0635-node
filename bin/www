@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('birch-forest:server');
+var debug = require('debug')('0635:server');
 var http = require('http');
 
 /**
