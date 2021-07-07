@@ -70,6 +70,11 @@ router.get('/picture/wallwriting_list', pictureModule.wallwriting_list);
 const happyModule = require('./compontent/happy_module')
 router.get('/entertainment/entertainment_list', happyModule.entertainment_list);
 
+// 菜谱模块
+const recipeModule = require('./compontent/recipe_module')
+router.get('/recipe/recipe_catalogs', recipeModule.recipe_catalogs);
+router.get('/recipe/recipe_list', recipeModule.recipe_list);
+router.get('/recipe/recipe_detail', recipeModule.recipe_detail);
 
 // 新闻模块
 const journalismModules = require('./compontent/journalism_module')
@@ -128,5 +133,11 @@ router.get('/mine/collection_list', mineModule.collection_list);
 router.post('/mine/follow_collection', mineModule.follow_collection);
 router.get('/mine/cancel_collection', mineModule.cancel_collection);
 router.get('/mine/my_dynamic_list', mineModule.my_dynamic_list);
+
+/*                   删除以下功能                  */
+
+// 其他模块
+const otherModules = require('./compontent/other_modules')
+router.get('/other/girl_random', otherModules.girl_random);
 
 module.exports = router;
