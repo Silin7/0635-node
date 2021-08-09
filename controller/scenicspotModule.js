@@ -10,8 +10,6 @@ const scenicspot_list = (req, res, next) => {
   let scenicspot_position = ` WHERE \`scenicspot_position\` = '${data.scenicspot_position}'`
   let scenicspot_name = ` AND \`scenicspot_name\` Like '%${data.scenicspot_name}%'`
   let scenicspot_limit = ` LIMIT ${slimit},${elimit}`
-  console.log('slimit', slimit)
-  console.log('elimit', elimit)
   if (data.scenicspot_position) {
     sql1 = sql1 + scenicspot_position
     sql2 = sql2 + `WHERE \`scenicspot_position\` = '${data.scenicspot_position}'`
