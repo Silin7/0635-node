@@ -1,4 +1,4 @@
-const conn = require('../model/mySQL')
+const db = require('../model/mySQL')
 
 // 特产列表
 const specialty_list = (req, res, next) => {
@@ -14,7 +14,7 @@ const specialty_list = (req, res, next) => {
   } else {
     sql2 = sql2 + scenicspot_limit
   }
-  conn().query(sql1, function (err1, result1) {
+  db().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -22,7 +22,7 @@ const specialty_list = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      conn().query(sql2, function (err2, result2) {
+      db().query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,
@@ -47,7 +47,7 @@ const specialty_list = (req, res, next) => {
 const specialty_details = (req, res, next) => {
 	let data = req.query
   let sql = `SELECT * FROM \`local_specialty\` WHERE \`id\` = '${data.id}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,

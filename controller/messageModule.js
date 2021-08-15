@@ -1,4 +1,4 @@
-const conn = require('../model/mySQL')
+const db = require('../model/mySQL')
 
 // 私信消息列表
 const permessage_list = (req, res, next) => {
@@ -7,7 +7,7 @@ const permessage_list = (req, res, next) => {
   let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
   let sql2 = `SELECT * FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  conn().query(sql1, function (err1, result1) {
+  db().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -15,7 +15,7 @@ const permessage_list = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      conn().query(sql2, function (err2, result2) {
+      db().query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,
@@ -40,7 +40,7 @@ const permessage_list = (req, res, next) => {
 const permessage_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`message_personal\` WHERE \`id\` = '${data.id}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -69,7 +69,7 @@ const permessage_send = (req, res, next) => {
   let sql1 = `SELECT COUNT(*) FROM \`message_personal\` WHERE \`receiver_id\` = '${data.receiver_id}' AND \`sender_id\` = '${data.sender_id}' AND \`message_type\` = '${data.message_type}'`
   let sql2 = 'INSERT INTO `message_personal` (`id`, `receiver_id`, `sender_id`, `sender_name`, `sender_img`, `message_title`, `message_content`, `message_type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)'
   let sqlParams = [data.receiver_id, data.sender_id, data.sender_name, data.sender_img, data.message_title, data.message_content, data.message_type]
-  conn().query(sql1, function (err1, result1) {
+  db().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -84,7 +84,7 @@ const permessage_send = (req, res, next) => {
           type: '1'
         })
       } else {
-        conn().query(sql2, sqlParams, function (err2, result2) {
+        db().query(sql2, sqlParams, function (err2, result2) {
           if(err2){
             res.json({
               code: 500,
@@ -108,7 +108,7 @@ const permessage_active = (req, res, next) => {
   let data = req.body
   let sql = 'INSERT INTO `message_personal` (`id`, `receiver_id`, `sender_id`, `sender_name`, `sender_img`, `message_title`, `message_content`, `message_type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)'
   let sqlParams = [data.receiver_id, data.sender_id, data.sender_name, data.sender_img, data.message_title, data.message_content, data.message_type]
-  conn().query(sql, sqlParams, function (err, result) {
+  db().query(sql, sqlParams, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -127,7 +127,7 @@ const permessage_active = (req, res, next) => {
 const permessage_delete = (req, res, next) => {
   let data = req.query
   let sql1 = `DELETE FROM \`message_personal\` WHERE \`message_personal\`.\`id\` = ${data.id}`
-  conn().query(sql1, function (err1, result1) {
+  db().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -149,7 +149,7 @@ const sysmessage_list = (req, res, next) => {
   let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`message_system\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL`
   let sql2 = `SELECT * FROM \`message_system\` WHERE \`receiver_id\` = '${data.receiver_id}' OR \`receiver_id\` is NULL ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  conn().query(sql1, function (err1, result1) {
+  db().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -157,7 +157,7 @@ const sysmessage_list = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      conn().query(sql2, function (err2, result2) {
+      db().query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,
@@ -182,7 +182,7 @@ const sysmessage_list = (req, res, next) => {
 const sysmessage_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`message_system\` WHERE \`id\` = '${data.id}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,

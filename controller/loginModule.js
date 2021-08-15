@@ -1,9 +1,9 @@
-const conn = require('../model/mySQL')
+const db = require('../model/mySQL')
 
 const is_register = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`personnel_information\` WHERE user_name = '${data.user_name}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if (err) {
       res.end(JSON.stringify({
         code: 500,
@@ -65,7 +65,7 @@ const register_inster = (req, res, next) => {
   let data = req.body
   let sql = 'INSERT INTO `personnel_information` (`id`, `user_name`, `password`, `nick_name`, `avatar_url`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)'
   let sqlParams = [data.user_name, data.password, data.nick_name, data.avatar_url, data.gender]
-  conn().query(sql, sqlParams, function (err, result) {
+  db().query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -84,7 +84,7 @@ const register_inster = (req, res, next) => {
 const change_password = (req, res, next) => {
   let data = req.body
   let sql = `UPDATE \`personnel_information\` SET \`password\` = '${data.newPassword}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -103,7 +103,7 @@ const change_password = (req, res, next) => {
 const sign_in = (req, res, next) => {
   let data = req.body
   let sql = `SELECT * FROM \`personnel_information\` WHERE \`user_name\` = '${data.user_name}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if(err){
       res.end(JSON.stringify({
         code: 500,

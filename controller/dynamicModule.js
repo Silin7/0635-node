@@ -1,4 +1,4 @@
-const conn = require('../model/mySQL')
+const db = require('../model/mySQL')
 const formidable = require('formidable');
 const path = require('path')
 const fs = require('fs')
@@ -33,7 +33,7 @@ const dynamic_release_img = (req, res, next) => {
       fs.rename(oldPath, newPath, () => {
         let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)'
         let sqlParams = [fields.author_id, fields.author_name, fields.author_avatar, fields.content, backPath]
-        conn().query(sql, sqlParams, function (err, result) {
+        db().query(sql, sqlParams, function (err, result) {
           if (err) {
             res.json({
               code: 500,
@@ -56,7 +56,7 @@ const dynamic_release_txt = (req, res, next) => {
   let data = req.body
   let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`) VALUES (NULL, ?, ?, ?, ?)'
   let sqlParams = [data.author_id, data.author_name, data.author_avatar, data.content]
-  conn().query(sql, sqlParams, function (err, result) {
+  db().query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -78,7 +78,7 @@ const dynamic_list = (req, res, next) => {
   let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`is_pass\` = '${data.is_pass}'`
   let sql2 = `SELECT * FROM \`local_dynamic\` WHERE \`is_pass\` = '${data.is_pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  conn().query(sql1, function (err1, result1) {
+  db().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -86,7 +86,7 @@ const dynamic_list = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      conn().query(sql2, function (err2, result2) {
+      db().query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,
@@ -111,7 +111,7 @@ const dynamic_list = (req, res, next) => {
 const dynamic_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`local_dynamic\` WHERE \`id\` = '${data.id}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -131,7 +131,7 @@ const dynamic_details = (req, res, next) => {
 const cancel_dynamic = (req, res, next) => {
   let data = req.query
   let sql = `DELETE FROM \`local_dynamic\` WHERE \`id\` = '${data.id}' AND \`author_id\` = '${data.author_id}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -151,7 +151,7 @@ const write_comment = (req, res, next) => {
   let data = req.body
   let sql = 'INSERT INTO `local_comment` (`id`, `dynamic_id`, `comment_content`, `reviewer_id`, `reviewer_name`, `reviewer_image`) VALUES (NULL, ?, ?, ?, ?, ?)'
   let sqlParams = [data.dynamic_id, data.comment_content, data.reviewer_id, data.reviewer_name, data.reviewer_image]
-  conn().query(sql, sqlParams, function (err, result) {
+  db().query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -172,7 +172,7 @@ const comment_list = (req, res, next) => {
   let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`local_comment\` WHERE \`dynamic_id\` = '${data.dynamic_id}' AND \`is_pass\` = '${data.is_pass}'`
   let sql2 = `SELECT * FROM \`local_comment\` WHERE \`dynamic_id\` = '${data.dynamic_id}' AND \`is_pass\` = '${data.is_pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  conn().query(sql1, function (err1, result1) {
+  db().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -180,7 +180,7 @@ const comment_list = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      conn().query(sql2, function (err2, result2) {
+      db().query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,

@@ -1,4 +1,4 @@
-const conn = require('../model/mySQL')
+const db = require('../model/mySQL')
 
 // 话题分类列表
 const topic_class = (req, res, next) => {
@@ -7,7 +7,7 @@ const topic_class = (req, res, next) => {
   let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`topic_class\` WHERE \`state\` = '${data.state}'`
   let sql2 = `SELECT * FROM \`topic_class\` WHERE \`state\` = '${data.state}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  conn().query(sql1, function (err1, result1) {
+  db().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -15,7 +15,7 @@ const topic_class = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      conn().query(sql2, function (err2, result2) {
+      db().query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,
@@ -40,7 +40,7 @@ const topic_class = (req, res, next) => {
 const topic_class_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`topic_class\` WHERE \`id\` = '${data.id}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -63,7 +63,7 @@ const topic_list = (req, res, next) => {
   let elimit = data.limit
   let sql1 = `SELECT COUNT(*) FROM \`topic_list\` WHERE \`topic_class\` = '${data.topic_class}' AND \`is_pass\` = '${data.is_pass}'`
   let sql2 = `SELECT id, topic_title, topic_img, create_time FROM \`topic_list\` WHERE \`topic_class\` = '${data.topic_class}' AND \`is_pass\` = '${data.is_pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  conn().query(sql1, function (err1, result1) {
+  db().query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -71,7 +71,7 @@ const topic_list = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      conn().query(sql2, function (err2, result2) {
+      db().query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,
@@ -96,7 +96,7 @@ const topic_list = (req, res, next) => {
 const topic_list_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`topic_list\` WHERE \`id\` = '${data.id}'`
-  conn().query(sql, function (err, result) {
+  db().query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
