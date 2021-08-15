@@ -6,7 +6,7 @@ const wallportrait_series = (req, res, next) => {
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
   let sql = `SELECT id, series_id, series_name, series_image FROM \`wallportrait_series\` WHERE \`series_id\` = '${data.series_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -26,7 +26,7 @@ const wallportrait_series = (req, res, next) => {
 const wallportrait_list = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`wallportrait_series\` WHERE \`id\` = '${data.id}'`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -48,7 +48,7 @@ const wallpaper_series = (req, res, next) => {
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
   let sql = `SELECT id, series_id, series_name, series_image FROM \`wallpaper_series\` WHERE \`series_id\` = '${data.series_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -68,7 +68,7 @@ const wallpaper_series = (req, res, next) => {
 const wallpaper_list = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`wallpaper_series\` WHERE \`id\` = '${data.id}'`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -90,7 +90,7 @@ const wallwriting_series = (req, res, next) => {
   let slimit = (data.page - 1) * data.limit
   let elimit = data.limit
   let sql = `SELECT id, series_id, series_name, series_image FROM \`wallwriting_series\` WHERE \`series_id\` = '${data.series_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -110,7 +110,7 @@ const wallwriting_series = (req, res, next) => {
 const wallwriting_list = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`wallwriting_series\` WHERE \`id\` = '${data.id}'`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,

@@ -18,7 +18,7 @@ const journalism_list = (req, res, next) => {
     sql1 = sql1 + journalism_class
     sql2 = sql2 + journalism_class + create_time
   }
-  db().query(sql1, function (err1, result1) {
+  db.query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -26,7 +26,7 @@ const journalism_list = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      db().query(sql2, function (err2, result2) {
+      db.query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,
@@ -51,7 +51,7 @@ const journalism_list = (req, res, next) => {
 const journalism_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`local_journalism\` WHERE \`id\` = '${data.id}'`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,

@@ -4,7 +4,7 @@ const db = require('../model/mySQL')
 const entertainment_list = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`entertainment_list\` WHERE \`type_id\` = '${data.type_id}'`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,

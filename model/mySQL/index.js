@@ -1,32 +1,35 @@
-var mysql = require('mysql')
+const mysql = require('mysql')
 
-var sqlConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: '123456',
-  database: 'birch-forest',
-  timezone: "08:00"
+const { dbConfig } = require('../../config');
+
+const pool = mysql.createPool(dbConfig);
+
+const db = {};
+
+db.query = function handleDisconnection(sql, params) {
+  
+  return new Promise((resolve, reject) => {
+
+    pool.getConnection((err, connection) => {
+
+      if (err) {
+        reject(err)
+        return
+      }
+
+      connection.query(sql, params, function(error, results, fields) {
+        // 释放连接
+        connection.release()
+        if (error) {
+          reject(error)
+          return
+        }
+        resolve(results)
+      })
+
+    })
+  })
 }
 
-const handleDisconnection = function() {
-  var pool = mysql.createPool(sqlConfig);
-  pool.getConnection(function(err) {
-    if (err) {
-      setTimeout(handleDisconnection(), 2000);
-    }
-  });
-  pool.on('error', function(err) {
-    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      console.log('db error执行重连:' + err.message);
-      handleDisconnection();
-      // pool.threadId()
-    } else {
-      throw err;
-    }
-  });
-  return function(){
-    return pool
-  }
-}
-
-module.exports = handleDisconnection()
+// 导出对象
+module.exports = db

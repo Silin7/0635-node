@@ -33,7 +33,7 @@ const marry_release = (req, res, next) => {
       fs.rename(oldPath, newPath, () => {
         let sql = 'INSERT INTO `marry_library` (`id`, `type`, `user_id`, `name`, `gender`, `age`, `constellation`, `address`, `height`, `weight`, `education`, `occupation`, `income`, `state`, `car`, `house`, `introduce`, `cover`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         let sqlParams = [fields.type, fields.user_id, fields.name, fields.gender, fields.age, fields.constellation, fields.address, fields.height, fields.weight, fields.education, fields.occupation, fields.income, fields.state, fields.car, fields.house, fields.introduce, newPath2]
-        db().query(sql, sqlParams, function (err, result) {
+        db.query(sql, sqlParams, function (err, result) {
           if (err) {
             res.json({
               code: 500,
@@ -77,7 +77,7 @@ const marry_list = (req, res, next) => {
   }
   sql1 = sql1 + is_pass
   sql2 = sql2 + is_pass + create_time
-  db().query(sql1, function (err1, result1) {
+  db.query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -85,7 +85,7 @@ const marry_list = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      db().query(sql2, function (err2, result2) {
+      db.query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,
@@ -110,7 +110,7 @@ const marry_list = (req, res, next) => {
 const marry_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`marry_library\` WHERE \`id\` = ${data.id}`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -130,7 +130,7 @@ const marry_details = (req, res, next) => {
 const marry_issign = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`marry_sign\` WHERE \`register_id\` = '${data.register_id}' AND \`followers_id\` = '${data.followers_id}'`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -158,7 +158,7 @@ const marry_issign = (req, res, next) => {
 const marry_sign = (req, res, next) => {
   let data = req.query
   let sql = `INSERT INTO \`marry_sign\` (\`id\`, \`register_id\`, \`followers_id\`) VALUES (NULL, '${data.register_id}', '${data.followers_id}');`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,

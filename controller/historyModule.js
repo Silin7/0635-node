@@ -4,7 +4,7 @@ const db = require('../model/mySQL')
 const local_historical = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`local_historical\` WHERE \`city_id\` = ${data.city_id}`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,

@@ -34,7 +34,7 @@ const appointment_release_img = (req, res, next) => {
       fs.rename(oldPath, newPath, () => {
         let sql = 'INSERT INTO `activity_library` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`, `activity_poster`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
         let sqlParams = [fields.sponsor_id, fields.sponsor_name, fields.sponsor_gender, fields.sponsor_age, fields.sponsor_img, fields.appointment_title, fields.appointment_info, fields.appointment_time, fields.appointment_place, fields.appointment_wx, fields.area_type, fields.appointment_type, fields.appointment_pay, fields.appointment_gander, fields.appointment_details, newPath2]
-        db().query(sql, sqlParams, function (err, result) {
+        db.query(sql, sqlParams, function (err, result) {
           if (err) {
             res.json({
               code: 500,
@@ -57,7 +57,7 @@ const appointment_release_txt = (req, res, next) => {
   let data = req.body
   let sql = 'INSERT INTO `activity_library` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
   let sqlParams = [data.sponsor_id, data.sponsor_name, data.sponsor_gender, data.sponsor_age, data.sponsor_img, data.appointment_title, data.appointment_info, data.appointment_time, data.appointment_place, data.appointment_wx, data.area_type, data.appointment_type, data.appointment_pay, data.appointment_gander, data.appointment_details]
-  db().query(sql, sqlParams, function (err, result) {
+  db.query(sql, sqlParams, function (err, result) {
     if (err) {
       res.json({
         code: 500,
@@ -98,7 +98,7 @@ const appointment_list = (req, res, next) => {
   }
   sql1 = sql1 + is_pass
   sql2 = sql2 + is_pass + create_time
-  db().query(sql1, function (err1, result1) {
+  db.query(sql1, function (err1, result1) {
     if(err1){
       res.json({
         code: 500,
@@ -106,7 +106,7 @@ const appointment_list = (req, res, next) => {
       })
     } else {
       let totalCount = result1[0][`COUNT(*)`]
-      db().query(sql2, function (err2, result2) {
+      db.query(sql2, function (err2, result2) {
         if(err2){
           res.json({
             code: 500,
@@ -131,7 +131,7 @@ const appointment_list = (req, res, next) => {
 const appointment_details = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`activity_library\` WHERE \`id\` = '${data.id}'`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -151,7 +151,7 @@ const appointment_details = (req, res, next) => {
 const appointment_issign = (req, res, next) => {
   let data = req.query
   let sql = `SELECT * FROM \`activity_sign\` WHERE \`active_id\` = '${data.active_id}' AND \`followers_id\` = '${data.followers_id}'`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
@@ -179,7 +179,7 @@ const appointment_issign = (req, res, next) => {
 const appointment_sign = (req, res, next) => {
   let data = req.query
   let sql = `INSERT INTO \`activity_sign\` (\`id\`, \`active_id\`, \`followers_id\`) VALUES (NULL, '${data.active_id}', '${data.followers_id}');`
-  db().query(sql, function (err, result) {
+  db.query(sql, function (err, result) {
     if(err){
       res.json({
         code: 500,
