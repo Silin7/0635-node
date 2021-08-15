@@ -1,4 +1,4 @@
-const conn = require('./mySQL')
+const conn = require('../model/mySQL')
 const formidable = require('formidable');
 const path = require('path')
 const fs = require('fs')

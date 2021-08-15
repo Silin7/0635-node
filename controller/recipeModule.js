@@ -1,7 +1,7 @@
-const request = require('./recipe_api/request')
-const recipeCatalogs = require('./recipe_api/recipe_catalogs')
-const recipeList = require('./recipe_api/recipe_list')
-const recipeDetail = require('./recipe_api/recipe_detail')
+const request = require('../model/recipe_api/request')
+const recipeCatalogs = require('../model/recipe_api/recipe_catalogs')
+const recipeList = require('../model/recipe_api/recipe_list')
+const recipeDetail = require('../model/recipe_api/recipe_detail')
 
 //菜肴分类
 const recipe_catalogs = (req, res) => {

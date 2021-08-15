@@ -1,4 +1,4 @@
-const conn = require('./mySQL')
+const conn = require('../model/mySQL')
 
 // 新闻列表
 const journalism_list = (req, res, next) => {

@@ -1,4 +1,4 @@
-const conn = require('./mySQL')
+const conn = require('../model/mySQL')
 
 // 县市历史详情
 const local_historical = (req, res, next) => {

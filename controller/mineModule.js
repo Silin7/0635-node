@@ -1,4 +1,4 @@
-const conn = require('./mySQL')
+const conn = require('../model/mySQL')
 
 // 获取个人信息详情
 const mine_info = (req, res, next) => {

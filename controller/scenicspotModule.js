@@ -1,4 +1,4 @@
-const conn = require('./mySQL')
+const conn = require('../model/mySQL')
 
 // 景点列表
 const scenicspot_list = (req, res, next) => {

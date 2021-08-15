@@ -1,4 +1,4 @@
-const conn = require('./mySQL')
+const conn = require('../model/mySQL')
 
 // 私信消息列表
 const permessage_list = (req, res, next) => {

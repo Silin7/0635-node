@@ -107,5 +107,16 @@ const jsxh_quotations = (query, request) => {
 }
 
 module.exports = {
-  history_today, weather_current, weather_forecast, jokes_random, news_types, news_list, news_details, girl_random, translate, rubbish, aim_mobile, jsxh_quotations
+  history_today,
+  weather_current,
+  weather_forecast,
+  jokes_random,
+  news_types,
+  news_list,
+  news_details,
+  girl_random,
+  translate,
+  rubbish,
+  aim_mobile,
+  jsxh_quotations
 }

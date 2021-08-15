@@ -10,6 +10,6 @@ module.exports = (query, request) => {
     'POST',
     `http://api.douguo.net/recipe/v2/search/0/20`,
     data,
-    {cookie: query.cookie, proxy: query.proxy}
+    { cookie: query.cookie, proxy: query.proxy }
   )
 }

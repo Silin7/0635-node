@@ -1,4 +1,4 @@
-const conn = require('./mySQL')
+const conn = require('../model/mySQL')
 
 // 话题分类列表
 const topic_class = (req, res, next) => {

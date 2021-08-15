@@ -1,4 +1,4 @@
-const conn = require('./mySQL')
+const conn = require('../model/mySQL')
 
 // 头像系列
 const wallportrait_series = (req, res, next) => {

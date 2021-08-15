@@ -1,5 +1,5 @@
-const api = require('./other_api')
-const request = require('./request')
+const api = require('../model/other_api')
+const request = require('../model/request')
 
 // 随机获取美女福利图片
 const girl_random = (req, res) => {

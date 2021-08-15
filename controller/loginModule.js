@@ -1,4 +1,4 @@
-const conn = require('./mySQL')
+const conn = require('../model/mySQL')
 
 const is_register = (req, res, next) => {
   let data = req.query
