@@ -1,5 +1,5 @@
 /*
- * @Description: 景点模块控制器
+ * @Description: 景点模块控制器层
  * @Author: silin7
  * @Date: 2021-08-17
  */

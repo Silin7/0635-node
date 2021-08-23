@@ -1,5 +1,5 @@
 /*
- * @Description: 景点模块数据持久层
+ * @Description: 景点模块业务模型层
  * @Author: silin7
  * @Date: 2020-08-17
  */

@@ -1,5 +1,5 @@
 /*
- * @Description: 线下活动模块
+ * @Description: 线下活动模块路由层
  * @Author: silin7
  * @Date: 2021-08-09
  */
