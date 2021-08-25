@@ -53,7 +53,7 @@ const scenicspot_info = async (req, res, next) => {
     res.json({
       code: 0,
       msg: 'success',
-      data: result
+      data: result[0]
     })
   }).catch(error => {
     res.json({
