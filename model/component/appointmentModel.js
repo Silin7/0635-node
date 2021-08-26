@@ -49,7 +49,7 @@ module.exports = {
     let appointment_type = ` \`appointment_type\` = '${appointment}' AND`
     let area_type = ` \`area_type\` = '${area}' AND`
     let is_pass = ` \`is_pass\` = '${pass}'`
-    let scenicspot_limit = ` LIMIT ${slimit},${elimit}`
+    let page_limit = ` LIMIT ${slimit},${elimit}`
     if (sponsor) {
       sql = sql + sponsor_gender
     }
@@ -59,7 +59,7 @@ module.exports = {
     if (area) {
       sql = sql + area_type
     }
-    sql = sql + is_pass + scenicspot_limit
+    sql = sql + is_pass + page_limit
     return await db.query(sql)
   },
   

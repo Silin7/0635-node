@@ -30,7 +30,7 @@ module.exports = {
     let scenicspot_position = ` WHERE \`scenicspot_position\` = '${position}'`
     let scenicspot_name01 = ` AND \`scenicspot_name\` Like '%${name}%'`
     let scenicspot_name02 = ` WHERE \`scenicspot_name\` Like '%${name}%'`
-    let scenicspot_limit = ` LIMIT ${slimit},${elimit}`
+    let page_limit = ` LIMIT ${slimit},${elimit}`
     if (position && name) {
       sql = sql + scenicspot_position + scenicspot_name01
     } else if (position) {
@@ -38,7 +38,7 @@ module.exports = {
     } else if (name) {
       sql = sql + scenicspot_name02
     }
-    sql = sql + scenicspot_limit
+    sql = sql + page_limit
     return await db.query(sql)
   },
   
