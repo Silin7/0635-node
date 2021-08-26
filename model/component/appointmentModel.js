@@ -28,49 +28,57 @@ module.exports = {
     let appointment_type = ` \`appointment_type\` = '${appointment}' AND`
     let area_type = ` \`area_type\` = '${area}' AND`
     let is_pass = ` \`is_pass\` = '${pass}'`
-    if (sponsor_gender) {
+    if (sponsor) {
       sql = sql + sponsor_gender
     }
-    if (appointment_type) {
+    if (appointment) {
       sql = sql + appointment_type
     }
-    if (area_type) {
+    if (area) {
       sql = sql + area_type
     }
-    if (is_pass) {
-      sql = sql + is_pass
-    }
+    sql = sql + is_pass
     return await db.query(sql)
   },
   // 线下活动列表
   appointment_list: async (page, limit, sponsor, appointment, area, pass) => {
     let slimit = (page - 1) * limit
     let elimit = limit
-    let sql = 'SELECT * FROM `activity_library`'
+    let sql = 'SELECT * FROM `activity_library` WHERE'
     let sponsor_gender = ` \`sponsor_gender\` = '${sponsor}' AND`
     let appointment_type = ` \`appointment_type\` = '${appointment}' AND`
     let area_type = ` \`area_type\` = '${area}' AND`
     let is_pass = ` \`is_pass\` = '${pass}'`
     let scenicspot_limit = ` LIMIT ${slimit},${elimit}`
-    if (sponsor_gender) {
+    if (sponsor) {
       sql = sql + sponsor_gender
     }
-    if (appointment_type) {
+    if (appointment) {
       sql = sql + appointment_type
     }
-    if (area_type) {
+    if (area) {
       sql = sql + area_type
     }
-    if (is_pass) {
-      sql = sql + is_pass
-    }
-    sql = sql + scenicspot_limit
+    sql = sql + is_pass + scenicspot_limit
+    console.log('sql', sql)
     return await db.query(sql)
   },
   
   // 线下活动详情
   appointment_details: async (id) => {
     let sql = `SELECT * FROM \`activity_library\` WHERE \`id\` = '${id}'`
+    return await db.query(sql)
+  },
+
+  // 是否报名参加活动
+  appointment_issign: async (active_id, followers_id) => {
+    let sql = `SELECT * FROM \`activity_sign\` WHERE \`active_id\` = '${active_id}' AND \`followers_id\` = '${followers_id}'`
+    return await db.query(sql)
+  },
+
+  // 报名参加活动
+  appointment_sign: async (active_id, followers_id) => {
+    let sql = `INSERT INTO \`activity_sign\` (\`id\`, \`active_id\`, \`followers_id\`) VALUES (NULL, '${active_id}', '${followers_id}');`
     return await db.query(sql)
   },
 }

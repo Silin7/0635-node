@@ -13,11 +13,11 @@ const fs = require('fs')
 const appointmentModel = require('../model/component/appointmentModel');
 
 
-// 发起活动(图片)
+// 发起活动(图片)   这个不管用  唉   要重写
 const appointment_release_img = async (req, res, next) => {
   let author_id = req.headers.author_id
   let form = new formidable.IncomingForm();
-  let uploadDir = path.join(__dirname, '../../../birch-forest-media/appointmentModule', author_id);
+  let uploadDir = path.join(__dirname, '../../birch-forest-media/appointmentModule', author_id);
   if (!fs.existsSync(uploadDir)) {
     fs.mkdir(uploadDir, (error) => {
       if (error) {
@@ -60,7 +60,7 @@ const appointment_release_img = async (req, res, next) => {
 // 发起活动（文字）
 const appointment_release_txt = async (req, res, next) => {
   let parameter = req.body
-  await scenicspotModel.appointment_release_txt(parameter).then(result => {
+  await appointmentModel.appointment_release_txt(parameter).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -87,6 +87,7 @@ const appointment_list = async (req, res, next) => {
   let data = []
   await appointmentModel.appointment_total(sponsor_gender, appointment_type, area_type, is_pass).then(result => {
     totalCount = result[0]["COUNT(*)"]
+    console.log('totalCount', totalCount)
   }).catch(error => {
     res.json({
       code: 500,
@@ -133,49 +134,43 @@ const appointment_details = async (req, res, next) => {
 }
 
 // 是否报名参加活动
-const appointment_issign = (req, res, next) => {
-  let data = req.query
-  let sql = `SELECT * FROM \`activity_sign\` WHERE \`active_id\` = '${data.active_id}' AND \`followers_id\` = '${data.followers_id}'`
-  db.query(sql, function (err, result) {
-    if(err){
+const appointment_issign = async (req, res, next) => {
+  let parameter = req.query
+  await appointmentModel.appointment_issign(parameter.active_id, parameter.followers_id).then(result => {
+    if (result.length > 0) {
       res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      if (result.length > 0) {
-        res.json({
-          code: 0,
-          msg: 'success',
-          type: '1'
-        })
-      } else {
-        res.json({
-          code: 0,
-          msg: 'success',
-          type: '0'
-        })
-      }
-    }
-  })
-}
-
-// 报名参加活动
-const appointment_sign = (req, res, next) => {
-  let data = req.query
-  let sql = `INSERT INTO \`activity_sign\` (\`id\`, \`active_id\`, \`followers_id\`) VALUES (NULL, '${data.active_id}', '${data.followers_id}');`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
+        code: 0,
+        msg: 'success',
+        type: '1'
       })
     } else {
       res.json({
         code: 0,
-        msg: 'success'
+        msg: 'success',
+        type: '0'
       })
     }
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+  })
+}
+
+// 报名参加活动
+const appointment_sign = async (req, res, next) => {
+  let parameter = req.query
+  await appointmentModel.appointment_issign(parameter.active_id, parameter.followers_id).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success'
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
