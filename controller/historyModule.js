@@ -1,22 +1,25 @@
-const db = require('../model/mySQL')
+/*
+* @Description: 历史模块控制器层
+* @Author: silin7
+* @Date: 2021-08-26
+*/
+
+const historyModel = require('../model/component/historyModel')
 
 // 县市历史详情
-const local_historical = (req, res, next) => {
-  let data = req.query
-  let sql = `SELECT * FROM \`local_historical\` WHERE \`city_id\` = ${data.city_id}`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        data: result[0]
-      })
-    }
+const local_historical = async (req, res, next) => {
+  let parameter = req.query
+  await historyModel.local_historical(parameter.city_id).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success',
+      data: result[0]
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 

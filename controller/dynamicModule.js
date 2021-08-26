@@ -1,9 +1,16 @@
-const db = require('../model/mySQL')
+/*
+ * @Description: 动态模块控制器层
+ * @Author: silin7
+ * @Date: 2021-08-26
+ */
+
 const formidable = require('formidable');
 const path = require('path')
 const fs = require('fs')
 
-// 发动态(图片)
+const dynamicModel = require('../model/component/dynamicModel');
+
+// 发动态（图片）   这个不管用  唉   要重写
 const dynamic_release_img = (req, res, next) => {
   let author_id = req.headers.author_id
   let form = new formidable.IncomingForm();
@@ -31,20 +38,17 @@ const dynamic_release_img = (req, res, next) => {
       let backPath = path.join('https://www.silin7.cn/birch-forest-media/dynamicModules', files.file.name)
       //fs.rename重命名图片名称
       fs.rename(oldPath, newPath, () => {
-        let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)'
-        let sqlParams = [fields.author_id, fields.author_name, fields.author_avatar, fields.content, backPath]
-        db.query(sql, sqlParams, function (err, result) {
-          if (err) {
-            res.json({
-              code: 500,
-              msg: err
-            })
-          } else {
-            res.json({
-              code: 0,
-              msg: 'success'
-            })
-          }
+        let parameter = fields
+        dynamicModel.dynamic_release_img(parameter).then(result => {
+          res.json({
+            code: 0,
+            msg: 'success'
+          })
+        }).catch(error => {
+          res.json({
+            code: 500,
+            msg: JSON.stringify(error)
+          })
         })
       })
     }
@@ -52,155 +56,154 @@ const dynamic_release_img = (req, res, next) => {
 }
 
 // 发动态（文字）
-const dynamic_release_txt = (req, res, next) => {
-  let data = req.body
-  let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`) VALUES (NULL, ?, ?, ?, ?)'
-  let sqlParams = [data.author_id, data.author_name, data.author_avatar, data.content]
-  db.query(sql, sqlParams, function (err, result) {
-    if (err) {
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success'
-      })
-    }
+const dynamic_release_txt = async (req, res, next) => {
+  let parameter = req.body
+  await dynamicModel.dynamic_release_txt(parameter).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success'
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
 // 动态列表
-const dynamic_list = (req, res, next) => {
-  let data = req.query
-  let slimit = (data.page - 1) * data.limit
-  let elimit = data.limit
-  let sql1 = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`is_pass\` = '${data.is_pass}'`
-  let sql2 = `SELECT * FROM \`local_dynamic\` WHERE \`is_pass\` = '${data.is_pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  db.query(sql1, function (err1, result1) {
-    if(err1){
-      res.json({
-        code: 500,
-        msg: err1
-      })
-    } else {
-      let totalCount = result1[0][`COUNT(*)`]
-      db.query(sql2, function (err2, result2) {
-        if(err2){
-          res.json({
-            code: 500,
-            msg: err2
-          })
-        } else {
-          res.json({
-            code: 0,
-            msg: 'success',
-            page: data.page,
-            limit: data.limit,
-            totalCount: totalCount,
-            data: result2
-          })
-        }
-      })
-    }
+const dynamic_list = async (req, res, next) => {
+  let parameter = req.query
+  let page = parameter.page ? parameter.page : 1
+  let limit = parameter.limit ? parameter.limit : 10
+  let is_pass = parameter.is_pass ? parameter.is_pass : '02'
+  let isNext = true
+  let totalCount = 0
+  let data = []
+  await dynamicModel.dynamic_total(is_pass).then(result => {
+    totalCount = result[0]["COUNT(*)"]
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
   })
+  await dynamicModel.dynamic_list(page, limit, is_pass).then(result => {
+    data = result
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  if (isNext) {
+    res.json({
+      code: 0,
+      msg: 'success',
+      page: page,
+      limit: limit,
+      totalCount: totalCount,
+      data: data
+    })
+  }
 }
 
 // 动态详情
-const dynamic_details = (req, res, next) => {
-  let data = req.query
-  let sql = `SELECT * FROM \`local_dynamic\` WHERE \`id\` = '${data.id}'`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        data: result[0]
-      })
-    }
+const dynamic_details = async (req, res, next) => {
+  let parameter = req.query
+  await dynamicModel.dynamic_details(parameter.id).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success',
+      data: result[0]
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
 // 删除动态
-const cancel_dynamic = (req, res, next) => {
-  let data = req.query
-  let sql = `DELETE FROM \`local_dynamic\` WHERE \`id\` = '${data.id}' AND \`author_id\` = '${data.author_id}'`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success'
-      })
-    }
+const cancel_dynamic = async (req, res, next) => {
+  let parameter = req.query
+  await dynamicModel.cancel_dynamic(parameter.id, parameter.author_id).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success'
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
 // 写评论
-const write_comment = (req, res, next) => {
-  let data = req.body
-  let sql = 'INSERT INTO `local_comment` (`id`, `dynamic_id`, `comment_content`, `reviewer_id`, `reviewer_name`, `reviewer_image`) VALUES (NULL, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.dynamic_id, data.comment_content, data.reviewer_id, data.reviewer_name, data.reviewer_image]
-  db.query(sql, sqlParams, function (err, result) {
-    if (err) {
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success'
-      })
-    }
-  })
-}
-// 动态评论的列表
-const comment_list = (req, res, next) => {
-  let data = req.query
-  let slimit = (data.page - 1) * data.limit
-  let elimit = data.limit
-  let sql1 = `SELECT COUNT(*) FROM \`local_comment\` WHERE \`dynamic_id\` = '${data.dynamic_id}' AND \`is_pass\` = '${data.is_pass}'`
-  let sql2 = `SELECT * FROM \`local_comment\` WHERE \`dynamic_id\` = '${data.dynamic_id}' AND \`is_pass\` = '${data.is_pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  db.query(sql1, function (err1, result1) {
-    if(err1){
-      res.json({
-        code: 500,
-        msg: err1
-      })
-    } else {
-      let totalCount = result1[0][`COUNT(*)`]
-      db.query(sql2, function (err2, result2) {
-        if(err2){
-          res.json({
-            code: 500,
-            msg: err2
-          })
-        } else {
-          res.json({
-            code: 0,
-            msg: 'success',
-            page: data.page,
-            limit: data.limit,
-            totalCount: totalCount,
-            data: result2
-          })
-        }
-      })
-    }
+const write_comment = async (req, res, next) => {
+  let parameter = req.body
+  await dynamicModel.write_comment(parameter).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success'
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
+// 动态评论的列表
+const comment_list = async (req, res, next) => {
+  let parameter = req.query
+  let page = parameter.page ? parameter.page : 1
+  let limit = parameter.limit ? parameter.limit : 10
+  let is_pass = parameter.is_pass ? parameter.is_pass : '02'
+  let isNext = true
+  let totalCount = 0
+  let data = []
+  await dynamicModel.comment_total(parameter.dynamic_id, is_pass).then(result => {
+    totalCount = result[0]["COUNT(*)"]
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  await dynamicModel.comment_list(page, limit, parameter.dynamic_id, is_pass).then(result => {
+    data = result
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  if (isNext) {
+    res.json({
+      code: 0,
+      msg: 'success',
+      page: page,
+      limit: limit,
+      totalCount: totalCount,
+      data: data
+    })
+  }
+}
+
 module.exports = {
-  dynamic_release_img, dynamic_release_txt, dynamic_list, dynamic_details, cancel_dynamic, write_comment, comment_list
+  dynamic_release_img,
+  dynamic_release_txt,
+  dynamic_list,
+  dynamic_details,
+  cancel_dynamic,
+  write_comment,
+  comment_list
 }

@@ -4,14 +4,11 @@
  * @Date: 2021-08-17
  */
 
-
-const db = require('../model/mySQL')
-const formidable = require('formidable');
+const formidable = require('formidable')
 const path = require('path')
 const fs = require('fs')
 
-const appointmentModel = require('../model/component/appointmentModel');
-
+const appointmentModel = require('../model/component/appointmentModel')
 
 // 发起活动(图片)   这个不管用  唉   要重写
 const appointment_release_img = async (req, res, next) => {
@@ -87,7 +84,6 @@ const appointment_list = async (req, res, next) => {
   let data = []
   await appointmentModel.appointment_total(sponsor_gender, appointment_type, area_type, is_pass).then(result => {
     totalCount = result[0]["COUNT(*)"]
-    console.log('totalCount', totalCount)
   }).catch(error => {
     res.json({
       code: 500,

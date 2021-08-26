@@ -60,7 +60,6 @@ module.exports = {
       sql = sql + area_type
     }
     sql = sql + is_pass + scenicspot_limit
-    console.log('sql', sql)
     return await db.query(sql)
   },
   
