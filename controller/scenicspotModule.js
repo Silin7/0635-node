@@ -4,7 +4,7 @@
  * @Date: 2021-08-17
  */
 
-const scenicspotModel = require('../model/component/scenicspotModel');
+const scenicspotDao = require('../model/dao/scenicspotDao');
 
 // 景点列表
 const scenicspot_list = async (req, res, next) => {
@@ -16,7 +16,7 @@ const scenicspot_list = async (req, res, next) => {
   let isNext = true
   let totalCount = 0
   let data = []
-  await scenicspotModel.scenicspot_total(scenicspot_position, scenicspot_name).then(result => {
+  await scenicspotDao.scenicspot_total(scenicspot_position, scenicspot_name).then(result => {
     totalCount = result[0]["COUNT(*)"]
   }).catch(error => {
     res.json({
@@ -25,7 +25,7 @@ const scenicspot_list = async (req, res, next) => {
     })
     isNext = false
   })
-  await scenicspotModel.scenicspot_list(page, limit, scenicspot_position, scenicspot_name).then(result => {
+  await scenicspotDao.scenicspot_list(page, limit, scenicspot_position, scenicspot_name).then(result => {
     data = result
   }).catch(error => {
     res.json({
@@ -49,7 +49,7 @@ const scenicspot_list = async (req, res, next) => {
 // 景点详情
 const scenicspot_info = async (req, res, next) => {
   let parameter = req.query
-  await scenicspotModel.scenicspot_info(parameter.id).then(result => {
+  await scenicspotDao.scenicspot_info(parameter.id).then(result => {
     res.json({
       code: 0,
       msg: 'success',
@@ -66,7 +66,7 @@ const scenicspot_info = async (req, res, next) => {
 // 我关注的景点列表
 const mine_scenicspot_list = async (req, res, next) => {
   let parameter = req.query
-  await scenicspotModel.mine_scenicspot_list(parameter.followers_id).then(result => {
+  await scenicspotDao.mine_scenicspot_list(parameter.followers_id).then(result => {
     res.json({
       code: 0,
       msg: 'success',
@@ -83,7 +83,7 @@ const mine_scenicspot_list = async (req, res, next) => {
 // 是否关注此景点
 const is_follow_scenicspot = async (req, res, next) => {
   let parameter = req.body
-  await scenicspotModel.is_follow_scenicspot(parameter.followers_id, parameter.scenicspot_id).then(result => {
+  await scenicspotDao.is_follow_scenicspot(parameter.followers_id, parameter.scenicspot_id).then(result => {
     if (result[0]["COUNT(*)"] > 0) {
       res.json({
         code: 0,
@@ -108,7 +108,7 @@ const is_follow_scenicspot = async (req, res, next) => {
 // 关注此景点
 const follow_scenicspot = async (req, res, next) => {
   let parameter = req.body
-  await scenicspotModel.follow_scenicspot(parameter).then(result => {
+  await scenicspotDao.follow_scenicspot(parameter).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -124,7 +124,7 @@ const follow_scenicspot = async (req, res, next) => {
 // 取消关注此景点
 const cancel_scenicspot = async (req, res, next) => {
   let parameter = req.body
-  await scenicspotModel.cancel_scenicspot(parameter.followers_id, parameter.scenicspot_id).then(result => {
+  await scenicspotDao.cancel_scenicspot(parameter.followers_id, parameter.scenicspot_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'

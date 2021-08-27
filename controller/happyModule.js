@@ -4,12 +4,12 @@
 * @Date: 2021-08-26
 */
 
-const happyModel = require('../model/component/happyModel')
+const happyDao = require('../model/dao/happyDao')
 
 // 段子列表
 const entertainment_list = async (req, res, next) => {
   let parameter = req.query
-  await happyModel.entertainment_list(parameter.type_id).then(result => {
+  await happyDao.entertainment_list(parameter.type_id).then(result => {
     res.json({
       code: 0,
       msg: 'success',

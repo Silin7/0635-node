@@ -4,14 +4,14 @@
 * @Date: 2021-08-26
 */
 
-const locationModel = require('../model/component/locationModel')
+const locationDao = require('../model/dao/locationDao')
 
 const db = require('../model/mySQL')
 
 // 新增岗位
 const work_add = async (req, res, next) => {
   let parameter = req.body
-  await locationModel.work_add(parameter).then(result => {
+  await locationDao.work_add(parameter).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -36,7 +36,7 @@ const work_list = async (req, res, next) => {
   let isNext = true
   let totalCount = 0
   let data = []
-  await locationModel.work_total(basic_area, basic_type, basic_salary, is_pass).then(result => {
+  await locationDao.work_total(basic_area, basic_type, basic_salary, is_pass).then(result => {
     totalCount = result[0]["COUNT(*)"]
   }).catch(error => {
     res.json({
@@ -45,7 +45,7 @@ const work_list = async (req, res, next) => {
     })
     isNext = false
   })
-  await locationModel.work_list(page, limit, basic_area, basic_type, basic_salary, is_pass).then(result => {
+  await locationDao.work_list(page, limit, basic_area, basic_type, basic_salary, is_pass).then(result => {
     data = result
   }).catch(error => {
     res.json({

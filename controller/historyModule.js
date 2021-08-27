@@ -4,12 +4,12 @@
 * @Date: 2021-08-26
 */
 
-const historyModel = require('../model/component/historyModel')
+const historyDao = require('../model/dao/historyDao')
 
 // 县市历史详情
 const local_historical = async (req, res, next) => {
   let parameter = req.query
-  await historyModel.local_historical(parameter.city_id).then(result => {
+  await historyDao.local_historical(parameter.city_id).then(result => {
     res.json({
       code: 0,
       msg: 'success',

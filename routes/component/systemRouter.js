@@ -6,12 +6,12 @@
 
 
 const express = require('express');
-const wxloginModule = require('../../controller/systemModule/wxloginModule');
+const wxLogin = require('../../controller/systemModule/wxLogin');
 
 let systemRouter = express.Router();
 
 systemRouter
-  .get('/system/wx_login', wxloginModule.wx_login);
+  .get('/system/wx_login', wxLogin.wx_login);
 
 
 module.exports = systemRouter;

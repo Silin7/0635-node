@@ -8,7 +8,7 @@ const formidable = require('formidable');
 const path = require('path')
 const fs = require('fs')
 
-const dynamicModel = require('../model/component/dynamicModel');
+const dynamicDao = require('../model/dao/dynamicDao');
 
 // 发动态（图片）   这个不管用  唉   要重写
 const dynamic_release_img = (req, res, next) => {
@@ -39,7 +39,7 @@ const dynamic_release_img = (req, res, next) => {
       //fs.rename重命名图片名称
       fs.rename(oldPath, newPath, () => {
         let parameter = fields
-        dynamicModel.dynamic_release_img(parameter).then(result => {
+        dynamicDao.dynamic_release_img(parameter).then(result => {
           res.json({
             code: 0,
             msg: 'success'
@@ -58,7 +58,7 @@ const dynamic_release_img = (req, res, next) => {
 // 发动态（文字）
 const dynamic_release_txt = async (req, res, next) => {
   let parameter = req.body
-  await dynamicModel.dynamic_release_txt(parameter).then(result => {
+  await dynamicDao.dynamic_release_txt(parameter).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -80,7 +80,7 @@ const dynamic_list = async (req, res, next) => {
   let isNext = true
   let totalCount = 0
   let data = []
-  await dynamicModel.dynamic_total(is_pass).then(result => {
+  await dynamicDao.dynamic_total(is_pass).then(result => {
     totalCount = result[0]["COUNT(*)"]
   }).catch(error => {
     res.json({
@@ -89,7 +89,7 @@ const dynamic_list = async (req, res, next) => {
     })
     isNext = false
   })
-  await dynamicModel.dynamic_list(page, limit, is_pass).then(result => {
+  await dynamicDao.dynamic_list(page, limit, is_pass).then(result => {
     data = result
   }).catch(error => {
     res.json({
@@ -113,7 +113,7 @@ const dynamic_list = async (req, res, next) => {
 // 动态详情
 const dynamic_details = async (req, res, next) => {
   let parameter = req.query
-  await dynamicModel.dynamic_details(parameter.id).then(result => {
+  await dynamicDao.dynamic_details(parameter.id).then(result => {
     res.json({
       code: 0,
       msg: 'success',
@@ -130,7 +130,7 @@ const dynamic_details = async (req, res, next) => {
 // 删除动态
 const cancel_dynamic = async (req, res, next) => {
   let parameter = req.query
-  await dynamicModel.cancel_dynamic(parameter.id, parameter.author_id).then(result => {
+  await dynamicDao.cancel_dynamic(parameter.id, parameter.author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -146,7 +146,7 @@ const cancel_dynamic = async (req, res, next) => {
 // 写评论
 const write_comment = async (req, res, next) => {
   let parameter = req.body
-  await dynamicModel.write_comment(parameter).then(result => {
+  await dynamicDao.write_comment(parameter).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -168,7 +168,7 @@ const comment_list = async (req, res, next) => {
   let isNext = true
   let totalCount = 0
   let data = []
-  await dynamicModel.comment_total(parameter.dynamic_id, is_pass).then(result => {
+  await dynamicDao.comment_total(parameter.dynamic_id, is_pass).then(result => {
     totalCount = result[0]["COUNT(*)"]
   }).catch(error => {
     res.json({
@@ -177,7 +177,7 @@ const comment_list = async (req, res, next) => {
     })
     isNext = false
   })
-  await dynamicModel.comment_list(page, limit, parameter.dynamic_id, is_pass).then(result => {
+  await dynamicDao.comment_list(page, limit, parameter.dynamic_id, is_pass).then(result => {
     data = result
   }).catch(error => {
     res.json({
