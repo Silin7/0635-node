@@ -56,7 +56,6 @@ module.exports = {
   // 动态评论数据条数
   comment_total: async (dynamic_id, pass) => {
     let sql = `SELECT COUNT(*) FROM \`local_comment\` WHERE \`dynamic_id\` = '${dynamic_id}' AND \`is_pass\` = '${pass}'`
-    console.log(sql)
     return await db.query(sql)
   },
   // 动态评论列表
@@ -64,7 +63,6 @@ module.exports = {
     let slimit = (page - 1) * limit
     let elimit = limit
     let sql = `SELECT * FROM \`local_comment\` WHERE \`dynamic_id\` = '${dynamic_id}' AND \`is_pass\` = '${pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-    console.log(sql)
     return await db.query(sql)
   },
 }

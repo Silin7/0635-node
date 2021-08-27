@@ -3,7 +3,7 @@ const db = require('../model/mySQL')
 // 获取个人信息详情
 const mine_info = (req, res, next) => {
   let data = req.query
-  let sql = `SELECT * FROM \`personnel_information\` WHERE \`id\` = '${data.id}'`
+  let sql = `SELECT * FROM \`user_information\` WHERE \`id\` = '${data.id}'`
   db.query(sql, function (err, result) {
     if(err){
       res.json({
@@ -23,7 +23,7 @@ const mine_info = (req, res, next) => {
 // 修改保存个人信息
 const update_mineInfo = (req, res, next) => {
   let data = req.body
-  let sql = `UPDATE \`personnel_information\` SET \`nick_name\` = '${data.nick_name}', \`gender\` = '${data.gender}', \`user_phone\` = '${data.user_phone}', \`birthday\` = '${data.birthday}', \`age\` = '${data.age}', \`constellation\` = '${data.constellation}', \`address\` = '${data.address}', \`personal_signature\` = '${data.personal_signature}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
+  let sql = `UPDATE \`user_information\` SET \`nick_name\` = '${data.nick_name}', \`gender\` = '${data.gender}', \`user_phone\` = '${data.user_phone}', \`birthday\` = '${data.birthday}', \`age\` = '${data.age}', \`constellation\` = '${data.constellation}', \`address\` = '${data.address}', \`personal_signature\` = '${data.personal_signature}' WHERE \`user_information\`.\`id\` = '${data.id}'`
   db.query(sql, function (err, result) {
     if (err) {
       res.json({

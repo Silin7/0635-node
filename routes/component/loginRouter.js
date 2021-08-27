@@ -11,7 +11,6 @@ const loginModule = require('../../controller/loginModule');
 let loginRouter = express.Router();
 
 loginRouter
-  .get('/login/is_register', loginModule.is_register)
   .post('/login/register_inster', loginModule.register_inster)
   .post('/login/change_password', loginModule.change_password)
   .post('/login/sign_in', loginModule.sign_in)
