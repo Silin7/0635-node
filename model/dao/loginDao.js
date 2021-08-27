@@ -21,7 +21,7 @@ module.exports = {
 
   // 获取用户密码
   get_password: async (user_name) => {
-    let sql = `SELECT password FROM \`user_information\` WHERE user_name = '${user_name}'`
+    let sql = `SELECT id, password FROM \`user_information\` WHERE user_name = '${user_name}'`
     return await db.query(sql)
   },
   // 修改用户密码

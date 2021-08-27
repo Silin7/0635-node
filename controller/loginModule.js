@@ -114,7 +114,8 @@ const sign_in = async (req, res, next) => {
       if (result[0].password === parameter.password) {
         res.json({
           code: 0,
-          msg: '登录成功'
+          msg: '登录成功',
+          data: result[0]
         })
       } else {
         res.json({
