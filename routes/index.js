@@ -22,6 +22,7 @@ const pictureRouter = require('./component/pictureRouter')
 const recipeRouter = require('./component/recipeRouter')
 const scenicspotRouter = require('./component/scenicspotRouter')
 const specialtyRouter = require('./component/specialtyRouter')
+const systemRouter = require('./component/systemRouter')
 const topicRouter = require('./component/topicRouter')
 
 Router
@@ -39,6 +40,7 @@ Router
   .use(recipeRouter)
   .use(scenicspotRouter)
   .use(specialtyRouter)
+  .use(systemRouter)
   .use(topicRouter)
   
 module.exports = Router;
