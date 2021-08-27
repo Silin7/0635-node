@@ -1,138 +1,143 @@
-const db = require('../model/mySQL')
+/*
+* @Description: 注册登录模块控制器层
+* @Author: silin7
+* @Date: 2021-08-26
+*/
+const crypto = require("crypto")
+const loginDao = require('../model/dao/loginDao')
 
-const is_register = (req, res, next) => {
-  let data = req.query
-  let sql = `SELECT * FROM \`personnel_information\` WHERE user_name = '${data.user_name}'`
-  db.query(sql, function (err, result) {
-    if (err) {
-      res.end(JSON.stringify({
-        code: 500,
-        msg: err
-      }))
-    } else {
-      // state为0：注册，state为1：修改密码
-      if (data.state && data.state === '0') {
-        if (result.length > 0) {
-          res.end(JSON.stringify({
-            code: 500,
-            msg: '账号已被注册'
-          }))
-        } else {
-          res.end(JSON.stringify({
-            code: 0,
-            msg: 'success'
-          }))
-        }
-      } else if (data.state && data.state === '1') {
-        if (result.length > 0) {
-          if (result[0].password === data.password) {
-            if (result[0].password === data.newPassword) {
-              res.end(JSON.stringify({
-                code: 500,
-                msg: '新旧密码相同'
-              }))
-            } else {
-              res.end(JSON.stringify({
-                code: 0,
-                msg: 'success',
-                data: result[0]
-              }))
-            }
-          } else {
-            res.end(JSON.stringify({
-              code: 500,
-              msg: '密码错误'
-            }))
-          }
-        } else {
-          res.end(JSON.stringify({
-            code: 500,
-            msg: '账号错误'
-          }))
-        }
-      } else {
-        res.end(JSON.stringify({
-          code: 500,
-          msg: '未知异常，请联系管理员'
-        }))
-      }
-    }
-  })
-}
-
-// 将注册信息写入数据库（
-const register_inster = (req, res, next) => {
-  let data = req.body
-  let sql = 'INSERT INTO `personnel_information` (`id`, `user_name`, `password`, `nick_name`, `avatar_url`, `gender`) VALUES (NULL, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.user_name, data.password, data.nick_name, data.avatar_url, data.gender]
-  db.query(sql, sqlParams, function (err, result) {
-    if (err) {
+/**
+ * 注册（将注册信息写入数据库）
+ * @method POST
+ * @param user_name, password, nick_name, avatar_url, gender
+ */
+const register_inster = async (req, res, next) => {
+  let isNext = true
+  let isRegister = true
+  let parameter = req.body
+  parameter.password = crypto.createHash("md5").update(parameter.password).digest("hex")
+  await loginDao.is_register(parameter.user_name).then(result => {
+    if (result[0]["COUNT(*)"] !== 0) {
       res.json({
         code: 500,
-        msg: err
+        msg: '账号已被注册'
       })
-    } else {
+      isRegister = false
+    }
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  if (isRegister && isNext) {
+    await loginDao.register_inster(parameter).then(result => {
       res.json({
         code: 0,
-        msg: 'success'
+        msg: '操作成功'
       })
-    }
-  })
-}
-
-// 修改密码
-const change_password = (req, res, next) => {
-  let data = req.body
-  let sql = `UPDATE \`personnel_information\` SET \`password\` = '${data.newPassword}' WHERE \`personnel_information\`.\`id\` = '${data.id}'`
-  db.query(sql, function (err, result) {
-    if (err) {
+    }).catch(error => {
       res.json({
         code: 500,
-        msg: err
+        msg: JSON.stringify(error)
       })
+    })
+  }
+}
+
+/**
+ * 修改密码
+ * @method POST
+ * @param user_name, password, new_password
+ */
+const change_password = async (req, res, next) => {
+  let isNext = true
+  let parameter = req.body
+  parameter.password = crypto.createHash("md5").update(parameter.password).digest("hex")
+  parameter.new_password = crypto.createHash("md5").update(parameter.new_password).digest("hex")
+  if (parameter.password === parameter.new_password) {
+    res.json({
+      code: 500,
+      msg: '新旧密码相同'
+    })
+    return
+  }
+  await loginDao.get_password(parameter.user_name).then(result => {
+    if (result.length > 0) {
+      if (result[0].password !== parameter.password) {
+        res.json({
+          code: 500,
+          msg: '密码错误'
+        })
+        isNext = false
+      }
     } else {
+      res.json({
+        code: 500,
+        msg: '未查询到用户信息'
+      })
+      isNext = false
+    }
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  if (isNext) {
+    await loginDao.change_password(parameter.user_name, parameter.new_password).then(result => {
       res.json({
         code: 0,
-        msg: 'success'
+        msg: '操作成功'
       })
-    }
-  })
+    }).catch(error => {
+      res.json({
+        code: 500,
+        msg: JSON.stringify(error)
+      })
+    })
+  }
 }
 
-// 判断账号密码是否正确
-const sign_in = (req, res, next) => {
-  let data = req.body
-  let sql = `SELECT * FROM \`personnel_information\` WHERE \`user_name\` = '${data.user_name}'`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.end(JSON.stringify({
-        code: 500,
-        msg: err
-      }))
-    } else {
-      if (result.length > 0) {
-        if (result[0].password === req.body.password) {
-          res.end(JSON.stringify({
-            code: 0,
-            msg: 'success',
-            data: result[0]
-          }))
-        } else {
-          res.end(JSON.stringify({
-            code: 500,
-            msg: '密码错误'
-          }))
-        }
+/**
+ * 登录
+ * @method POST
+ * @param user_name, password
+ */
+const sign_in = async (req, res, next) => {
+  let parameter = req.body
+  parameter.password = crypto.createHash("md5").update(parameter.password).digest("hex")
+  await loginDao.get_password(parameter.user_name).then(result => {
+    if (result.length > 0) {
+      if (result[0].password === parameter.password) {
+        res.json({
+          code: 0,
+          msg: '登录成功'
+        })
       } else {
-        res.end(JSON.stringify({
+        res.json({
           code: 500,
-          msg: '账号错误'
-        }))
+          msg: '密码错误'
+        })
       }
+    } else {
+      res.json({
+        code: 500,
+        msg: '未查询到用户信息'
+      })
     }
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
 module.exports = {
-  is_register, register_inster, change_password, sign_in
+  register_inster,
+  change_password,
+  sign_in
 }
