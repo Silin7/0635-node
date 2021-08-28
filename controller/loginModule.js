@@ -3,11 +3,13 @@
 * @Author: silin7
 * @Date: 2021-08-26
 */
+
 const crypto = require("crypto")
 const loginDao = require('../model/dao/loginDao')
 
 /**
  * 注册（将注册信息写入数据库）
+ * @token false
  * @method POST
  * @param user_name, password, nick_name, avatar_url, gender
  */
@@ -48,6 +50,7 @@ const register_inster = async (req, res, next) => {
 
 /**
  * 修改密码
+ * @token false
  * @method POST
  * @param user_name, password, new_password
  */
@@ -103,6 +106,7 @@ const change_password = async (req, res, next) => {
 
 /**
  * 登录
+ * @token false
  * @method POST
  * @param user_name, password
  */

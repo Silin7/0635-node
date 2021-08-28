@@ -24,6 +24,7 @@ module.exports = {
     let sql = `SELECT id, password FROM \`user_information\` WHERE user_name = '${user_name}'`
     return await db.query(sql)
   },
+  
   // 修改用户密码
   change_password: async (user_name, new_password) => {
     let sql = `UPDATE \`user_information\` SET \`password\` = '${new_password}' WHERE \`user_information\`.\`user_name\` = '${user_name}'`
