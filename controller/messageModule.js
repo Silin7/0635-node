@@ -6,7 +6,6 @@
 
 const checkToken = require('./systemModule/checkToken')
 const messageDao = require('../model/dao/messageDao')
-const db = require('../model/mySQL')
 
 /**
  * 私信消息列表

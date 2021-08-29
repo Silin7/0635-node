@@ -73,5 +73,4 @@ module.exports = {
     return await db.query(sql)
   },
 
-
 }
