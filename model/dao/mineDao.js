@@ -21,7 +21,7 @@ module.exports = {
 
   // 我关注（marry）的人数量
   concerns_count: async (author_id) => {
-  let sql = `SELECT COUNT(*) FROM \`relations_personnel\` WHERE \`followers_id\` = '${author_id}'`
+    let sql = `SELECT COUNT(*) FROM \`relations_personnel\` WHERE \`followers_id\` = '${author_id}'`
     return await db.query(sql)
   },
   
@@ -50,5 +50,52 @@ module.exports = {
   cancel_users: async (watched_id, author_id) => {
     let sql = `DELETE FROM \`relations_personnel\` WHERE \`followers_id\` = '${author_id}' AND \`watched_id\` = '${watched_id}'`
     return await db.query(sql)
-  }
+  },
+
+  // 我关注（user）的人数量
+  collection_count: async (author_id) => {
+    let sql = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${author_id}'`
+    return await db.query(sql)
+  },
+
+  // 我关注（user）的人列表
+  collection_list: async (page, limit, author_id) => {
+    let slimit = (page - 1) * limit
+    let elimit = limit
+    let sql = `SELECT * FROM \`relations_user\` WHERE \`followers_id\` = '${author_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    return await db.query(sql)
+  },
+  
+  // 是否关注了（user）此用户
+  is_follow_collection: async (watched_id, author_id) => {
+    let sql = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${author_id}' AND \`watched_id\` = '${watched_id}'`
+    return await db.query(sql)
+  },
+
+  // 关注（user）此用户
+  follow_collection: async (parameter, author_id) => {
+    let sql = 'INSERT INTO `relations_user` (`id`, `followers_id`, `user_id`, `user_name`, `user_info`, `user_image`) VALUES (NULL, ?, ?, ?, ?, ?)'
+    let sqlParams = [author_id, parameter.user_id, parameter.user_name, parameter.user_info, parameter.user_image]
+    return await db.query(sql, sqlParams)
+  },
+
+  // 取消关注（user）此用户
+  cancel_collection: async (watched_id, author_id) => {
+    let sql = `DELETE FROM \`relations_user\` WHERE \`followers_id\` = '${author_id}' AND \`watched_id\` = '${watched_id}'`
+    return await db.query(sql)
+  },
+
+  // 我的动态数量
+  my_dynamic_count: async (author_id, pass) => {
+    let sql = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`author_id\` = '${author_id}' AND \`is_pass\` = '${pass}'`
+    return await db.query(sql)
+  },
+
+  // 我的动态列表
+  my_dynamic_list: async (page, limit, author_id, pass) => {
+    let slimit = (page - 1) * limit
+    let elimit = limit
+    let sql = `SELECT * FROM \`local_dynamic\` WHERE \`author_id\` = '${author_id}' AND \`is_pass\` = '${pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    return await db.query(sql)
+  },
 }

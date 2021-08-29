@@ -66,7 +66,6 @@ const update_mineInfo = async (req, res, next) => {
   })
 }
 
-// 
 /**
  * 我关注（marry）的人数量
  * @token true
@@ -81,7 +80,7 @@ const concerns_count = async (req, res, next) => {
     return
   }
   let author_id = req.headers.author_id
-  await mineDao.update_mineInfo(author_id).then(result => {
+  await mineDao.concerns_count(author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success',
@@ -191,7 +190,7 @@ const follow_users = async (req, res, next) => {
     })
     return
   }
-  let parameter = req.query
+  let parameter = req.body
   let author_id = req.headers.author_id
   await mineDao.follow_users(parameter, author_id).then(result => {
     res.json({
@@ -235,155 +234,217 @@ const cancel_users = async (req, res, next) => {
   })
 }
 
-// 我关注(user)的人数量
+/**
+ * 我关注（user）的人数量
+ * @token true
+ * @method GET
+ */
 const collection_count = async (req, res, next) => {
-  let data = req.query
-  let sql = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}'`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        data: result[0][`COUNT(*)`]
-      })
-    }
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let author_id = req.headers.author_id
+  await mineDao.collection_count(author_id).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success',
+      data: result[0][`COUNT(*)`]
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
-// 我的关注(user)列表
+/**
+ * 我关注（marry）的人列表
+ * @token true
+ * @method GET
+ * @param page, limit
+ */
 const collection_list = async (req, res, next) => {
-  let data = req.query
-  let slimit = (data.page - 1) * data.limit
-  let elimit = data.limit
-  let sql1 = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}'`
-  let sql2 = `SELECT * FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  db.query(sql1, function (err1, result1) {
-    if(err1){
-      res.json({
-        code: 500,
-        msg: err1
-      })
-    } else {
-      let totalCount = result1[0][`COUNT(*)`]
-      db.query(sql2, function (err2, result2) {
-        if(err2){
-          res.json({
-            code: 500,
-            msg: err2
-          })
-        } else {
-          res.json({
-            code: 0,
-            msg: 'success',
-            page: data.page,
-            limit: data.limit,
-            totalCount: totalCount,
-            data: result2
-          })
-        }
-      })
-    }
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let parameter = req.query
+  let author_id = req.headers.author_id
+  let page = parameter.page ? parameter.page : 1
+  let limit = parameter.limit ? parameter.limit : 10
+  let isNext = true
+  let totalCount = 0
+  let data = []
+  await mineDao.collection_count(author_id).then(result => {
+    totalCount = result[0]["COUNT(*)"]
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  await mineDao.collection_list(page, limit, author_id).then(result => {
+    data = result
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  if (isNext) {
+    res.json({
+      code: 0,
+      msg: 'success',
+      page: page,
+      limit: limit,
+      totalCount: totalCount,
+      data: data
+    })
+  }
+}
+
+/**
+ * 是否关注了（user）此用户
+ * @token true
+ * @method GET
+ * @param watched_id
+ */
+const is_follow_collection = async (req, res, next) => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let parameter = req.query
+  let author_id = req.headers.author_id
+  await mineDao.is_follow_collection(parameter.watched_id, author_id).then(result => {
+    let flag = result[0]["COUNT(*)"] === 0 ? false : true
+    res.json({
+      code: 0,
+      msg: '操作成功',
+      data: flag
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
-// 关注此(user)用户（0：收藏成功；1：已经关注收藏）
+/**
+ * 关注（user）此用户
+ * @token true
+ * @method GET
+ * @param watched_id, nick_name, photo, introduce
+ */
 const follow_collection = async (req, res, next) => {
-  let data = req.body
-  let sql1 = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}' AND \`user_id\` = '${data.user_id}'`
-  let sql2 = 'INSERT INTO `relations_user` (`id`, `followers_id`, `user_id`, `user_name`, `user_info`, `user_image`) VALUES (NULL, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.followers_id, data.user_id, data.user_name, data.user_info, data.user_image]
-  db.query(sql1, function (err1, result1) {
-    if(err1){
-      res.json({
-        code: 500,
-        msg: err1
-      })
-    } else {
-      let count = result1[0][`COUNT(*)`]
-      if (Number(count) > 0) {
-        res.json({
-          code: 0,
-          msg: 'success',
-          type: '1'
-        })
-      } else {
-        db.query(sql2, sqlParams, function (err2, result2) {
-          if(err2){
-            res.json({
-              code: 500,
-              msg: err2
-            })
-          } else {
-            res.json({
-              code: 0,
-              msg: 'success',
-              type: '0'
-            })
-          }
-        })
-      }
-    }
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let parameter = req.body
+  let author_id = req.headers.author_id
+  await mineDao.follow_collection(parameter, author_id).then(result => {
+    res.json({
+      code: 0,
+      msg: '操作成功'
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
-// 取消关注(user)
+/**
+ * 取消关注（user）此用户
+ * @token true
+ * @method GET
+ * @param watched_id
+ */
 const cancel_collection = async (req, res, next) => {
-  let data = req.query
-  let sql = `DELETE FROM \`relations_user\` WHERE \`followers_id\` = '${data.followers_id}' AND \`user_id\` = '${data.user_id}'`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success'
-      })
-    }
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let parameter = req.query
+  let author_id = req.headers.author_id
+  await mineDao.cancel_collection(parameter.watched_id, author_id).then(result => {
+    res.json({
+      code: 0,
+      msg: '操作成功'
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
-// 我的动态列表
+/**
+ * 我的动态列表
+ * @token true
+ * @method GET
+ * @param page, limit, is_pass
+ */
 const my_dynamic_list = async (req, res, next) => {
-  let data = req.query
-  let slimit = (data.page - 1) * data.limit
-  let elimit = data.limit
-  let sql1 = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`author_id\` = '${data.author_id}' AND \`is_pass\` = '${data.is_pass}'`
-  let sql2 = `SELECT * FROM \`local_dynamic\` WHERE \`author_id\` = '${data.author_id}' AND \`is_pass\` = '${data.is_pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  db.query(sql1, function (err1, result1) {
-    if(err1){
-      res.json({
-        code: 500,
-        msg: err1
-      })
-    } else {
-      let totalCount = result1[0][`COUNT(*)`]
-      db.query(sql2, function (err2, result2) {
-        if(err2){
-          res.json({
-            code: 500,
-            msg: err2
-          })
-        } else {
-          res.json({
-            code: 0,
-            msg: 'success',
-            page: data.page,
-            limit: data.limit,
-            totalCount: totalCount,
-            data: result2
-          })
-        }
-      })
-    }
+  let parameter = req.query
+  let author_id = req.headers.author_id
+  let page = parameter.page ? parameter.page : 1
+  let limit = parameter.limit ? parameter.limit : 10
+  let is_pass = parameter.is_pass ? parameter.is_pass : '02'
+  let isNext = true
+  let totalCount = 0
+  let data = []
+  await mineDao.my_dynamic_count(author_id, is_pass).then(result => {
+    totalCount = result[0]["COUNT(*)"]
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
   })
+  await mineDao.my_dynamic_list(page, limit, is_pass).then(result => {
+    data = result
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  if (isNext) {
+    res.json({
+      code: 0,
+      msg: 'success',
+      page: page,
+      limit: limit,
+      totalCount: totalCount,
+      data: data
+    })
+  }
 }
 
 module.exports = {
@@ -396,6 +457,7 @@ module.exports = {
   cancel_users,
   collection_count,
   collection_list,
+  is_follow_collection,
   follow_collection,
   cancel_collection,
   my_dynamic_list
