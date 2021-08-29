@@ -8,9 +8,15 @@ const formidable = require('formidable');
 const path = require('path')
 const fs = require('fs')
 
-const dynamicDao = require('../model/dao/dynamicDao');
+const checkToken = require('./systemModule/checkToken')
+const dynamicDao = require('../model/dao/dynamicDao')
 
-// 发动态（图片）   这个不管用  唉   要重写
+/**
+ * 发动态（图片）   这个不管用  唉   要重写
+ * @token true
+ * @method POST
+ * @param author_id, author_name, author_avatar, content
+ */
 const dynamic_release_img = (req, res, next) => {
   let author_id = req.headers.author_id
   let form = new formidable.IncomingForm();
@@ -39,7 +45,7 @@ const dynamic_release_img = (req, res, next) => {
       //fs.rename重命名图片名称
       fs.rename(oldPath, newPath, () => {
         let parameter = fields
-        dynamicDao.dynamic_release_img(parameter).then(result => {
+        dynamicDao.dynamic_release_img(parameter, author_id).then(result => {
           res.json({
             code: 0,
             msg: 'success'
@@ -55,10 +61,23 @@ const dynamic_release_img = (req, res, next) => {
   })
 }
 
-// 发动态（文字）
+/**
+ * 发动态（文字）
+ * @token true
+ * @method POST
+ * @param author_id, author_name, author_avatar, content
+ */
 const dynamic_release_txt = async (req, res, next) => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
   let parameter = req.body
-  await dynamicDao.dynamic_release_txt(parameter).then(result => {
+  let author_id = req.headers.author_id
+  await dynamicDao.dynamic_release_txt(parameter, author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -71,7 +90,12 @@ const dynamic_release_txt = async (req, res, next) => {
   })
 }
 
-// 动态列表
+/**
+ * 动态列表
+ * @token false
+ * @method GET
+ * @param page, limit, is_pass
+ */
 const dynamic_list = async (req, res, next) => {
   let parameter = req.query
   let page = parameter.page ? parameter.page : 1
@@ -110,7 +134,12 @@ const dynamic_list = async (req, res, next) => {
   }
 }
 
-// 动态详情
+/**
+ * 动态详情
+ * @token false
+ * @method GET
+ * @param id
+ */
 const dynamic_details = async (req, res, next) => {
   let parameter = req.query
   await dynamicDao.dynamic_details(parameter.id).then(result => {
@@ -127,10 +156,23 @@ const dynamic_details = async (req, res, next) => {
   })
 }
 
-// 删除动态
+/**
+ * 删除动态
+ * @token true
+ * @method GET
+ * @param id
+ */
 const cancel_dynamic = async (req, res, next) => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
   let parameter = req.query
-  await dynamicDao.cancel_dynamic(parameter.id, parameter.author_id).then(result => {
+  let author_id = req.headers.author_id
+  await dynamicDao.cancel_dynamic(parameter.id, author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -143,10 +185,23 @@ const cancel_dynamic = async (req, res, next) => {
   })
 }
 
-// 写评论
+/**
+ * 写评论
+ * @token true
+ * @method POST
+ * @param dynamic_id, comment_content, reviewer_id, reviewer_name, reviewer_image
+ */
 const write_comment = async (req, res, next) => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
   let parameter = req.body
-  await dynamicDao.write_comment(parameter).then(result => {
+  let author_id = req.headers.author_id
+  await dynamicDao.write_comment(parameter, author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -159,7 +214,12 @@ const write_comment = async (req, res, next) => {
   })
 }
 
-// 动态评论的列表
+/**
+ * 动态评论的列表
+ * @token false
+ * @method GET
+ * @param page, limit, is_pass
+ */
 const comment_list = async (req, res, next) => {
   let parameter = req.query
   let page = parameter.page ? parameter.page : 1

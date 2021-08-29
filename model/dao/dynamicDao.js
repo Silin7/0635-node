@@ -8,16 +8,16 @@ const db = require('../mySQL')
 
 module.exports = {
   // 发动态（图片）
-  dynamic_release_img: async (parameter) => {
+  dynamic_release_img: async (parameter, author_id) => {
     let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)'
-    let sqlParams = [parameter.author_id, parameter.author_name, parameter.author_avatar, parameter.content, backPath]
+    let sqlParams = [author_id, parameter.author_name, parameter.author_avatar, parameter.content, backPath]
     return await db.query(sql, sqlParams)
   },
   
   // 发动态（文字）
-  dynamic_release_txt: async (parameter) => {
+  dynamic_release_txt: async (parameter, author_id) => {
     let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`) VALUES (NULL, ?, ?, ?, ?)'
-    let sqlParams = [parameter.author_id, parameter.author_name, parameter.author_avatar, parameter.content]
+    let sqlParams = [author_id, parameter.author_name, parameter.author_avatar, parameter.content]
     return await db.query(sql, sqlParams)
   },
 
@@ -47,7 +47,7 @@ module.exports = {
   },
 
   // 写评论
-  write_comment: async (parameter) => {
+  write_comment: async (parameter, author_id) => {
     let sql = 'INSERT INTO `local_comment` (`id`, `dynamic_id`, `comment_content`, `reviewer_id`, `reviewer_name`, `reviewer_image`) VALUES (NULL, ?, ?, ?, ?, ?)'
     let sqlParams = [parameter.dynamic_id, parameter.comment_content, parameter.reviewer_id, parameter.reviewer_name, parameter.reviewer_image]
     return await db.query(sql, sqlParams)

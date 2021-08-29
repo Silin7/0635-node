@@ -6,7 +6,12 @@
 
 const historyDao = require('../model/dao/historyDao')
 
-// 县市历史详情
+/**
+ * 县市历史详情
+ * @token false
+ * @method GET
+ * @param city_id
+ */
 const local_historical = async (req, res, next) => {
   let parameter = req.query
   await historyDao.local_historical(parameter.city_id).then(result => {
