@@ -106,8 +106,9 @@ const permessage_send = (req, res, next) => {
 // 活动私信
 const permessage_active = (req, res, next) => {
   let data = req.body
+  let author_id = req.headers.author_id
   let sql = 'INSERT INTO `message_personal` (`id`, `receiver_id`, `sender_id`, `sender_name`, `sender_img`, `message_title`, `message_content`, `message_type`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)'
-  let sqlParams = [data.receiver_id, data.sender_id, data.sender_name, data.sender_img, data.message_title, data.message_content, data.message_type]
+  let sqlParams = [data.receiver_id, author_id, data.sender_name, data.sender_img, data.message_title, data.message_content, data.message_type]
   db.query(sql, sqlParams, function (err, result) {
     if(err){
       res.json({
@@ -207,5 +208,11 @@ const sysmessage_details = (req, res, next) => {
 }
 
 module.exports = {
-  permessage_list, permessage_details, permessage_send, permessage_active, permessage_delete, sysmessage_list, sysmessage_details
+  permessage_list,
+  permessage_details,
+  permessage_send,
+  permessage_active,
+  permessage_delete,
+  sysmessage_list,
+  sysmessage_details
 }

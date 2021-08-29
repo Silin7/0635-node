@@ -70,14 +70,14 @@ module.exports = {
   },
 
   // 是否报名参加活动
-  appointment_issign: async (active_id, followers_id) => {
-    let sql = `SELECT * FROM \`activity_sign\` WHERE \`active_id\` = '${active_id}' AND \`followers_id\` = '${followers_id}'`
+  appointment_issign: async (active_id, author_id) => {
+    let sql = `SELECT * FROM \`activity_sign\` WHERE \`active_id\` = '${active_id}' AND \`followers_id\` = '${author_id}'`
     return await db.query(sql)
   },
 
   // 报名参加活动
-  appointment_sign: async (active_id, followers_id) => {
-    let sql = `INSERT INTO \`activity_sign\` (\`id\`, \`active_id\`, \`followers_id\`) VALUES (NULL, '${active_id}', '${followers_id}');`
+  appointment_sign: async (active_id, author_id) => {
+    let sql = `INSERT INTO \`activity_sign\` (\`id\`, \`active_id\`, \`followers_id\`) VALUES (NULL, '${active_id}', '${author_id}');`
     return await db.query(sql)
   },
 }
