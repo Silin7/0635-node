@@ -7,8 +7,6 @@
 const checkToken = require('./systemModule/checkToken')
 const mineDao = require('../model/dao/mineDao')
 
-const db = require('../model/mySQL')
-
 /**
  * 获取用户基本信息
  * @token true

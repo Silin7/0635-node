@@ -4,9 +4,15 @@
  * @Date: 2021-08-17
  */
 
-const scenicspotDao = require('../model/dao/scenicspotDao');
+const checkToken = require('./systemModule/checkToken')
+const scenicspotDao = require('../model/dao/scenicspotDao')
 
-// 景点列表
+/**
+ * 景点列表
+ * @token false
+ * @method GET
+ * @param page, limit, scenicspot_position, scenicspot_name
+ */
 const scenicspot_list = async (req, res, next) => {
   let parameter = req.query
   let page = parameter.page ? parameter.page : 1
@@ -46,7 +52,12 @@ const scenicspot_list = async (req, res, next) => {
   }
 }
 
-// 景点详情
+/**
+ * 景点详情
+ * @token false
+ * @method GET
+ * @param id
+ */
 const scenicspot_info = async (req, res, next) => {
   let parameter = req.query
   await scenicspotDao.scenicspot_info(parameter.id).then(result => {
@@ -63,10 +74,21 @@ const scenicspot_info = async (req, res, next) => {
   })
 }
 
-// 我关注的景点列表
+/**
+ * 我关注的景点列表
+ * @token false
+ * @method GET
+ */
 const mine_scenicspot_list = async (req, res, next) => {
-  let parameter = req.query
-  await scenicspotDao.mine_scenicspot_list(parameter.followers_id).then(result => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let author_id = req.headers.author_id
+  await scenicspotDao.mine_scenicspot_list(author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success',
@@ -80,10 +102,23 @@ const mine_scenicspot_list = async (req, res, next) => {
   })
 }
 
-// 是否关注此景点
+/**
+ * 是否关注此景点
+ * @token false
+ * @method GET
+ * @param scenicspot_id
+ */
 const is_follow_scenicspot = async (req, res, next) => {
-  let parameter = req.body
-  await scenicspotDao.is_follow_scenicspot(parameter.followers_id, parameter.scenicspot_id).then(result => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let parameter = req.query
+  let author_id = req.headers.author_id
+  await scenicspotDao.is_follow_scenicspot(parameter.scenicspot_id, author_id).then(result => {
     if (result[0]["COUNT(*)"] > 0) {
       res.json({
         code: 0,
@@ -105,10 +140,23 @@ const is_follow_scenicspot = async (req, res, next) => {
   })
 }
 
-// 关注此景点
+/**
+ * 关注此景点
+ * @token false
+ * @method GET
+ * @param scenicspot_id, scenicspot_name, scenicspot_img
+ */
 const follow_scenicspot = async (req, res, next) => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
   let parameter = req.body
-  await scenicspotDao.follow_scenicspot(parameter).then(result => {
+  let author_id = req.headers.author_id
+  await scenicspotDao.follow_scenicspot(parameter, author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -123,8 +171,16 @@ const follow_scenicspot = async (req, res, next) => {
 
 // 取消关注此景点
 const cancel_scenicspot = async (req, res, next) => {
-  let parameter = req.body
-  await scenicspotDao.cancel_scenicspot(parameter.followers_id, parameter.scenicspot_id).then(result => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let parameter = req.query
+  let author_id = req.headers.author_id
+  await scenicspotDao.cancel_scenicspot(parameter.scenicspot_id, author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'

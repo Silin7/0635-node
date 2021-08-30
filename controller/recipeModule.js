@@ -1,9 +1,19 @@
+/*
+* @Description: 菜谱模块控制器层
+* @Author: silin7
+* @Date: 2021-08-30
+*/
+
 const request = require('../model/recipe_api/request')
 const recipeCatalogs = require('../model/recipe_api/recipe_catalogs')
 const recipeList = require('../model/recipe_api/recipe_list')
 const recipeDetail = require('../model/recipe_api/recipe_detail')
 
-//菜肴分类
+/**
+ * 菜谱分类列表
+ * @token false
+ * @method GET
+ */
 const recipe_catalogs = (req, res) => {
   let query = Object.assign({}, req.query, req.body, { cookie: req.cookies })
   recipeCatalogs(query, request).then(answer => {
@@ -13,7 +23,12 @@ const recipe_catalogs = (req, res) => {
   })
 }
 
-//菜肴列表(keyword)
+/**
+ * 菜谱列表
+ * @token false
+ * @method GET
+ * @param keyword
+ */
 const recipe_list = (req, res) => {
   let query = Object.assign({}, req.query, req.body, { cookie: req.cookies })
   recipeList(query, request).then(answer => {
@@ -23,7 +38,12 @@ const recipe_list = (req, res) => {
   })
 }
 
-//菜肴详情(id)
+/**
+ * 菜谱详情
+ * @token false
+ * @method GET
+ * @param id
+ */
 const recipe_detail = (req, res) => {
   let query = Object.assign({}, req.query, req.body, { cookie: req.cookies })
   recipeDetail(query, request).then(answer => {
@@ -34,5 +54,7 @@ const recipe_detail = (req, res) => {
 }
 
 module.exports = {
-  recipe_catalogs, recipe_list, recipe_detail
+  recipe_catalogs,
+  recipe_list,
+  recipe_detail
 }

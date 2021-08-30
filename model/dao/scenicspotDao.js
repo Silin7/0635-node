@@ -49,27 +49,27 @@ module.exports = {
   },
 
   // 我关注的景点列表
-  mine_scenicspot_list: async (followers_id) => {
-    let sql = `SELECT * FROM \`relations_scenicspot\` WHERE \`followers_id\` = '${followers_id}' ORDER BY \`create_time\` DESC`
+  mine_scenicspot_list: async (author_id) => {
+    let sql = `SELECT * FROM \`relations_scenicspot\` WHERE \`followers_id\` = '${author_id}' ORDER BY \`create_time\` DESC`
     return await db.query(sql)
   },
 
   // 是否关注此景点
-  is_follow_scenicspot: async (followers_id, scenicspot_id) => {
-    let sql = `SELECT COUNT(*) FROM \`relations_scenicspot\` WHERE \`followers_id\` = '${followers_id}' AND \`scenicspot_id\` = '${scenicspot_id}'`
+  is_follow_scenicspot: async (scenicspot_id, author_id) => {
+    let sql = `SELECT COUNT(*) FROM \`relations_scenicspot\` WHERE \`followers_id\` = '${author_id}' AND \`scenicspot_id\` = '${scenicspot_id}'`
     return await db.query(sql)
   },
 
   // 关注此景点
-  follow_scenicspot: async (parameter) => {
+  follow_scenicspot: async (parameter, author_id) => {
     let sql = 'INSERT INTO `relations_scenicspot` (`id`, `followers_id`, `scenicspot_id`, `scenicspot_name`, `scenicspot_img`) VALUES (NULL, ?, ?, ?, ?)'
-    let sqlParams = [parameter.followers_id, parameter.scenicspot_id, parameter.scenicspot_name, parameter.scenicspot_img]
+    let sqlParams = [author_id, parameter.scenicspot_id, parameter.scenicspot_name, parameter.scenicspot_img]
     return await db.query(sql, sqlParams)
   },
 
   // 取消关注此景点
-  cancel_scenicspot: async (followers_id, scenicspot_id) => {
-    let sql = `DELETE FROM \`relations_scenicspot\` WHERE \`followers_id\` = '${followers_id}' AND \`scenicspot_id\` = '${scenicspot_id}'`
+  cancel_scenicspot: async (scenicspot_id, author_id) => {
+    let sql = `DELETE FROM \`relations_scenicspot\` WHERE \`followers_id\` = '${author_id}' AND \`scenicspot_id\` = '${scenicspot_id}'`
     return await db.query(sql)
   }
 }
