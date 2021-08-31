@@ -4,7 +4,6 @@
  * @Date: 2021-08-31
  */
 
-const db = require('../model/mySQL')
 const specialtyDao = require('../model/dao/specialtyDao')
 
 /**
