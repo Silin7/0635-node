@@ -169,7 +169,12 @@ const follow_scenicspot = async (req, res, next) => {
   })
 }
 
-// 取消关注此景点
+/**
+ * 取消关注此景点
+ * @token false
+ * @method GET
+ * @param scenicspot_id
+ */
 const cancel_scenicspot = async (req, res, next) => {
   if (!checkToken(req.headers)) {
     res.json({

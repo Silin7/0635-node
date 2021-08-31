@@ -1,69 +1,80 @@
-const db = require('../model/mySQL')
+/*
+ * @Description: 特产模块控制器层
+ * @Author: silin7
+ * @Date: 2021-08-31
+ */
 
-// 特产列表
-const specialty_list = (req, res, next) => {
-  let data = req.query
-  let slimit = (data.page - 1) * data.limit
-  let elimit = data.limit
-  let sql1 = 'SELECT COUNT(*) FROM `local_specialty`'
-  let sql2 = `SELECT id, specialty_name, specialty_cover, specialty_position FROM \`local_specialty\` WHERE \`specialty_show\` = '01'`
-  let specialty_position = ` AND \`specialty_position\` = '${data.specialty_position}'`
-  let scenicspot_limit = ` LIMIT ${slimit},${elimit}`
-  if (data.specialty_position && data.specialty_position !== '') {
-    sql2 = sql2 + specialty_position + scenicspot_limit
-  } else {
-    sql2 = sql2 + scenicspot_limit
-  }
-  db.query(sql1, function (err1, result1) {
-    if(err1){
-      res.json({
-        code: 500,
-        msg: err1
-      })
-    } else {
-      let totalCount = result1[0][`COUNT(*)`]
-      db.query(sql2, function (err2, result2) {
-        if(err2){
-          res.json({
-            code: 500,
-            msg: err2
-          })
-        } else {
-          res.json({
-            code: 0,
-            msg: 'success',
-            page: data.page,
-            limit: data.limit,
-            totalCount: totalCount,
-            data: result2
-          })
-        }
-      })
-    }
+const db = require('../model/mySQL')
+const specialtyDao = require('../model/dao/specialtyDao')
+
+/**
+ * 特产列表
+ * @token false
+ * @method GET
+ * @param page, limit, specialty_position
+ */
+const specialty_list = async (req, res, next) => {
+  let parameter = req.query
+  let page = parameter.page ? parameter.page : 1
+  let limit = parameter.limit ? parameter.limit : 10
+  let specialty_position = parameter.specialty_position ? parameter.specialty_position : ''
+  let isNext = true
+  let totalCount = 0
+  let data = []
+  await specialtyDao.specialty_total(specialty_position).then(result => {
+    totalCount = result[0]["COUNT(*)"]
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
   })
+  await specialtyDao.specialty_list(page, limit, specialty_position).then(result => {
+    data = result
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  if (isNext) {
+    res.json({
+      code: 0,
+      msg: 'success',
+      page: page,
+      limit: limit,
+      totalCount: totalCount,
+      data: data
+    })
+  }
 }
 
-// 特产详情
-const specialty_details = (req, res, next) => {
-	let data = req.query
-  let sql = `SELECT * FROM \`local_specialty\` WHERE \`id\` = '${data.id}'`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        data: result[0]
-      })
-    }
+/**
+ * 特产详情
+ * @token false
+ * @method GET
+ * @param id
+ */
+const specialty_details = async (req, res, next) => {
+  let parameter = req.query
+  await specialtyDao.specialty_details(parameter.id).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success',
+      data: result[0]
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
 
 module.exports = {
-  specialty_list, specialty_details
+  specialty_list,
+  specialty_details
 }
