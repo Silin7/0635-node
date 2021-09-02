@@ -4,18 +4,17 @@
  * @Date: 2021-08-17
  */
 
+const checkToken = require('./systemModule/checkToken')
+const appointmentDao = require('../model/dao/appointmentDao')
 const formidable = require('formidable')
 const path = require('path')
 const fs = require('fs')
 
-const checkToken = require('./systemModule/checkToken')
-const appointmentDao = require('../model/dao/appointmentDao')
-
 /**
- * 发起活动（海报）   这个不管用  唉   要重写
+ * 发起活动（海报）
  * @token true
  * @method POST
- * @param sponsor_id, sponsor_name, sponsor_gender, sponsor_age, sponsor_img, appointment_title, appointment_info, appointment_time, appointment_place, appointment_wx, area_type, appointment_type, appointment_pay, appointment_gander, appointment_details
+ * @param sponsor_name, sponsor_gender, sponsor_age, sponsor_img, appointment_title, appointment_info, appointment_time, appointment_place, appointment_wx, area_type, appointment_type, appointment_pay, appointment_gander, appointment_details
  */
 const appointment_release_img = async (req, res, next) => {
   if (!checkToken(req.headers)) {
@@ -48,10 +47,9 @@ const appointment_release_img = async (req, res, next) => {
     } else {
       let oldPath = files.file.path;
       let newPath = path.join(path.dirname(oldPath), files.file.name);
-      // let newPath2 = 'https://www.silin7.cn/birch-forest-media/appointmentModule/' + files.file.name
       fs.rename(oldPath, newPath, () => { //fs.rename重命名图片名称
         let parameter = fields
-        appointmentDao.appointment_release_img(parameter).then(result => {
+        appointmentDao.appointment_release_img(parameter, author_id, newPath).then(result => {
           res.json({
             code: 0,
             msg: 'success'
@@ -71,7 +69,7 @@ const appointment_release_img = async (req, res, next) => {
  * 发起活动（文字）
  * @token true
  * @method POST
- * @param sponsor_id, sponsor_name, sponsor_gender, sponsor_age, sponsor_img, appointment_title, appointment_info, appointment_time, appointment_place, appointment_wx, area_type, appointment_type, appointment_pay, appointment_gander, appointment_details
+ * @param sponsor_name, sponsor_gender, sponsor_age, sponsor_img, appointment_title, appointment_info, appointment_time, appointment_place, appointment_wx, area_type, appointment_type, appointment_pay, appointment_gander, appointment_details
  */
 const appointment_release_txt = async (req, res, next) => {
   if (!checkToken(req.headers)) {
@@ -82,7 +80,8 @@ const appointment_release_txt = async (req, res, next) => {
     return
   }
   let parameter = req.body
-  await appointmentDao.appointment_release_txt(parameter).then(result => {
+  let author_id = req.headers.author_id
+  await appointmentDao.appointment_release_txt(parameter, author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -97,7 +96,7 @@ const appointment_release_txt = async (req, res, next) => {
 
 /**
  * 线下活动列表
- * @token true
+ * @token false
  * @method GET
  * @param page, limit, sponsor_gender, appointment_type, area_type, is_pass
  */
@@ -144,7 +143,7 @@ const appointment_list = async (req, res, next) => {
 
 /**
  * 线下活动详情
- * @token true
+ * @token false
  * @method GET
  * @param id
  */
@@ -164,7 +163,12 @@ const appointment_details = async (req, res, next) => {
   })
 }
 
-// 是否报名参加活动
+/**
+ * 是否报名参加活动
+ * @token true
+ * @method GET
+ * @param active_id
+ */
 const appointment_issign = async (req, res, next) => {
   if (!checkToken(req.headers)) {
     res.json({
@@ -198,7 +202,12 @@ const appointment_issign = async (req, res, next) => {
   })
 }
 
-// 报名参加活动
+/**
+ * 报名参加活动
+ * @token true
+ * @method GET
+ * @param active_id
+ */
 const appointment_sign = async (req, res, next) => {
   if (!checkToken(req.headers)) {
     res.json({

@@ -12,7 +12,7 @@ const checkToken = require('./systemModule/checkToken')
 const dynamicDao = require('../model/dao/dynamicDao')
 
 /**
- * 发动态（图片）   这个不管用  唉   要重写
+ * 发动态（图片）
  * @token true
  * @method POST
  * @param author_id, author_name, author_avatar, content
@@ -41,11 +41,11 @@ const dynamic_release_img = (req, res, next) => {
     } else {
       let oldPath = files.file.path;
       let newPath = path.join(path.dirname(oldPath), files.file.name);
-      let backPath = path.join('https://www.silin7.cn/birch-forest-media/dynamicModules', files.file.name)
+      // let backPath = path.join('https://www.silin7.cn/birch-forest-media/dynamicModules', files.file.name)
       //fs.rename重命名图片名称
       fs.rename(oldPath, newPath, () => {
         let parameter = fields
-        dynamicDao.dynamic_release_img(parameter, author_id).then(result => {
+        dynamicDao.dynamic_release_img(parameter, author_id, newPath).then(result => {
           res.json({
             code: 0,
             msg: 'success'

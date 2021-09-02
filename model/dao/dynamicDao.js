@@ -8,9 +8,9 @@ const db = require('../mySQL')
 
 module.exports = {
   // 发动态（图片）
-  dynamic_release_img: async (parameter, author_id) => {
+  dynamic_release_img: async (parameter, author_id, image_path) => {
     let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)'
-    let sqlParams = [author_id, parameter.author_name, parameter.author_avatar, parameter.content, backPath]
+    let sqlParams = [author_id, parameter.author_name, parameter.author_avatar, parameter.content, image_path]
     return await db.query(sql, sqlParams)
   },
   
@@ -26,6 +26,7 @@ module.exports = {
     let sql = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`is_pass\` = '${pass}'`
     return await db.query(sql)
   },
+  
   // 动态列表
   dynamic_list: async (page, limit, pass) => {
     let slimit = (page - 1) * limit
@@ -58,6 +59,7 @@ module.exports = {
     let sql = `SELECT COUNT(*) FROM \`local_comment\` WHERE \`dynamic_id\` = '${dynamic_id}' AND \`is_pass\` = '${pass}'`
     return await db.query(sql)
   },
+
   // 动态评论列表
   comment_list: async (page, limit, dynamic_id, pass) => {
     let slimit = (page - 1) * limit

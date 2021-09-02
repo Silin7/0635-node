@@ -14,7 +14,7 @@ marryRouter
   .post('/marry/marry_release', marryModule.marry_release)
   .get('/marry/marry_list', marryModule.marry_list)
   .get('/marry/marry_details', marryModule.marry_details)
-  .get('/marry/marry_issign', marryModule.marry_issign)
+  .get('/marry/is_marry_sign', marryModule.is_marry_sign)
   .get('/marry/marry_sign', marryModule.marry_sign)
 
 

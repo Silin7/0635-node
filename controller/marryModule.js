@@ -1,13 +1,33 @@
-const db = require('../model/mySQL')
-const formidable = require('formidable');
+/*
+* @Description: 社交模块控制器层
+* @Author: silin7
+* @Date: 2021-08-17
+*/
+
+const checkToken = require('./systemModule/checkToken')
+const marryDao = require('../model/dao/marryDao')
+const formidable = require('formidable')
 const path = require('path')
 const fs = require('fs')
 
-// 发起社交
-const marry_release = (req, res, next) => {
+
+/**
+ * 发起社交
+ * @token true
+ * @method POST
+ * @param type, name, gender, age, constellation, address, height, weight, education, occupation, income, state, car, house, introduce
+ */
+const marry_release = async (req, res, next) => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
   let author_id = req.headers.author_id
-  let form = new formidable.IncomingForm();
-  let uploadDir = path.join(__dirname, '../../../birch-forest-media/marryModule', author_id);
+  let form = new formidable.IncomingForm()
+  let uploadDir = path.join(__dirname, '../../../birch-forest-media/marryModule', author_id)
   if (!fs.existsSync(uploadDir)) {
     fs.mkdir(uploadDir, (error) => {
       if (error) {
@@ -18,7 +38,7 @@ const marry_release = (req, res, next) => {
       }
     })
   }
-  form.uploadDir = uploadDir;
+  form.uploadDir = uploadDir
   form.parse(req, (err, fields, files) => {
     if (err) {
       res.json({
@@ -26,153 +46,167 @@ const marry_release = (req, res, next) => {
         msg: err
       })
     } else {
-      let oldPath = files.file.path;
-      let newPath = path.join(path.dirname(oldPath), files.file.name);
-      let newPath2 = 'https://www.silin7.cn/birch-forest-media/marryModule/' + files.file.name
-      //fs.rename重命名图片名称
+      let oldPath = files.file.path
+      let newPath = path.join(path.dirname(oldPath), files.file.name)
       fs.rename(oldPath, newPath, () => {
-        let sql = 'INSERT INTO `marry_library` (`id`, `type`, `user_id`, `name`, `gender`, `age`, `constellation`, `address`, `height`, `weight`, `education`, `occupation`, `income`, `state`, `car`, `house`, `introduce`, `cover`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-        let sqlParams = [fields.type, fields.user_id, fields.name, fields.gender, fields.age, fields.constellation, fields.address, fields.height, fields.weight, fields.education, fields.occupation, fields.income, fields.state, fields.car, fields.house, fields.introduce, newPath2]
-        db.query(sql, sqlParams, function (err, result) {
-          if (err) {
-            res.json({
-              code: 500,
-              msg: err
-            })
-          } else {
-            res.json({
-              code: 0,
-              msg: 'success'
-            })
-          }
+        let parameter = fields
+        marryDao.marry_release(parameter, author_id, newPath).then(result => {
+          res.json({
+            code: 0,
+            msg: 'success'
+          })
+        }).catch(error => {
+          res.json({
+            code: 500,
+            msg: JSON.stringify(error)
+          })
         })
       })
     }
   })
 }
 
-// 社交列表
-const marry_list = (req, res, next) => {
-  let data = req.query
-  let slimit = (data.page - 1) * data.limit
-  let elimit = data.limit
-  let sql1 = `SELECT COUNT(*) FROM \`marry_library\` WHERE`
-  let sql2 = `SELECT id, name, age, introduce, cover FROM \`marry_library\` WHERE`
-  let gender = ` \`gender\` = '${data.gender}' AND`
-  let type = ` \`type\` = '${data.type}' AND`
-  let address = ` \`address\` = '${data.address}' AND`
-  let is_pass = ` \`is_pass\` = '${data.is_pass}'`
-  let create_time = ` ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
-  if (data.gender) {
-    sql1 = sql1 + gender
-    sql2 = sql2 + gender
+/**
+ * 社交列表
+ * @token false
+ * @method POST
+ * @param page, limit, gender, type, address, is_pass
+ */
+const marry_list = async (req, res, next) => {
+  let parameter = req.query
+  let page = parameter.page ? parameter.page : 1
+  let limit = parameter.limit ? parameter.limit : 10
+  let gender = parameter.gender ? parameter.gender : ''
+  let type = parameter.type ? parameter.type : ''
+  let address = parameter.address ? parameter.address : ''
+  let is_pass = parameter.is_pass ? parameter.is_pass : '02'
+  let isNext = true
+  let totalCount = 0
+  let data = []
+  await marryDao.marry_total(gender, type, address, is_pass).then(result => {
+    totalCount = result[0]["COUNT(*)"]
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  await marryDao.marry_list(page, limit, gender, type, address, is_pass).then(result => {
+    data = result
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  if (isNext) {
+    res.json({
+      code: 0,
+      msg: 'success',
+      page: page,
+      limit: limit,
+      totalCount: totalCount,
+      data: data
+    })
   }
-  if (data.type) {
-    sql1 = sql1 + type
-    sql2 = sql2 + type
-  }
-  if (data.address) {
-    sql1 = sql1 + address
-    sql2 = sql2 + address
-  }
-  sql1 = sql1 + is_pass
-  sql2 = sql2 + is_pass + create_time
-  db.query(sql1, function (err1, result1) {
-    if(err1){
-      res.json({
-        code: 500,
-        msg: err1
-      })
-    } else {
-      let totalCount = result1[0][`COUNT(*)`]
-      db.query(sql2, function (err2, result2) {
-        if(err2){
-          res.json({
-            code: 500,
-            msg: err2
-          })
-        } else {
-          res.json({
-            code: 0,
-            msg: 'success',
-            page: data.page,
-            limit: data.limit,
-            totalCount: totalCount,
-            data: result2
-          })
-        }
-      })
-    }
+}
+
+/**
+ * 社交详情
+ * @token false
+ * @method GET
+ * @param id
+ */
+const marry_details = async (req, res, next) => {
+  let parameter = req.query
+  await marryDao.marry_details(parameter.id).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success',
+      data: result[0]
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
-// 社交详情
-const marry_details = (req, res, next) => {
-  let data = req.query
-  let sql = `SELECT * FROM \`marry_library\` WHERE \`id\` = ${data.id}`
-  db.query(sql, function (err, result) {
-    if(err){
+/**
+ * 是否报名参加社交
+ * @token true
+ * @method GET
+ * @param register_id
+ */
+const is_marry_sign = async (req, res, next) => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let parameter = req.query
+  let author_id = req.headers.author_id
+  await marryDao.is_marry_sign(parameter.register_id, author_id).then(result => {
+    let totalCount = result[0]["COUNT(*)"]
+    if (totalCount === 0) {
       res.json({
-        code: 500,
-        msg: err
+        code: 0,
+        msg: 'success',
+        type: '0'
       })
     } else {
       res.json({
         code: 0,
         msg: 'success',
-        data: result[0]
+        type: '1'
       })
     }
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
-// 是否报名参加社交
-const marry_issign = (req, res, next) => {
-  let data = req.query
-  let sql = `SELECT * FROM \`marry_sign\` WHERE \`register_id\` = '${data.register_id}' AND \`followers_id\` = '${data.followers_id}'`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      if (result.length > 0) {
-        res.json({
-          code: 0,
-          msg: 'success',
-          type: '1'
-        })
-      } else {
-        res.json({
-          code: 0,
-          msg: 'success',
-          type: '0'
-        })
-      }
-    }
-  })
-}
-
-// 报名参加社交
-const marry_sign = (req, res, next) => {
-  let data = req.query
-  let sql = `INSERT INTO \`marry_sign\` (\`id\`, \`register_id\`, \`followers_id\`) VALUES (NULL, '${data.register_id}', '${data.followers_id}');`
-  db.query(sql, function (err, result) {
-    if(err){
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success'
-      })
-    }
+/**
+ * 报名参加社交
+ * @token true
+ * @method GET
+ * @param register_id
+ */
+const marry_sign = async (req, res, next) => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let parameter = req.query
+  let author_id = req.headers.author_id
+  await marryDao.marry_sign(parameter.register_id, author_id).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success'
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
   })
 }
 
 module.exports = {
-  marry_release, marry_list, marry_details, marry_issign, marry_sign
+  marry_release,
+  marry_list,
+  marry_details,
+  is_marry_sign,
+  marry_sign
 }

@@ -8,16 +8,16 @@ const db = require('../mySQL')
 
 module.exports = {
   // 发起活动（图片）
-  appointment_release_img: async (parameter) => {
+  appointment_release_img: async (parameter, author_id, poster_path) => {
     let sql = 'INSERT INTO `activity_library` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`, `activity_poster`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-    let sqlParams = [parameter.sponsor_id, parameter.sponsor_name, parameter.sponsor_gender, parameter.sponsor_age, parameter.sponsor_img, parameter.appointment_title, parameter.appointment_info, parameter.appointment_time, parameter.appointment_place, parameter.appointment_wx, parameter.area_type, parameter.appointment_type, parameter.appointment_pay, parameter.appointment_gander, parameter.appointment_details, newPath2]
+    let sqlParams = [author_id, parameter.sponsor_name, parameter.sponsor_gender, parameter.sponsor_age, parameter.sponsor_img, parameter.appointment_title, parameter.appointment_info, parameter.appointment_time, parameter.appointment_place, parameter.appointment_wx, parameter.area_type, parameter.appointment_type, parameter.appointment_pay, parameter.appointment_gander, parameter.appointment_details, poster_path]
     return await db.query(sql, sqlParams)
   },
   
   // 发起活动（文字）
-  appointment_release_txt: async (parameter) => {
+  appointment_release_txt: async (parameter, author_id) => {
     let sql = 'INSERT INTO `activity_library` (`id`, `sponsor_id`, `sponsor_name`, `sponsor_gender`, `sponsor_age`, `sponsor_img`, `appointment_title`, `appointment_info`, `appointment_time`, `appointment_place`, `appointment_wx`, `area_type`, `appointment_type`, `appointment_pay`, `appointment_gander`, `appointment_details`) VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-    let sqlParams = [parameter.sponsor_id, parameter.sponsor_name, parameter.sponsor_gender, parameter.sponsor_age, parameter.sponsor_img, parameter.appointment_title, parameter.appointment_info, parameter.appointment_time, parameter.appointment_place, parameter.appointment_wx, parameter.area_type, parameter.appointment_type, parameter.appointment_pay, parameter.appointment_gander, parameter.appointment_details]
+    let sqlParams = [author_id, parameter.sponsor_name, parameter.sponsor_gender, parameter.sponsor_age, parameter.sponsor_img, parameter.appointment_title, parameter.appointment_info, parameter.appointment_time, parameter.appointment_place, parameter.appointment_wx, parameter.area_type, parameter.appointment_type, parameter.appointment_pay, parameter.appointment_gander, parameter.appointment_details]
     return await db.query(sql, sqlParams)
   },
 
@@ -40,6 +40,7 @@ module.exports = {
     sql = sql + is_pass
     return await db.query(sql)
   },
+  
   // 线下活动列表
   appointment_list: async (page, limit, sponsor, appointment, area, pass) => {
     let slimit = (page - 1) * limit
