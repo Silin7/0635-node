@@ -75,7 +75,7 @@ const scenicspot_info = async (req, res, next) => {
 }
 
 /**
- * 我关注的景点列表
+ * 我打卡的景点列表
  * @token false
  * @method GET
  */
@@ -103,16 +103,18 @@ const mine_scenicspot_list = async (req, res, next) => {
 }
 
 /**
- * 是否关注此景点
+ * 是否打卡此景点
  * @token false
  * @method GET
  * @param scenicspot_id
+ * @remark 01: 未打卡； 02: 已打卡
  */
 const is_follow_scenicspot = async (req, res, next) => {
   if (!checkToken(req.headers)) {
     res.json({
-      code: 401,
-      msg: '请登录后操作'
+      code: 0,
+      msg: 'success',
+      type: '01'
     })
     return
   }
@@ -123,13 +125,13 @@ const is_follow_scenicspot = async (req, res, next) => {
       res.json({
         code: 0,
         msg: 'success',
-        type: '1'
+        type: '02'
       })
     } else {
       res.json({
         code: 0,
         msg: 'success',
-        type: '0'
+        type: '01'
       })
     }
   }).catch(error => {
@@ -141,9 +143,9 @@ const is_follow_scenicspot = async (req, res, next) => {
 }
 
 /**
- * 关注此景点
- * @token false
- * @method GET
+ * 打卡此景点
+ * @token true
+ * @method POST
  * @param scenicspot_id, scenicspot_name, scenicspot_img
  */
 const follow_scenicspot = async (req, res, next) => {
@@ -170,7 +172,7 @@ const follow_scenicspot = async (req, res, next) => {
 }
 
 /**
- * 取消关注此景点
+ * 取消打卡此景点
  * @token false
  * @method GET
  * @param scenicspot_id
