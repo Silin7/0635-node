@@ -29,7 +29,7 @@ module.exports = {
   
   // 话题列表数据条数
   topic_list_total: async (topic_class, is_pass) => {
-    let sql = `SELECT COUNT(*) FROM \`topic_list\` WHERE \`topic_class\` = '${topic_class}' AND \`is_pass\` = '${is_pass}`
+    let sql = `SELECT COUNT(*) FROM \`topic_list\` WHERE \`topic_class\` = '${topic_class}' AND \`is_pass\` = '${is_pass}'`
     return await db.query(sql)
   },
 
@@ -37,7 +37,7 @@ module.exports = {
   topic_list: async (page, limit, topic_class, is_pass) => {
     let slimit = (page - 1) * limit
     let elimit = limit
-    let sql = `SELECT id, topic_title, topic_img, create_time FROM \`topic_list\` WHERE \`topic_class\` = '${topic_class}' AND \`is_pass\` = '${is_pass} ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    let sql = `SELECT id, topic_title, topic_img, create_time FROM \`topic_list\` WHERE \`topic_class\` = '${topic_class}' AND \`is_pass\` = '${is_pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
     return await db.query(sql)
   },
 
