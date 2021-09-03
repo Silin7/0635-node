@@ -135,6 +135,72 @@ const dynamic_list = async (req, res, next) => {
 }
 
 /**
+ * 作者基本信息
+ * @token true
+ * @method GET
+ * @param author_id
+ */
+const author_info = async (req, res, next) => {
+  let parameter = req.query
+  await dynamicDao.author_info(parameter.author_id).then(result => {
+    res.json({
+      code: 0,
+      msg: 'success',
+      data: result[0]
+    })
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+  })
+}
+
+/**
+ * 作者动态列表
+ * @token true
+ * @method GET
+ * @param page, limit, author_id, is_pass
+ */
+const author_dynamic_list = async (req, res, next) => {
+  let parameter = req.query
+  let page = parameter.page ? parameter.page : 1
+  let limit = parameter.limit ? parameter.limit : 10
+  let is_pass = parameter.is_pass ? parameter.is_pass : '02'
+  let isNext = true
+  let totalCount = 0
+  let data = []
+  await mineDao.author_dynamic_count(parameter.author_id, is_pass).then(result => {
+    totalCount = result[0]["COUNT(*)"]
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  await mineDao.author_dynamic_list(page, limit, parameter.author_id, is_pass).then(result => {
+    data = result
+  }).catch(error => {
+    res.json({
+      code: 500,
+      msg: JSON.stringify(error)
+    })
+    isNext = false
+  })
+  if (isNext) {
+    res.json({
+      code: 0,
+      msg: 'success',
+      page: page,
+      limit: limit,
+      totalCount: totalCount,
+      data: data
+    })
+  }
+}
+
+/**
  * 动态详情
  * @token false
  * @method GET
@@ -262,6 +328,8 @@ module.exports = {
   dynamic_release_img,
   dynamic_release_txt,
   dynamic_list,
+  author_info,
+  author_dynamic_list,
   dynamic_details,
   cancel_dynamic,
   write_comment,

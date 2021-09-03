@@ -424,7 +424,7 @@ const my_dynamic_list = async (req, res, next) => {
     })
     isNext = false
   })
-  await mineDao.my_dynamic_list(page, limit, is_pass).then(result => {
+  await mineDao.my_dynamic_list(page, limit, author_id, is_pass).then(result => {
     data = result
   }).catch(error => {
     res.json({

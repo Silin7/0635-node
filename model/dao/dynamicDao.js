@@ -34,6 +34,26 @@ module.exports = {
     let sql = `SELECT * FROM \`local_dynamic\` WHERE \`is_pass\` = '${pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
     return await db.query(sql)
   },
+
+  // 作者基本信息
+  author_info: async (author_id) => {
+    let sql = `SELECT * FROM \`user_information\` WHERE \`id\` = '${author_id}'`
+    return await db.query(sql)
+  },
+
+  // 作者动态数量
+  author_dynamic_count: async (author_id, pass) => {
+    let sql = `SELECT COUNT(*) FROM \`local_dynamic\` WHERE \`author_id\` = '${author_id}' AND \`is_pass\` = '${pass}'`
+    return await db.query(sql)
+  },
+
+  // 作者动态列表
+  author_dynamic_list: async (page, limit, author_id, pass) => {
+    let slimit = (page - 1) * limit
+    let elimit = limit
+    let sql = `SELECT * FROM \`local_dynamic\` WHERE \`author_id\` = '${author_id}' AND \`is_pass\` = '${pass}' ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
+    return await db.query(sql)
+  },
   
   // 动态详情
   dynamic_details: async (id) => {

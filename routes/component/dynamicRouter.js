@@ -13,6 +13,8 @@ dynamicRouter
   .post('/dynamic/dynamic_release_img', dynamicModule.dynamic_release_img)
   .post('/dynamic/dynamic_release_txt', dynamicModule.dynamic_release_txt)
   .get('/dynamic/dynamic_list', dynamicModule.dynamic_list)
+  .get('/dynamic/author_info', dynamicModule.author_info)
+  .get('/dynamic/author_dynamic_list', dynamicModule.author_dynamic_list)
   .get('/dynamic/dynamic_details', dynamicModule.dynamic_details)
   .get('/dynamic/cancel_dynamic', dynamicModule.cancel_dynamic)
   .post('/dynamic/write_comment', dynamicModule.write_comment)
