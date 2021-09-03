@@ -22,15 +22,15 @@ module.exports = {
     let basic_salary = ` \`basic_salary\` = '${salary}' AND`
     let is_pass = ` \`is_pass\` = '${pass}'`
     if (area) {
-      sql = sql + basic_area
+      sql += basic_area
     }
     if (type) {
-      sql = sql + basic_type
+      sql += basic_type
     }
     if (salary) {
-      sql = sql + basic_salary
+      sql += basic_salary
     }
-    sql = sql + is_pass
+    sql += is_pass
     return await db.query(sql)
   },
   
@@ -45,15 +45,15 @@ module.exports = {
     let is_pass = ` \`is_pass\` = '${pass}'`
     let page_limit = ` ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
     if (area) {
-      sql = sql + basic_area
+      sql += basic_area
     }
     if (type) {
-      sql = sql + basic_type
+      sql += basic_type
     }
     if (salary) {
-      sql = sql + basic_salary
+      sql += basic_salary
     }
-    sql = sql + is_pass + page_limit
+    sql += is_pass + page_limit
     return await db.query(sql)
   },
 
@@ -78,15 +78,15 @@ module.exports = {
     let pay_type = ` \`pay_type\` = '${pay}' AND`
     let is_pass = ` \`is_pass\` = '${pass}'`
     if (area) {
-      sql = sql + basic_area
+      sql += basic_area
     }
     if (type) {
-      sql = sql + room_type
+      sql += room_type
     }
     if (pay) {
-      sql = sql + pay_type
+      sql += pay_type
     }
-    sql = sql + is_pass
+    sql += is_pass
     return await db.query(sql)
   },
   
@@ -101,15 +101,15 @@ module.exports = {
     let is_pass = ` \`is_pass\` = '${pass}'`
     let page_limit = ` ORDER BY \`create_time\` DESC LIMIT ${slimit},${elimit}`
     if (area) {
-      sql = sql + basic_area
+      sql += basic_area
     }
     if (type) {
-      sql = sql + room_type
+      sql += room_type
     }
     if (pay) {
-      sql = sql + pay_type
+      sql += pay_type
     }
-    sql = sql + is_pass + page_limit
+    sql += is_pass + page_limit
     return await db.query(sql)
   },
 

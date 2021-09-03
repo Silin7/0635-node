@@ -29,15 +29,15 @@ module.exports = {
     let area_type = ` \`area_type\` = '${area}' AND`
     let is_pass = ` \`is_pass\` = '${pass}'`
     if (sponsor) {
-      sql = sql + sponsor_gender
+      sql += sponsor_gender
     }
     if (appointment) {
-      sql = sql + appointment_type
+      sql += appointment_type
     }
     if (area) {
-      sql = sql + area_type
+      sql += area_type
     }
-    sql = sql + is_pass
+    sql += is_pass
     return await db.query(sql)
   },
   
@@ -52,15 +52,15 @@ module.exports = {
     let is_pass = ` \`is_pass\` = '${pass}'`
     let page_limit = ` LIMIT ${slimit},${elimit}`
     if (sponsor) {
-      sql = sql + sponsor_gender
+      sql += sponsor_gender
     }
     if (appointment) {
-      sql = sql + appointment_type
+      sql += appointment_type
     }
     if (area) {
-      sql = sql + area_type
+      sql += area_type
     }
-    sql = sql + is_pass + page_limit
+    sql += is_pass + page_limit
     return await db.query(sql)
   },
   

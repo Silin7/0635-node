@@ -34,15 +34,15 @@ module.exports = {
     let parameter_address = ` \`address\` = '${address}' AND`
     let is_pass = ` \`is_pass\` = '${pass}'`
     if (parameter_gender) {
-      sql = sql + gender
+      sql += gender
     }
     if (parameter_type) {
-      sql = sql + type
+      sql += type
     }
     if (parameter_address) {
-      sql = sql + address
+      sql += address
     }
-    sql = sql + is_pass
+    sql += is_pass
     return await db.query(sql)
   },
   
@@ -57,15 +57,15 @@ module.exports = {
     let is_pass = ` \`is_pass\` = '${pass}'`
     let page_limit = ` LIMIT ${slimit},${elimit}`
     if (parameter_gender) {
-      sql = sql + gender
+      sql += gender
     }
     if (parameter_type) {
-      sql = sql + type
+      sql += type
     }
     if (parameter_address) {
-      sql = sql + address
+      sql += address
     }
-    sql = sql + is_pass + page_limit
+    sql += is_pass + page_limit
     return await db.query(sql)
   },
 

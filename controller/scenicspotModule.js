@@ -17,8 +17,8 @@ const scenicspot_list = async (req, res, next) => {
   let parameter = req.query
   let page = parameter.page ? parameter.page : 1
   let limit = parameter.limit ? parameter.limit : 10
-  let scenicspot_name = parameter.scenicspot_name ? parameter.scenicspot_name : ''
   let scenicspot_position = parameter.scenicspot_position ? parameter.scenicspot_position : ''
+  let scenicspot_name = parameter.scenicspot_name ? parameter.scenicspot_name : ''
   let isNext = true
   let totalCount = 0
   let data = []
