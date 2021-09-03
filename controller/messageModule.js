@@ -77,7 +77,7 @@ const permessage_details = async (req, res, next) => {
     res.json({
       code: 0,
       msg: 'success',
-      data: result[0]
+      data: result[0] ? result[0] : {}
     })
   }).catch(error => {
     res.json({
@@ -281,7 +281,7 @@ const sysmessage_list = async (req, res, next) => {
     res.json({
       code: 0,
       msg: 'success',
-      data: result[0]
+      data: result[0] ? result[0] : {}
     })
   }).catch(error => {
     res.json({

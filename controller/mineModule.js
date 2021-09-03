@@ -25,7 +25,7 @@ const mine_info = async (req, res, next) => {
     res.json({
       code: 0,
       msg: 'success',
-      data: result[0]
+      data: result[0] ? result[0] : {}
     })
   }).catch(error => {
     res.json({
@@ -82,7 +82,7 @@ const concerns_count = async (req, res, next) => {
     res.json({
       code: 0,
       msg: 'success',
-      data: result[0][`COUNT(*)`]
+      data: result[0] ? result[0] : {}[`COUNT(*)`]
     })
   }).catch(error => {
     res.json({
@@ -250,7 +250,7 @@ const collection_count = async (req, res, next) => {
     res.json({
       code: 0,
       msg: 'success',
-      data: result[0][`COUNT(*)`]
+      data: result[0] ? result[0] : {}[`COUNT(*)`]
     })
   }).catch(error => {
     res.json({

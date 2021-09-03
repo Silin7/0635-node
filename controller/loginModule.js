@@ -119,7 +119,7 @@ const sign_in = async (req, res, next) => {
         res.json({
           code: 0,
           msg: '登录成功',
-          data: result[0]
+          data: result[0] ? result[0] : {}
         })
       } else {
         res.json({
