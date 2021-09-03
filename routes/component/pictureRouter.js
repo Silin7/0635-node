@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const pictureModule = require('../../controller/pictureModule');
 
@@ -20,4 +19,3 @@ pictureRouter
 
 
 module.exports = pictureRouter;
-

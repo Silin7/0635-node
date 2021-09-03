@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const historyModule = require('../../controller/historyModule');
 

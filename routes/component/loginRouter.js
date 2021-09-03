@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const loginModule = require('../../controller/loginModule');
 
@@ -16,6 +15,4 @@ loginRouter
   .post('/login/sign_in', loginModule.sign_in)
 
 
-
 module.exports = loginRouter;
-

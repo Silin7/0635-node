@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const marryModule = require('../../controller/marryModule');
 
@@ -18,6 +17,4 @@ marryRouter
   .get('/marry/marry_sign', marryModule.marry_sign)
 
 
-
 module.exports = marryRouter;
-

@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const mineModule = require('../../controller/mineModule');
 
@@ -26,7 +25,4 @@ mineRouter
   .get('/mine/my_dynamic_list', mineModule.my_dynamic_list)
 
 
-
-
 module.exports = mineRouter;
-

@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const recipeModule = require('../../controller/recipeModule');
 
@@ -17,4 +16,3 @@ recipeRouter
 
 
 module.exports = recipeRouter;
-

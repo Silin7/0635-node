@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const specialtyModule = require('../../controller/specialtyModule');
 
@@ -16,4 +15,3 @@ specialtyRouter
 
 
 module.exports = specialtyRouter;
-

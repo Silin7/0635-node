@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const locationModule = require('../../controller/locationModule');
 
@@ -20,4 +19,3 @@ locationRouter
 
 
 module.exports = locationRouter;
-

@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const otherModule = require('../../controller/otherModule');
 
@@ -15,4 +14,3 @@ otherRouter
 
 
 module.exports = otherRouter;
-

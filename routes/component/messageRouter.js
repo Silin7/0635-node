@@ -4,7 +4,6 @@
  * @Date: 2021-08-09
  */
 
-
 const express = require('express');
 const messageModule = require('../../controller/messageModule');
 
@@ -20,6 +19,4 @@ messageRouter
   .get('/message/sysmessage_details', messageModule.sysmessage_details)
 
 
-
 module.exports = messageRouter;
-
