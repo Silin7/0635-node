@@ -71,8 +71,8 @@ module.exports = {
   },
 
   // 是否报名参加活动
-  appointment_issign: async (active_id, author_id) => {
-    let sql = `SELECT * FROM \`activity_sign\` WHERE \`active_id\` = '${active_id}' AND \`followers_id\` = '${author_id}'`
+  is_appointment_sign: async (active_id, author_id) => {
+    let sql = `SELECT COUNT(*) FROM \`activity_sign\` WHERE \`active_id\` = '${active_id}' AND \`followers_id\` = '${author_id}'`
     return await db.query(sql)
   },
 

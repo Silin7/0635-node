@@ -169,7 +169,7 @@ const appointment_details = async (req, res, next) => {
  * @method GET
  * @param active_id
  */
-const appointment_issign = async (req, res, next) => {
+const is_appointment_sign = async (req, res, next) => {
   if (!checkToken(req.headers)) {
     res.json({
       code: 401,
@@ -179,21 +179,13 @@ const appointment_issign = async (req, res, next) => {
   }
   let parameter = req.query
   let author_id = req.headers.author_id
-  await appointmentDao.appointment_issign(parameter.active_id, author_id).then(result => {
-    // 01：未报名； 02: 已报名；
-    if (result.length === 0) {
-      res.json({
-        code: 0,
-        msg: 'success',
-        type: '01'
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        type: '02'
-      })
-    }
+  await appointmentDao.is_appointment_sign(parameter.active_id, author_id).then(result => {
+    let flag = result[0]["COUNT(*)"] === 0 ? false : true
+    res.json({
+      code: 0,
+      msg: '操作成功',
+      data: flag
+    })
   }).catch(error => {
     res.json({
       code: 500,
@@ -218,7 +210,7 @@ const appointment_sign = async (req, res, next) => {
   }
   let parameter = req.query
   let author_id = req.headers.author_id
-  await appointmentDao.appointment_issign(parameter.active_id, author_id).then(result => {
+  await appointmentDao.appointment_sign(parameter.active_id, author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -236,6 +228,6 @@ module.exports = {
   appointment_release_txt,
   appointment_list,
   appointment_details,
-  appointment_issign,
+  is_appointment_sign,
   appointment_sign
 }
