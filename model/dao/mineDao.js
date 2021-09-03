@@ -19,13 +19,13 @@ module.exports = {
     return await db.query(sql)
   },
 
-  // 我关注（marry）的人数量
+  // 我喜欢的用户数量
   concerns_count: async (author_id) => {
     let sql = `SELECT COUNT(*) FROM \`relations_personnel\` WHERE \`followers_id\` = '${author_id}'`
     return await db.query(sql)
   },
   
-  // 我关注（marry）的人列表
+  // 我喜欢的用户列表
   concerns_list: async (page, limit, author_id) => {
     let slimit = (page - 1) * limit
     let elimit = limit
@@ -33,32 +33,32 @@ module.exports = {
     return await db.query(sql)
   },
 
-  // 是否关注了（marry）此用户
+  // 是否喜欢了此用户
   is_follow_users: async (watched_id, author_id) => {
     let sql = `SELECT COUNT(*) FROM \`relations_personnel\` WHERE \`followers_id\` = '${author_id}' AND \`watched_id\` = '${watched_id}'`
     return await db.query(sql)
   },
 
-  // 关注（marry）此用户
+  // 喜欢此用户
   follow_users: async (parameter, author_id) => {
     let sql = 'INSERT INTO `relations_personnel` (`id`, `followers_id`, `watched_id`, `nick_name`, `photo`, `introduce`) VALUES (NULL, ?, ?, ?, ?, ?)'
     let sqlParams = [author_id, parameter.watched_id, parameter.nick_name, parameter.photo, parameter.introduce]
     return await db.query(sql, sqlParams)
   },
 
-  // 取消关注（marry）此用户
+  // 取消喜欢此用户
   cancel_users: async (watched_id, author_id) => {
     let sql = `DELETE FROM \`relations_personnel\` WHERE \`followers_id\` = '${author_id}' AND \`watched_id\` = '${watched_id}'`
     return await db.query(sql)
   },
 
-  // 我关注（user）的人数量
+  // 我关注的用户数量
   collection_count: async (author_id) => {
     let sql = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${author_id}'`
     return await db.query(sql)
   },
 
-  // 我关注（user）的人列表
+  // 我关注的用户列表
   collection_list: async (page, limit, author_id) => {
     let slimit = (page - 1) * limit
     let elimit = limit
@@ -66,20 +66,20 @@ module.exports = {
     return await db.query(sql)
   },
   
-  // 是否关注了（user）此用户
+  // 是否关注了此用户
   is_follow_collection: async (watched_id, author_id) => {
     let sql = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${author_id}' AND \`watched_id\` = '${watched_id}'`
     return await db.query(sql)
   },
 
-  // 关注（user）此用户
+  // 关注此用户
   follow_collection: async (parameter, author_id) => {
     let sql = 'INSERT INTO `relations_user` (`id`, `followers_id`, `user_id`, `user_name`, `user_info`, `user_image`) VALUES (NULL, ?, ?, ?, ?, ?)'
     let sqlParams = [author_id, parameter.user_id, parameter.user_name, parameter.user_info, parameter.user_image]
     return await db.query(sql, sqlParams)
   },
 
-  // 取消关注（user）此用户
+  // 取消关注此用户
   cancel_collection: async (watched_id, author_id) => {
     let sql = `DELETE FROM \`relations_user\` WHERE \`followers_id\` = '${author_id}' AND \`watched_id\` = '${watched_id}'`
     return await db.query(sql)

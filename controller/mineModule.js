@@ -36,7 +36,7 @@ const mine_info = async (req, res, next) => {
 }
 
 /**
- * 修改保存个人信息
+ * 修改保存用户基本信息
  * @token true
  * @method POST
  * @param nick_name, gender, user_phone, birthday, age, constellation, address, personal_signature
@@ -65,7 +65,7 @@ const update_mineInfo = async (req, res, next) => {
 }
 
 /**
- * 我关注（marry）的人数量
+ * 我喜欢的用户数量
  * @token true
  * @method GET
  */
@@ -93,7 +93,7 @@ const concerns_count = async (req, res, next) => {
 }
 
 /**
- * 我关注（marry）的人列表
+ * 我喜欢的用户列表
  * @token true
  * @method GET
  * @param page, limit
@@ -144,7 +144,7 @@ const concerns_list = async (req, res, next) => {
 }
 
 /**
- * 是否关注了（marry）此用户
+ * 是否喜欢了此用户
  * @token true
  * @method GET
  * @param watched_id
@@ -175,7 +175,7 @@ const is_follow_users = async (req, res, next) => {
 }
 
 /**
- * 关注（marry）此用户
+ * 喜欢此用户
  * @token true
  * @method GET
  * @param watched_id, nick_name, photo, introduce
@@ -204,7 +204,7 @@ const follow_users = async (req, res, next) => {
 }
 
 /**
- * 取消关注（marry）此用户
+ * 取消喜欢此用户
  * @token true
  * @method GET
  * @param watched_id
@@ -233,7 +233,7 @@ const cancel_users = async (req, res, next) => {
 }
 
 /**
- * 我关注（user）的人数量
+ * 我关注的用户数量
  * @token true
  * @method GET
  */
@@ -261,7 +261,7 @@ const collection_count = async (req, res, next) => {
 }
 
 /**
- * 我关注（marry）的人列表
+ * 我喜欢的用户列表
  * @token true
  * @method GET
  * @param page, limit
@@ -312,7 +312,7 @@ const collection_list = async (req, res, next) => {
 }
 
 /**
- * 是否关注了（user）此用户
+ * 是否关注了此用户
  * @token true
  * @method GET
  * @param watched_id
@@ -343,7 +343,7 @@ const is_follow_collection = async (req, res, next) => {
 }
 
 /**
- * 关注（user）此用户
+ * 关注此用户
  * @token true
  * @method GET
  * @param watched_id, nick_name, photo, introduce
@@ -372,7 +372,7 @@ const follow_collection = async (req, res, next) => {
 }
 
 /**
- * 取消关注（user）此用户
+ * 取消关注此用户
  * @token true
  * @method GET
  * @param watched_id

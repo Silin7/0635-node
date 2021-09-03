@@ -107,7 +107,6 @@ const mine_scenicspot_list = async (req, res, next) => {
  * @token false
  * @method GET
  * @param scenicspot_id
- * @remark 01: 未打卡； 02: 已打卡
  */
 const is_follow_scenicspot = async (req, res, next) => {
   if (!checkToken(req.headers)) {
@@ -121,19 +120,12 @@ const is_follow_scenicspot = async (req, res, next) => {
   let parameter = req.query
   let author_id = req.headers.author_id
   await scenicspotDao.is_follow_scenicspot(parameter.scenicspot_id, author_id).then(result => {
-    if (result[0]["COUNT(*)"] > 0) {
-      res.json({
-        code: 0,
-        msg: 'success',
-        type: '02'
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        type: '01'
-      })
-    }
+    let flag = result[0]["COUNT(*)"] === 0 ? false : true
+    res.json({
+      code: 0,
+      msg: '操作成功',
+      data: flag
+    })
   }).catch(error => {
     res.json({
       code: 500,

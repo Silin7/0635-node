@@ -152,20 +152,12 @@ const is_marry_sign = async (req, res, next) => {
   let parameter = req.query
   let author_id = req.headers.author_id
   await marryDao.is_marry_sign(parameter.register_id, author_id).then(result => {
-    let totalCount = result[0]["COUNT(*)"]
-    if (totalCount === 0) {
-      res.json({
-        code: 0,
-        msg: 'success',
-        type: '0'
-      })
-    } else {
-      res.json({
-        code: 0,
-        msg: 'success',
-        type: '1'
-      })
-    }
+    let flag = result[0]["COUNT(*)"] === 0 ? false : true
+    res.json({
+      code: 0,
+      msg: '操作成功',
+      data: flag
+    })
   }).catch(error => {
     res.json({
       code: 500,
