@@ -67,8 +67,9 @@ module.exports = {
   },
   
   // 是否关注了此用户
-  is_follow_collection: async (watched_id, author_id) => {
-    let sql = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${author_id}' AND \`watched_id\` = '${watched_id}'`
+  is_follow_collection: async (user_id, author_id) => {
+    let sql = `SELECT COUNT(*) FROM \`relations_user\` WHERE \`followers_id\` = '${author_id}' AND \`user_id\` = '${user_id}'`
+    console.log(sql)
     return await db.query(sql)
   },
 

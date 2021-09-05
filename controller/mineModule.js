@@ -327,7 +327,7 @@ const is_follow_collection = async (req, res, next) => {
   }
   let parameter = req.query
   let author_id = req.headers.author_id
-  await mineDao.is_follow_collection(parameter.watched_id, author_id).then(result => {
+  await mineDao.is_follow_collection(parameter.user_id, author_id).then(result => {
     let flag = result[0]["COUNT(*)"] === 0 ? false : true
     res.json({
       code: 0,
