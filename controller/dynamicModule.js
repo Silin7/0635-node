@@ -170,7 +170,7 @@ const author_dynamic_list = async (req, res, next) => {
   let isNext = true
   let totalCount = 0
   let data = []
-  await mineDao.author_dynamic_count(parameter.author_id, is_pass).then(result => {
+  await dynamicDao.author_dynamic_count(parameter.author_id, is_pass).then(result => {
     totalCount = result[0]["COUNT(*)"]
   }).catch(error => {
     res.json({
@@ -179,7 +179,7 @@ const author_dynamic_list = async (req, res, next) => {
     })
     isNext = false
   })
-  await mineDao.author_dynamic_list(page, limit, parameter.author_id, is_pass).then(result => {
+  await dynamicDao.author_dynamic_list(page, limit, parameter.author_id, is_pass).then(result => {
     data = result
   }).catch(error => {
     res.json({
