@@ -10,7 +10,8 @@ const otherModule = require('../../controller/otherModule');
 let otherRouter = express.Router();
 
 otherRouter
-  .get('/other/girl_random', otherModule.girl_random);
+  .get('/other/girl_random', otherModule.girl_random)
+  .get('/other/taobao_mjxiu', otherModule.taobao_mjxiu);
 
 
 module.exports = otherRouter;

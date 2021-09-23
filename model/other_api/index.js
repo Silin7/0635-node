@@ -7,6 +7,15 @@ const history_today = (query, request) => {
   )
 }
 
+// 随机淘宝买家秀 // Token=oGEubKhhx4dWY7TPn3KRbBi3
+const taobao_mjxiu = (query, request) => {
+  return request(
+    'GET',
+    `https://api.sumt.cn/api/rand.tbimg.php?token=oGEubKhhx4dWY7TPn3KRbBi3&format=json`,
+    {},
+  )
+}
+
 // 获取特定城市今日天气信息
 const weather_current = (query, request) => {
   return request(
@@ -108,6 +117,7 @@ const jsxh_quotations = (query, request) => {
 
 module.exports = {
   history_today,
+  taobao_mjxiu,
   weather_current,
   weather_forecast,
   jokes_random,

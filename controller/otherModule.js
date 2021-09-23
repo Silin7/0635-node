@@ -21,6 +21,21 @@ const girl_random = (req, res) => {
   })
 }
 
+/**
+ * 随机获取淘宝买家秀图片
+ * @token false
+ * @method GET
+ */
+ const taobao_mjxiu = (req, res) => {
+  let query = Object.assign({}, req.query, req.body)
+  api.taobao_mjxiu(query, request).then(answer => {
+    res.status(answer.status).send(answer.body)
+  }).catch(answer => {
+    res.status(answer.status).send(answer.body)
+  })
+}
+
 module.exports = {
-  girl_random
+  girl_random,
+  taobao_mjxiu
 }
