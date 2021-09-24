@@ -20,7 +20,7 @@ const dynamicDao = require('../model/dao/dynamicDao')
 const dynamic_release_img = (req, res, next) => {
   let author_id = req.headers.author_id
   let form = new formidable.IncomingForm();
-  let uploadDir = path.join(__dirname, '../../../birch-forest-media/dynamicModules', author_id);
+  let uploadDir = path.join(__dirname, '../../birch-forest-media/dynamicModules', author_id);
   if (!fs.existsSync(uploadDir)) {
     fs.mkdir(uploadDir, (error) => {
       if (error) {
