@@ -26,7 +26,7 @@ const appointment_release_img = async (req, res, next) => {
   }
   let author_id = req.headers.author_id
   let form = new formidable.IncomingForm();
-  let uploadDir = path.join(__dirname, '../../birch-forest-media/appointmentModule', author_id);
+  let uploadDir = path.join(__dirname, '../../0635-files/appointmentModule', author_id);
   if (!fs.existsSync(uploadDir)) {
     fs.mkdir(uploadDir, (error) => {
       if (error) {
@@ -47,9 +47,10 @@ const appointment_release_img = async (req, res, next) => {
     } else {
       let oldPath = files.file.path;
       let newPath = path.join(path.dirname(oldPath), files.file.name);
+      let backPath = path.join('http://121.89.215.228:10010/0635-files/appointmentModule', author_id, files.file.name)
       fs.rename(oldPath, newPath, () => { //fs.rename重命名图片名称
         let parameter = fields
-        appointmentDao.appointment_release_img(parameter, author_id, newPath).then(result => {
+        appointmentDao.appointment_release_img(parameter, author_id, backPath).then(result => {
           res.json({
             code: 0,
             msg: 'success'

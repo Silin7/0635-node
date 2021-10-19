@@ -11,6 +11,7 @@ let mineRouter = express.Router();
 
 mineRouter
   .get('/mine/mine_info', mineModule.mine_info)
+  .post('/mine/update_avatarUrl', mineModule.update_avatarUrl)
   .post('/mine/update_mineInfo', mineModule.update_mineInfo)
   .get('/mine/concerns_count', mineModule.concerns_count)
   .get('/mine/concerns_list', mineModule.concerns_list)

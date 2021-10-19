@@ -15,7 +15,7 @@ module.exports = {
 
   // 修改保存个人信息
   update_mineInfo: async (parameter, author_id) => {
-    let sql = `UPDATE \`user_information\` SET \`nick_name\` = '${parameter.nick_name}', \`gender\` = '${parameter.gender}', \`user_phone\` = '${parameter.user_phone}', \`birthday\` = '${parameter.birthday}', \`age\` = '${parameter.age}', \`constellation\` = '${parameter.constellation}', \`address\` = '${parameter.address}', \`personal_signature\` = '${parameter.personal_signature}' WHERE \`user_information\`.\`id\` = '${author_id}'`
+    let sql = `UPDATE \`user_information\` SET \`nick_name\` = '${parameter.nick_name}', \`gender\` = '${parameter.gender}', \`avatar_url\` = '${parameter.avatar_url}', \`user_phone\` = '${parameter.user_phone}', \`birthday\` = '${parameter.birthday}', \`age\` = '${parameter.age}', \`constellation\` = '${parameter.constellation}', \`address\` = '${parameter.address}', \`personal_signature\` = '${parameter.personal_signature}' WHERE \`user_information\`.\`id\` = '${author_id}'`
     return await db.query(sql)
   },
 

@@ -6,6 +6,9 @@
 
 const checkToken = require('./systemModule/checkToken')
 const mineDao = require('../model/dao/mineDao')
+const formidable = require('formidable')
+const path = require('path')
+const fs = require('fs')
 
 /**
  * 获取用户基本信息
@@ -36,10 +39,58 @@ const mine_info = async (req, res, next) => {
 }
 
 /**
+ * 发起活动（海报）
+ * @token true
+ * @method POST
+ */
+const update_avatarUrl = async (req, res, next) => {
+  if (!checkToken(req.headers)) {
+    res.json({
+      code: 401,
+      msg: '请登录后操作'
+    })
+    return
+  }
+  let author_id = req.headers.author_id
+  let form = new formidable.IncomingForm();
+  let uploadDir = path.join(__dirname, '../../0635-files/avatarModule', author_id);
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdir(uploadDir, (error) => {
+      if (error) {
+        res.json({
+          code: 500,
+          data: error
+        })
+      }
+    })
+  }
+  form.uploadDir = uploadDir;
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      res.json({
+        code: 500,
+        msg: err
+      })
+    } else {
+      let oldPath = files.file.path;
+      let newPath = path.join(path.dirname(oldPath), files.file.name);
+      let backPath = path.join('http://121.89.215.228:10010/0635-files/avatarModule', author_id, files.file.name)
+      fs.rename(oldPath, newPath, () => {
+        res.json({
+          code: 0,
+          msg: 'success',
+          avatarUrl: backPath
+        })
+      })
+    }
+  })
+}
+
+/**
  * 修改保存用户基本信息
  * @token true
  * @method POST
- * @param nick_name, gender, user_phone, birthday, age, constellation, address, personal_signature
+ * @param nick_name, gender, avatar_url, user_phone, birthday, age, constellation, address, personal_signature
  */
 const update_mineInfo = async (req, res, next) => {
   if (!checkToken(req.headers)) {
@@ -447,6 +498,7 @@ const my_dynamic_list = async (req, res, next) => {
 
 module.exports = {
   mine_info,
+  update_avatarUrl,
   update_mineInfo,
   concerns_count,
   concerns_list,
