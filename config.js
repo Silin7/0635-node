@@ -12,9 +12,9 @@ module.exports = {
   uploadDir: path.join(__dirname, path.resolve('public/')), // 上传文件路径
   dbConfig: { // 数据库连接设置
     connectionLimit: 10,
-    host: 'localhost',
+    host: 'rm-m5ep67fqz3o9tu2xtlo.mysql.rds.aliyuncs.com',
     user: 'root',
-    password: '123456',
+    password: 'Wsl6714785',
     database: 'birch-forest',
     timezone: "08:00"
   }
