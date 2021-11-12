@@ -12,62 +12,12 @@ const checkToken = require('./systemModule/checkToken')
 const dynamicDao = require('../model/dao/dynamicDao')
 
 /**
- * 发动态（图片）
+ * 发动态
  * @token true
  * @method POST
- * @param author_id, author_name, author_avatar, content
+ * @param author_id, author_name, author_avatar, content, images
  */
-const dynamic_release_img = (req, res, next) => {
-  let author_id = req.headers.author_id
-  let form = new formidable.IncomingForm();
-  let uploadDir = path.join(__dirname, '../../0635-files/dynamicModules', author_id);
-  if (!fs.existsSync(uploadDir)) {
-    fs.mkdir(uploadDir, (error) => {
-      if (error) {
-        res.json({
-          code: 500,
-          data: error
-        })
-      }
-    })
-  }
-  form.uploadDir = uploadDir;
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      res.json({
-        code: 500,
-        msg: err
-      })
-    } else {
-      let oldPath = files.file.path;
-      let newPath = path.join(path.dirname(oldPath), files.file.name);
-      let backPath = path.join('http://121.89.215.228:10010/0635-files/dynamicModules', author_id, files.file.name)
-      //fs.rename重命名图片名称
-      fs.rename(oldPath, newPath, () => {
-        let parameter = fields
-        dynamicDao.dynamic_release_img(parameter, author_id, backPath).then(result => {
-          res.json({
-            code: 0,
-            msg: 'success'
-          })
-        }).catch(error => {
-          res.json({
-            code: 500,
-            msg: JSON.stringify(error)
-          })
-        })
-      })
-    }
-  })
-}
-
-/**
- * 发动态（文字）
- * @token true
- * @method POST
- * @param author_id, author_name, author_avatar, content
- */
-const dynamic_release_txt = async (req, res, next) => {
+const dynamic_release = async (req, res, next) => {
   if (!checkToken(req.headers)) {
     res.json({
       code: 401,
@@ -77,7 +27,7 @@ const dynamic_release_txt = async (req, res, next) => {
   }
   let parameter = req.body
   let author_id = req.headers.author_id
-  await dynamicDao.dynamic_release_txt(parameter, author_id).then(result => {
+  await dynamicDao.dynamic_release(parameter, author_id).then(result => {
     res.json({
       code: 0,
       msg: 'success'
@@ -325,8 +275,7 @@ const comment_list = async (req, res, next) => {
 }
 
 module.exports = {
-  dynamic_release_img,
-  dynamic_release_txt,
+  dynamic_release,
   dynamic_list,
   author_info,
   author_dynamic_list,

@@ -7,17 +7,10 @@
 const db = require('../mySQL')
 
 module.exports = {
-  // 发动态（图片）
-  dynamic_release_img: async (parameter, author_id, image_path) => {
-    let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`, `image`) VALUES (NULL, ?, ?, ?, ?, ?)'
-    let sqlParams = [author_id, parameter.author_name, parameter.author_avatar, parameter.content, image_path]
-    return await db.query(sql, sqlParams)
-  },
-  
-  // 发动态（文字）
-  dynamic_release_txt: async (parameter, author_id) => {
-    let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`) VALUES (NULL, ?, ?, ?, ?)'
-    let sqlParams = [author_id, parameter.author_name, parameter.author_avatar, parameter.content]
+  // 发动态
+  dynamic_release: async (parameter, author_id) => {
+    let sql = 'INSERT INTO `local_dynamic` (`id`, `author_id`, `author_name`, `author_avatar`, `content`, `images`) VALUES (NULL, ?, ?, ?, ?, ?)'
+    let sqlParams = [author_id, parameter.author_name, parameter.author_avatar, parameter.content, parameter.images]
     return await db.query(sql, sqlParams)
   },
 

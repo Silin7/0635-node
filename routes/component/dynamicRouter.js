@@ -10,8 +10,7 @@ const dynamicModule = require('../../controller/dynamicModule');
 let dynamicRouter = express.Router();
 
 dynamicRouter
-  .post('/dynamic/dynamic_release_img', dynamicModule.dynamic_release_img)
-  .post('/dynamic/dynamic_release_txt', dynamicModule.dynamic_release_txt)
+  .post('/dynamic/dynamic_release', dynamicModule.dynamic_release)
   .get('/dynamic/dynamic_list', dynamicModule.dynamic_list)
   .get('/dynamic/author_info', dynamicModule.author_info)
   .get('/dynamic/author_dynamic_list', dynamicModule.author_dynamic_list)

@@ -6,11 +6,13 @@
 
 const express = require('express');
 const wxLogin = require('../../controller/systemModule/wxLogin');
+const uploadFiles = require('../../controller/systemModule/uploadFiles');
 
 let systemRouter = express.Router();
 
 systemRouter
-  .get('/system/wx_login', wxLogin.wx_login);
+  .get('/system/wx_login', wxLogin.wx_login)
+  .post('/system/upload_files', uploadFiles.upload_files);
 
 
 module.exports = systemRouter;
