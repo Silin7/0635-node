@@ -476,6 +476,15 @@ const my_dynamic_list = async (req, res, next) => {
     isNext = false
   })
   await mineDao.my_dynamic_list(page, limit, author_id, is_pass).then(result => {
+    if (result && result.length > 0) {
+      result.forEach(item => {
+        if (item.images) {
+          item.images = item.images.split(',')
+        } else {
+          item.images = []
+        }
+      })
+    }
     data = result
   }).catch(error => {
     res.json({

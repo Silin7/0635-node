@@ -64,6 +64,15 @@ const dynamic_list = async (req, res, next) => {
     isNext = false
   })
   await dynamicDao.dynamic_list(page, limit, is_pass).then(result => {
+    if (result && result.length > 0) {
+      result.forEach(item => {
+        if (item.images) {
+          item.images = item.images.split(',')
+        } else {
+          item.images = []
+        }
+      })
+    }
     data = result
   }).catch(error => {
     res.json({
@@ -159,6 +168,15 @@ const author_dynamic_list = async (req, res, next) => {
 const dynamic_details = async (req, res, next) => {
   let parameter = req.query
   await dynamicDao.dynamic_details(parameter.id).then(result => {
+    if (result && result.length > 0) {
+      result.forEach(item => {
+        if (item.images) {
+          item.images = item.images.split(',')
+        } else {
+          item.images = []
+        }
+      })
+    }
     res.json({
       code: 0,
       msg: 'success',

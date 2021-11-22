@@ -14,7 +14,7 @@ const checkToken = require('./checkToken')
  * 上传文件
  * @token true
  * @method POST
- * @param author_id, file_path
+ * @param file_path, author_id
  */
 const upload_files = (req, res, next) => {
   if (!checkToken(req.headers)) {
@@ -24,8 +24,8 @@ const upload_files = (req, res, next) => {
     })
     return
   }
-  let author_id = req.headers.author_id
   let file_path = req.headers.file_path
+  let author_id = req.headers.author_id
   let form = new formidable.IncomingForm();
   let uploadDir = path.join(__dirname, '../../../0635-files/', file_path, author_id);
   if (!fs.existsSync(uploadDir)) {
